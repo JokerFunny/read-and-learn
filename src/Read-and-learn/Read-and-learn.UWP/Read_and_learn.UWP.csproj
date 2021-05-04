@@ -149,9 +149,9 @@
     <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Read-and-learn\Read-and-learn.csproj">
-      <Project>{89C78CF6-493B-4738-9203-D0C894C86D0E}</Project>
-      <Name>Read-and-learn</Name>
+    <ProjectReference Include="..\Read-and-learn\Read_and_learn.csproj">
+      <Project>{5EB1A616-2D5D-498E-8A1E-2F65E3BCE383}</Project>
+      <Name>Read_and_learn</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
