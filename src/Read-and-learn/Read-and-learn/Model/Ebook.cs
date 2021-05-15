@@ -18,6 +18,5 @@ namespace Read_and_learn.Model
         public IEnumerable<File> Files { get; set; }
         public string Folder { get; set; }
         public string ContentBasePath { get; set; }
-        public string Cover { get; set; }
     }
 }

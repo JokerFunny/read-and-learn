@@ -14,7 +14,7 @@ namespace Read_and_learn.Model.Bookshelf
         public DateTimeOffset LastChange { get; set; }
         public string Name { get; set; }
         [Indexed]
-        public string BookId { get; set; }
+        public Guid BookId { get; set; }
         public int Section { get; set; }
         public int SectionPosition { get; set; }
 
