@@ -6,7 +6,7 @@ namespace Read_and_learn.Service.Interface
     /// <summary>
     /// Interface to handle work with translation providers.
     /// </summary>
-    public interface ITranslateService
+    public interface ITranslatorService
     {
         /// <summary>
         /// Translate <paramref name="targetWord"/> using <paramref name="sourceLanguage"/>.
@@ -17,7 +17,7 @@ namespace Read_and_learn.Service.Interface
         /// <returns>
         ///     Result of translation.
         /// </returns>
-        Task<TranslationResult> TranslateWord(string targetWord, string sourceLanguage);
+        Task<WordTranslationResult> TranslateWord(string targetWord, string sourceLanguage);
 
         /// <summary>
         /// Translate <paramref name="targetPart"/> using <paramref name="sourceLanguage"/>.
