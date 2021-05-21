@@ -1,5 +1,4 @@
 ﻿using Read_and_learn.Model.Bookshelf;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -25,7 +24,7 @@ namespace Read_and_learn.Repository.Interface
         /// <returns>
         ///     Target book.
         /// </returns>
-        Task<Book> GetBookByIDAsync(Guid id);
+        Task<Book> GetBookByIdAsync(string id);
 
         /// <summary>
         /// Delete book in async way.

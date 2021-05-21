@@ -27,7 +27,7 @@ namespace Read_and_learn.Repository
         Task<List<Book>> IBookRepository.GetAllBooksAsync()
             => _connection.Table<Book>().ToListAsync();
 
-        public Task<Book> GetBookByIDAsync(Guid id)
+        public Task<Book> GetBookByIdAsync(string id)
             => _connection.Table<Book>().Where(i => i.Id == id).FirstOrDefaultAsync();
 
         public Task<int> DeleteBookAsync(Book book)

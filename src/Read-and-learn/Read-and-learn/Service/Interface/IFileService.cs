@@ -1,5 +1,6 @@
 ﻿using PCLStorage;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 
 namespace Read_and_learn.Service.Interface
 {
@@ -45,7 +46,7 @@ namespace Read_and_learn.Service.Interface
         /// <returns>
         ///     True if file saved, otherwise false.
         /// </returns>
-        bool Save(string path, string content);
+        Task<bool> Save(string path, string content);
 
         /// <summary>
         /// Chech if target file exist in local storage.
@@ -63,6 +64,15 @@ namespace Read_and_learn.Service.Interface
         /// <returns>
         ///     True if folder deleted, otherwise false.
         /// </returns>
-        bool DeleteFolder(string path);
+        Task<bool> DeleteFolder(string path);
+
+        /// <summary>
+        /// Get array of bytes from target <paramref name="targetFile"/>.
+        /// </summary>
+        /// <param name="targetFile">Target <see cref="FileResult"/></param>
+        /// <returns>
+        ///     Byte data array.
+        /// </returns>
+        Task<byte[]> GetByteArrayFromFile(FileResult targetFile);
     }
 }

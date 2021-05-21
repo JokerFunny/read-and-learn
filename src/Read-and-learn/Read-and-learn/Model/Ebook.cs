@@ -14,9 +14,9 @@ namespace Read_and_learn.Model
         public string Author { get; set; }
         public string Description { get; set; }
         public string Language { get; set; }
+        public byte[] Cover { get; set; }
         public List<Section> Sections { get; set; }
         public IEnumerable<File> Files { get; set; }
-        public string Folder { get; set; }
-        public string ContentBasePath { get; set; }
+        public string Path { get; set; }
     }
 }

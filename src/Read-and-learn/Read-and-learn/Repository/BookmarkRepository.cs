@@ -2,7 +2,6 @@
 using Read_and_learn.Repository.Interface;
 using Read_and_learn.Service.Interface;
 using SQLite;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -24,8 +23,8 @@ namespace Read_and_learn.Repository
             _connection = databaseService.Connection;
         }
 
-        public Task<List<Bookmark>> GetBookmarksByBookIDAsync(Guid bookID)
-            => _connection.Table<Bookmark>().Where(o => o.BookId == bookID).ToListAsync();
+        public Task<List<Bookmark>> GetBookmarksByBookIDAsync(string bookId)
+            => _connection.Table<Bookmark>().Where(o => o.BookId == bookId).ToListAsync();
 
         public Task<int> DeleteBookmarkAsync(Bookmark bookmark)
             => _connection.DeleteAsync(bookmark);

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Read_and_learn.Model.DataStructure
 {
@@ -12,10 +10,7 @@ namespace Read_and_learn.Model.DataStructure
         public string Id { get; set; }
         public string Title { get; set; }
         public int Position { get; set; }
-        /// <summary>
-        /// To specify parent relations
-        /// </summary>
-        public Section Parent { get; set; }
-
+        public string Epigraph { get; set; }
+        public List<Element> Elements { get; set; }
     }
 }

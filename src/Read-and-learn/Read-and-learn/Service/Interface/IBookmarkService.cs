@@ -1,5 +1,4 @@
 ﻿using Read_and_learn.Model.Bookshelf;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -17,7 +16,7 @@ namespace Read_and_learn.Service.Interface
         /// <return>
         ///     True - if sucesfully, otherwise false.
         /// </return>
-        bool DeleteBookmark(Bookmark bookmark);
+        Task<bool> DeleteBookmark(Bookmark bookmark);
 
         /// <summary>
         /// Load all bookmark for target book via <paramref name="bookId"/>.
@@ -26,7 +25,7 @@ namespace Read_and_learn.Service.Interface
         /// <returns>
         ///     List of all bookmarks if present, otherwise empty list.
         /// </returns>
-        Task<List<Bookmark>> LoadBookmarksByBookId(Guid bookId);
+        Task<List<Bookmark>> LoadBookmarksByBookId(string bookId);
 
         /// <summary>
         /// Create new bookmark with <paramref name="name"/> for target book via <paramref name="bookId"/> 
@@ -38,7 +37,7 @@ namespace Read_and_learn.Service.Interface
         /// <return>
         ///     True - if sucesfully, otherwise false.
         /// </return>
-        bool CreateBookmark(string name, Guid bookId, Position position);
+        bool CreateBookmark(string name, string bookId, Position position);
 
         /// <summary>
         /// Save target <paramref name="bookmark"/>.
@@ -47,6 +46,6 @@ namespace Read_and_learn.Service.Interface
         /// <return>
         ///     True - if sucesfully, otherwise false.
         /// </return>
-        bool SaveBookmark(Bookmark bookmark);
+        Task<bool> SaveBookmark(Bookmark bookmark);
     }
 }

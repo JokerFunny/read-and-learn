@@ -9,13 +9,11 @@ namespace Read_and_learn.Model.Bookshelf
     public class Book
     {
         [PrimaryKey]
-        public Guid Id { get; set; }
+        public string Id { get; set; }
         public string Title { get; set; }
         public string Path { get; set; }
         public string Cover { get; set; }
-        public EbookFormat Format { get; set; }
-        public DateTime? FinishedReading { get; set; }
-
+        public DateTimeOffset? FinishedReading { get; set; }
         public int Section { get; set; }
         public int SectionPosition { get; set; }
 

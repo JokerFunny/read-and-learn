@@ -9,12 +9,12 @@ namespace Read_and_learn.Model.Bookshelf
     public class Bookmark
     {
         [PrimaryKey]
-        public Guid Id { get; set; }
+        public long Id { get; set; }
         public bool Deleted { get; set; }
         public DateTimeOffset LastChange { get; set; }
         public string Name { get; set; }
         [Indexed]
-        public Guid BookId { get; set; }
+        public string BookId { get; set; }
         public int Section { get; set; }
         public int SectionPosition { get; set; }
 

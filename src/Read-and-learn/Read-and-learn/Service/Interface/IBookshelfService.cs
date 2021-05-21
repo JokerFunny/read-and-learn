@@ -37,7 +37,7 @@ namespace Read_and_learn.Service.Interface
         /// <returns>
         ///     If book exist - <see cref="Book"/>, otherwise null.
         /// </returns>
-        Task<Book> LoadBookById(Guid id);
+        Task<Book> LoadBookById(string id);
 
         /// <summary>
         /// Remove book via <paramref name="id"/>.
@@ -46,7 +46,7 @@ namespace Read_and_learn.Service.Interface
         /// <returns>
         ///     True - if sucesfully, otherwise false.
         /// </returns>
-        bool RemoveById(Guid id);
+        Task<bool> RemoveById(string id);
 
         /// <summary>
         /// Save target <paramref name="book"/>.
@@ -55,6 +55,6 @@ namespace Read_and_learn.Service.Interface
         /// <returns>
         ///     True - if sucesfully, otherwise false.
         /// </returns>
-        bool SaveBook(Book book);
+        Task<bool> SaveBook(Book book);
     }
 }

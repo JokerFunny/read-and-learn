@@ -8,10 +8,10 @@ namespace Read_and_learn.PlatformRelatedServices
     public interface IAssetsManager
     {
         /// <summary>
-        /// Get file contex in async way via <paramref name="filename"/>.
+        /// Get file contex in async way via <paramref name="fileName"/>.
         /// </summary>
-        /// <param name="filename">Target file name</param>
+        /// <param name="fileName">Target file name</param>
         /// <returns></returns>
-        Task<string> GetFileContentAsync(string filename);
+        Task<string> GetFileContentAsync(string fileName);
     }
 }

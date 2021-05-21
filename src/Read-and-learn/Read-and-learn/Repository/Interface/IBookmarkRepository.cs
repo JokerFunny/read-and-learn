@@ -1,5 +1,4 @@
 ﻿using Read_and_learn.Model.Bookshelf;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -11,13 +10,13 @@ namespace Read_and_learn.Repository.Interface
     public interface IBookmarkRepository
     {
         /// <summary>
-        /// Get all bookmarks for book by <paramref name="bookID"/>.
+        /// Get all bookmarks for book by <paramref name="bookId"/>.
         /// </summary>
-        /// <param name="bookID">Id of target book</param>
+        /// <param name="bookId">Id of target book</param>
         /// <returns>
         ///     List of all bookmarks for target book.
         /// </returns>
-        Task<List<Bookmark>> GetBookmarksByBookIDAsync(Guid bookID);
+        Task<List<Bookmark>> GetBookmarksByBookIDAsync(string bookId);
 
         /// <summary>
         /// Delete bookmark in async way.
