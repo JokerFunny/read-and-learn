@@ -8,6 +8,7 @@ using Read_and_learn.Page;
 using Read_and_learn.PlatformRelatedServices;
 using Read_and_learn.Service.Interface;
 using System;
+using System.Linq;
 using System.Reflection;
 using Xamarin.Forms;
 using Device = Xamarin.Forms.Device;
@@ -36,7 +37,7 @@ namespace Read_and_learn
             MainPage = new MainPage();
 
             if (HasMasterDetailPage)
-                MainPage = new FlyoutPage();
+                MainPage = new MasterFlyoutPage();
             else
                 MainPage = new NavigationPage(new HomePage());
         }
@@ -70,17 +71,17 @@ namespace Read_and_learn
 
         private async void _BackPressedMessageSubscriber(BackPressedMessage msg)
         {
-            var master = MainPage as MasterDetailPage1;
+            var master = MainPage as MasterFlyoutPage;
 
             if (master != null)
             {
                 var detailPage = master.Detail.Navigation.NavigationStack.LastOrDefault();
 
-                /*if (detailPage is ReaderPage readerPage && readerPage.IsQuickPanelVisible())
+                if (detailPage is ReaderPage readerPage && readerPage.IsQuickPanelVisible())
                 {
                     _messageBus.Send(new CloseQuickPanelMessage());
                 }
-                else */if (detailPage is HomePage)
+                else if (detailPage is HomePage)
                 {
                     if (_exitPressedOnce)
                     {

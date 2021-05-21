@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
+using Read_and_learn.Helpers;
 using Read_and_learn.Model.Bookshelf;
 using Read_and_learn.Model.Message;
 using Read_and_learn.Service.Interface;
@@ -100,7 +101,6 @@ namespace Read_and_learn.Page
 
         private async void _AddBook(AddBookMessage msg)
         {
-
             var permissionStatus = await PermissionHelper.CheckAndRequestPermission(Plugin.Permissions.Abstractions.Permission.Storage);
 
             if (permissionStatus == Plugin.Permissions.Abstractions.PermissionStatus.Granted)
@@ -172,10 +172,10 @@ namespace Read_and_learn.Page
 
         private async void _SendBookToReader(Book book)
         {
-            //var page = new ReaderPage();
-            //page.LoadBook(book);
+            var page = new ReaderPage();
+            page.LoadBook(book);
 
-            //await Navigation.PushAsync(page);
+            await Navigation.PushAsync(page);
         }
 
         private void _AddButton_Clicked(object sender, EventArgs e)
