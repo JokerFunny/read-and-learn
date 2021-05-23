@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <StackLayout xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="EbookReader.Page.Home.AddBookCard"
+             x:Class="Read_and_learn.Page.Home.AddBookCard"
              CompressedLayout.IsHeadless="true">
     <StackLayout.Children>
         <Button Text="Open new book" FontSize="Medium" Clicked="_AddButton_Clicked" Margin="0,5" HorizontalOptions="Start" WidthRequest="{Binding Width}" />

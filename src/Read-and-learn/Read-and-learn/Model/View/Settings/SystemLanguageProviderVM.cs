@@ -32,7 +32,7 @@ namespace Read_and_learn.Model.View.Settings
         /// </summary>
         public string Value
         {
-            get => UserSettings.AppLanguage;
+            get => SystemLanguageProvider.Languages[UserSettings.AppLanguage];
             set
             {
                 string selectedLanguage = SystemLanguageProvider.Languages.FirstOrDefault(x => x.Value == value).Key;

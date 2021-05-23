@@ -18,22 +18,24 @@ namespace Read_and_learn.Service
     {
         IFileService _fileService;
         ICryptoService _cryptoService;
+        IBookService _bookService;
         IBookRepository _bookRepository;
         IBookmarkRepository _bookmarkRepository;
-        IBookService _bookService;
 
         /// <summary>
         /// Default ctor.
         /// </summary>
         /// <param name="fileService">Target <see cref="IFileHelper"/></param>
         /// <param name="cryptoService">Target <see cref="ICryptoService"/></param>
+        /// <param name="bookService">Target <see cref="IBookService"/></param>
         /// <param name="bookRepository">Target <see cref="IBookRepository"/></param>
         /// <param name="bookmarkRepository">Target <see cref="IBookmarkRepository"/></param>
-        public BookshelfService(IFileService fileService, ICryptoService cryptoService, 
+        public BookshelfService(IFileService fileService, ICryptoService cryptoService, IBookService bookService,
             IBookRepository bookRepository, IBookmarkRepository bookmarkRepository)
         {
             _fileService = fileService;
             _cryptoService = cryptoService;
+            _bookService = bookService;
             _bookRepository = bookRepository;
             _bookmarkRepository = bookmarkRepository;
         }
@@ -52,7 +54,7 @@ namespace Read_and_learn.Service
 
             if (bookshelfBook == null)
             {
-                Ebook ebook = await _bookService.OpenBook(file.FullPath);
+                Ebook ebook = await _bookService.OpenBook(file);
 
                 bookshelfBook = _bookService.CreateBookshelfBook(ebook);
                 bookshelfBook.Id = id;

@@ -1,17 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+﻿using Autofac;
+using Read_and_learn.Model.Message;
+using Read_and_learn.Service.Interface;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 namespace Read_and_learn.UWP
 {
@@ -19,9 +9,14 @@ namespace Read_and_learn.UWP
     {
         public MainPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
             LoadApplication(new Read_and_learn.App());
+
+            Window.Current.CoreWindow.KeyDown += _CoreWindow_KeyDown;
         }
+
+        private void _CoreWindow_KeyDown(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs args)
+            => IocManager.Container.Resolve<IMessageBus>().Send(NavigationKeyMessage.FromKeyCode((int)args.VirtualKey));
     }
 }

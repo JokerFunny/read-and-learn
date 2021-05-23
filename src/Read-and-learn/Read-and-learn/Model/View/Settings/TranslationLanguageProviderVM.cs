@@ -19,7 +19,7 @@ namespace Read_and_learn.Model.View.Settings
         /// </summary>
         public string Value
         {
-            get => UserSettings.Translation.SelectedLanguage;
+            get => LanguagesForTranslationProvider.Languages[UserSettings.Translation.SelectedLanguage];
             set
             {
                 string selectedLanguage = LanguagesForTranslationProvider.Languages.FirstOrDefault(x => x.Value == value).Key;

@@ -1,7 +1,6 @@
 ﻿using Autofac;
 using Read_and_learn.Model.Bookshelf;
 using System;
-using PCLStorage;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Read_and_learn.Service.Interface;

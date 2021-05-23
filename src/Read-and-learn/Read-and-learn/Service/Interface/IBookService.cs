@@ -1,6 +1,7 @@
 ﻿using Read_and_learn.Model;
 using Read_and_learn.Model.Bookshelf;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 
 namespace Read_and_learn.Service.Interface
 {
@@ -12,11 +13,11 @@ namespace Read_and_learn.Service.Interface
         /// <summary>
         /// Open book via <paramref name="path"/>.
         /// </summary>
-        /// <param name="path">Target path</param>
+        /// <param name="targetFile">Target file</param>
         /// <returns>
         ///     <see cref="Ebook"/>.
         /// </returns>
-        Task<Ebook> OpenBook(string path);
+        Task<Ebook> OpenBook(FileResult targetFile);
 
         /// <summary>
         /// Prepare formatted data from <paramref name="book"/>.

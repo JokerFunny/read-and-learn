@@ -34,7 +34,7 @@
                                         HeightRequest="60"
                                         AbsoluteLayout.LayoutBounds="1,1,-1,-1" 
                                         AbsoluteLayout.LayoutFlags="PositionProportional" 
-                                        Clicked="AddButton_Clicked" />
+                                        Clicked="_AddButton_Clicked" />
                 </OnPlatform.Android>
                 <OnPlatform.WinPhone>
                     <Label IsVisible="False" />

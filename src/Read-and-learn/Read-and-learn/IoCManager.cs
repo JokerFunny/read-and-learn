@@ -61,7 +61,8 @@ namespace Read_and_learn
             ContainerBuilder.RegisterType<BookshelfService>().As<IBookshelfService>();
             ContainerBuilder.RegisterType<FB2BookService>().As<IBookService>();
             ContainerBuilder.RegisterType<DatabaseService>().As<IDatabaseService>().SingleInstance();
-            
+            ContainerBuilder.RegisterType<MessageBus>().As<IMessageBus>().SingleInstance();
+
             // Translation services as keyed.
             ContainerBuilder.RegisterType<OfflineTranslatorService>().Keyed<ITranslatorService>(TranslationServicesProvider.Offline);
             ContainerBuilder.RegisterType<ReversoTranslatorService>().Keyed<ITranslatorService>(TranslationServicesProvider.Reverso);

@@ -8,6 +8,7 @@ using Read_and_learn.Page;
 using Read_and_learn.PlatformRelatedServices;
 using Read_and_learn.Service.Interface;
 using System;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using Xamarin.Forms;
@@ -40,9 +41,12 @@ namespace Read_and_learn
                 MainPage = new NavigationPage(new HomePage());
         }
 
+        /// <remarks>
+        ///     TBD.
+        /// </remarks>
         protected override void OnStart()
         {
-            AppCenter.Start($"ios={AppSettings.AppCenter.Apple};android={AppSettings.AppCenter.Android};uwp={AppSettings.AppCenter.UWP};", typeof(Analytics), typeof(Crashes));
+            //AppCenter.Start($"ios={AppSettings.AppCenter.Apple};android={AppSettings.AppCenter.Android};uwp={AppSettings.AppCenter.UWP};", typeof(Analytics), typeof(Crashes));
             Analytics.SetEnabledAsync(UserSettings.AnalyticsAgreement);
 
             _messageBus.UnSubscribe("App");

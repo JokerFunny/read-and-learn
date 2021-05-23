@@ -1,18 +1,16 @@
-﻿using System;
+﻿using Autofac;
+using Read_and_learn.Model.Message;
+using Read_and_learn.PlatformRelatedServices;
+using Read_and_learn.Service.Interface;
+using Read_and_learn.UWP.PlatformRelatedServices;
+using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
+using System.Reflection;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 namespace Read_and_learn.UWP
@@ -28,8 +26,11 @@ namespace Read_and_learn.UWP
         /// </summary>
         public App()
         {
-            this.InitializeComponent();
-            this.Suspending += OnSuspending;
+            _SetUpIoc();
+            _SetUpSubscribers();
+
+            InitializeComponent();
+            Suspending += _OnSuspending;
         }
 
         /// <summary>
@@ -39,12 +40,12 @@ namespace Read_and_learn.UWP
         /// <param name="e">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
-#if DEBUG
-            if (System.Diagnostics.Debugger.IsAttached)
-            {
-                this.DebugSettings.EnableFrameRateCounter = true;
-            }
-#endif
+//#if DEBUG
+//            if (System.Diagnostics.Debugger.IsAttached)
+//            {
+//                DebugSettings.EnableFrameRateCounter = true;
+//            }
+//#endif
 
             Frame rootFrame = Window.Current.Content as Frame;
 
@@ -55,7 +56,6 @@ namespace Read_and_learn.UWP
                 // Create a Frame to act as the navigation context and navigate to the first page
                 rootFrame = new Frame();
 
-                rootFrame.NavigationFailed += OnNavigationFailed;
                 Xamarin.Forms.Forms.Init(e);
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
@@ -83,7 +83,7 @@ namespace Read_and_learn.UWP
         /// </summary>
         /// <param name="sender">The Frame which failed navigation</param>
         /// <param name="e">Details about the navigation failure</param>
-        void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
+        void _OnNavigationFailed(object sender, NavigationFailedEventArgs e)
         {
             throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
         }
@@ -95,11 +95,36 @@ namespace Read_and_learn.UWP
         /// </summary>
         /// <param name="sender">The source of the suspend request.</param>
         /// <param name="e">Details about the suspend request.</param>
-        private void OnSuspending(object sender, SuspendingEventArgs e)
+        private void _OnSuspending(object sender, SuspendingEventArgs e)
         {
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: Save application state and stop any background activity
             deferral.Complete();
+        }
+
+        private void _SetUpIoc()
+        {
+            IocManager.ContainerBuilder.RegisterType<UWPAssetsManager>().As<IAssetsManager>();
+            IocManager.ContainerBuilder.RegisterType<CryptoService>().As<ICryptoService>();
+            IocManager.ContainerBuilder.RegisterType<FileHelper>().As<IFileHelper>();
+            IocManager.ContainerBuilder.RegisterType<ToastService>().As<IToastService>();
+            IocManager.ContainerBuilder.RegisterType<VersionProvider>().As<IVersionProvider>();
+
+            IocManager.Build();
+        }
+
+        private void _SetUpSubscribers()
+        {
+            var messageBus = IocManager.Container.Resolve<IMessageBus>();
+            messageBus.Subscribe<FullscreenRequestMessage>(_ToggleFullscreen);
+        }
+
+        private void _ToggleFullscreen(FullscreenRequestMessage msg)
+        {
+            if (msg.Fullscreen)
+                ApplicationView.GetForCurrentView().TryEnterFullScreenMode();
+            else
+                ApplicationView.GetForCurrentView().ExitFullScreenMode();
         }
     }
 }

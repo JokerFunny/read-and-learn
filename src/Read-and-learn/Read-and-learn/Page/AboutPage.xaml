@@ -36,8 +36,6 @@
                 </Label.GestureRecognizers>
             </Label>
 
-            <Label Text="Copyright" FontSize="Medium" Margin="10,0,0,0"></Label>
-            <WebView x:Name="Flaticon" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"></WebView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

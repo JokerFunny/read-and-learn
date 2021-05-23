@@ -17,6 +17,7 @@ namespace Read_and_learn.Model.Bookshelf
         public int Section { get; set; }
         public int SectionPosition { get; set; }
 
+        [Ignore]
         public virtual Position Position
         {
             get =>  new Position(Section, SectionPosition);

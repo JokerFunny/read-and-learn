@@ -3,8 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Read_and_learn.Page.Settings"
              x:Class="Read_and_learn.Page.SettingsPage">
-    <local:ApplicationSettings />
-    <local:TranslationSettings />
-    <local:TranslationSettings />
-    <local:ControlSettings />
+    <TabbedPage.Children>
+        <local:ApplicationSettings />
+        <local:TranslationSettings />
+        <local:ReaderSettings />
+        <local:ControlSettings />
+    </TabbedPage.Children>
 </TabbedPage>

@@ -14,5 +14,14 @@
         /// <see cref="TranslationProviderVM"/>.
         /// </summary>
         public TranslationProviderVM TranslationProvider { get; set; }
+
+        /// <summary>
+        /// Default ctor.
+        /// </summary>
+        public TransltaionSettingsVM()
+        {
+            TranslationLanguageProvider = new TranslationLanguageProviderVM();
+            TranslationProvider = new TranslationProviderVM();
+        }
     }
 }

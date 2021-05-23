@@ -5,6 +5,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 
 namespace Read_and_learn.Service.Interface
 {
@@ -29,14 +30,15 @@ namespace Read_and_learn.Service.Interface
             {
                 Title = book.Title,
                 Path = book.Path,
-                Cover = book.Cover.ToString()
+                Cover = book?.Cover?.ToString() ?? null
             };
 
-        public async Task<Ebook> OpenBook(string path)
+        public async Task<Ebook> OpenBook(FileResult targetFile)
         {
             FB2File fB2File;
 
-            using (StreamReader sr = new StreamReader(path))
+            Stream fileStream = await targetFile.OpenReadAsync();
+            using (StreamReader sr = new StreamReader(fileStream))
             {
                 string fileContent = await sr.ReadToEndAsync();
 
@@ -45,21 +47,21 @@ namespace Read_and_learn.Service.Interface
 
             // MAGIC OF CONVERSION
             byte[] cover = null;
-            if (fB2File.Images.TryGetValue(fB2File.TitleInfo.Cover.CoverpageImages[0].HRef, out var res))
+            if (fB2File.Images.TryGetValue(fB2File?.TitleInfo?.Cover?.CoverpageImages[0]?.HRef, out var res))
                 cover = res.BinaryData;
 
             Ebook ebook = new Ebook()
             {
                 Id = Guid.NewGuid(),
-                Path = path,
+                Path = targetFile.FullPath,
                 Sections = null, ///add magic
-                Author = fB2File.TitleInfo.BookAuthors.ToString(),
+                Author = fB2File?.TitleInfo?.BookAuthors?.ToString(),
                 Cover = cover,
-                Description = ((FB2Library.Elements.SimpleText)((FB2Library.Elements.ParagraphItem)fB2File.TitleInfo?.Annotation?.Content?.FirstOrDefault())?
+                Description = ((FB2Library.Elements.SimpleText)((FB2Library.Elements.ParagraphItem)fB2File?.TitleInfo?.Annotation?.Content?.FirstOrDefault())?
                     .ParagraphData?.FirstOrDefault())?.Text ?? string.Empty,
                 Files = null, ///add magic
-                Language = fB2File.TitleInfo?.Language ?? "en",
-                Title = fB2File.TitleInfo?.BookTitle?.Text ?? string.Empty
+                Language = fB2File?.TitleInfo?.Language ?? "en",
+                Title = fB2File?.TitleInfo?.BookTitle?.Text ?? string.Empty
             };
 
             return ebook;

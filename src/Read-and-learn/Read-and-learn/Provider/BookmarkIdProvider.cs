@@ -4,7 +4,7 @@ using System;
 namespace Read_and_learn.Provider
 {
     /// <summary>
-    /// PRovider to get proper pseudo-unique id for <see cref="Bookmark"/>.
+    /// Provider to get proper pseudo-unique id for <see cref="Bookmark"/>.
     /// </summary>
     public static class BookmarkIdProvider
     {
