@@ -52,14 +52,6 @@ namespace Read_and_learn.Page
             /// Event for handle property change.
             /// </summary>
             public event PropertyChangedEventHandler PropertyChanged;
-
-            void _OnPropertyChanged([CallerMemberName] string propertyName = "")
-            {
-                if (PropertyChanged == null)
-                    return;
-
-                PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
-            }
         }
     }
 }

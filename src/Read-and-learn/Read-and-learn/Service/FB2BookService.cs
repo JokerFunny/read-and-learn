@@ -1,9 +1,11 @@
-﻿using FB2Library;
+﻿using Fb2.Document;
+using FB2Library;
 using Read_and_learn.Model;
 using Read_and_learn.Model.Bookshelf;
 using System;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 
@@ -30,12 +32,14 @@ namespace Read_and_learn.Service.Interface
             {
                 Title = book.Title,
                 Path = book.Path,
-                Cover = book?.Cover?.ToString() ?? null
+                Cover = book.Cover
             };
 
         public async Task<Ebook> OpenBook(FileResult targetFile)
         {
             FB2File fB2File;
+            Fb2Document fb2Document = new Fb2Document();
+
 
             Stream fileStream = await targetFile.OpenReadAsync();
             using (StreamReader sr = new StreamReader(fileStream))
@@ -43,12 +47,12 @@ namespace Read_and_learn.Service.Interface
                 string fileContent = await sr.ReadToEndAsync();
 
                 fB2File = await new FB2Reader().ReadAsync(fileContent);
+
+                fb2Document.Load(fileContent);
             }
 
             // MAGIC OF CONVERSION
-            byte[] cover = null;
-            if (fB2File.Images.TryGetValue(fB2File?.TitleInfo?.Cover?.CoverpageImages[0]?.HRef, out var res))
-                cover = res.BinaryData;
+            string cover = fb2Document.BinaryImages.FirstOrDefault(i => i.Attributes["id"] == "cover.jpg")?.Content ?? null;
 
             Ebook ebook = new Ebook()
             {

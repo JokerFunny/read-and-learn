@@ -34,7 +34,6 @@ namespace Read_and_learn.Page
 
             if (!App.HasMasterDetailPage)
             {
-
                 var settingsItem = new ToolbarItem
                 {
                     Text = "Settings",
@@ -49,7 +48,6 @@ namespace Read_and_learn.Page
                     IconImageSource = "info.png",
                 };
                 aboutItem.Clicked += _About_Clicked;
-
                 ToolbarItems.Add(aboutItem);
             }
         }

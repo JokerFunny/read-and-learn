@@ -64,6 +64,9 @@ namespace Read_and_learn.Service.Interface
         /// <returns>
         ///     True if folder deleted, otherwise false.
         /// </returns>
+        /// <remarks>
+        ///     [DN]: Check if needed.
+        /// </remarks>
         Task<bool> DeleteFolder(string path);
 
         /// <summary>

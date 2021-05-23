@@ -75,7 +75,6 @@ namespace Read_and_learn.Service
             var book = await _bookRepository.GetBookByIdAsync(id);
             if (book != null)
             {
-                var deleted = await _fileService.DeleteFolder(book.Path);
                 var bookmarks = await _bookmarkRepository.GetBookmarksByBookIDAsync(id);
                 foreach (var bookmark in bookmarks)
                 {
