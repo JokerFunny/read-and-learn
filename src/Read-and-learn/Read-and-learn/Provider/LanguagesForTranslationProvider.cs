@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Read_and_learn.Provider
 {
@@ -76,5 +77,10 @@ namespace Read_and_learn.Provider
             { "cy", "Welsh" },
             { "yi", "Yiddish" }
         };
+
+        /// <summary>
+        /// Available target languages for translation.
+        /// </summary>
+        public static List<string> Items => Languages.Values.ToList();
     }
 }

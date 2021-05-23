@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Read_and_learn.Page.Settings.TranslationSettings">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+
+            <Style TargetType="Label" x:Key="title">
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="WidthRequest" Value="200" />
+                <Setter Property="VerticalOptions" Value="FillAndExpand" />
+                <Setter Property="VerticalTextAlignment" Value="Center" />
+                <Setter Property="FontSize" Value="Medium" />
+            </Style>
+
+            <Style TargetType="StackLayout" x:Key="wrapper">
+                <Setter Property="Orientation" Value="Vertical" />
+                <Setter Property="Margin" Value="13, 5" />
+            </Style>
+
+            <Style TargetType="Label" x:Key="note">
+                <Setter Property="LineBreakMode" Value="WordWrap" />
+            </Style>
+
+            <Style TargetType="View" x:Key="control">
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+                <Setter Property="VerticalOptions" Value="CenterAndExpand" />
+            </Style>
+
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <ScrollView Orientation="Vertical" Margin="0,20,0,0">
+            <StackLayout VerticalOptions="Fill" Orientation="Vertical" CompressedLayout.IsHeadless="true">
+                <StackLayout Orientation="Vertical">
+
+                    <StackLayout Style="{StaticResource wrapper}">
+                        <StackLayout Orientation="Horizontal" CompressedLayout.IsHeadless="true">
+                            <Label Text="Selected language for translate" Style="{StaticResource title}" />
+                            <Picker ItemsSource="{Binding TranslationLanguageProvider.Items}" SelectedItem="{Binding TranslationLanguageProvider.Value}" Style="{StaticResource control}">
+                                <Picker.Title>
+                                    <OnPlatform x:TypeArguments="x:String" Android="Select target language for translation" />
+                                </Picker.Title>
+                            </Picker>
+                        </StackLayout>
+                    </StackLayout>
+
+                    <StackLayout Style="{StaticResource wrapper}">
+                        <StackLayout Orientation="Horizontal" CompressedLayout.IsHeadless="true">
+                            <Label Text="Selected provider for translate" Style="{StaticResource title}" />
+                            <Picker ItemsSource="{Binding TranslationProvider.Items}" SelectedItem="{Binding TranslationProvider.Value}" Style="{StaticResource control}">
+                                <Picker.Title>
+                                    <OnPlatform x:TypeArguments="x:String" Android="Select translation provider" />
+                                </Picker.Title>
+                            </Picker>
+                        </StackLayout>
+                    </StackLayout>
+
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

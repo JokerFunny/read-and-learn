@@ -108,7 +108,7 @@ namespace Read_and_learn
         /// </summary>
         public static class Translation
         {
-            private const string _defaultTranslationLanguage = "ru";
+            private const string _defaultTranslationLanguage = "uk";
 
             /// <summary>
             /// Selected target language for translation.

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Read_and_learn.Provider
 {
@@ -12,9 +13,15 @@ namespace Read_and_learn.Provider
         /// </summary>
         public static Dictionary<string, string> Languages = new Dictionary<string, string>()
         {
+            { "default", "Default" },
             { "en", "English" },
             { "ru", "Русский" },
             { "uk", "Українська" }
         };
+
+        /// <summary>
+        /// Available system languages.
+        /// </summary>
+        public static List<string> Items => Languages.Values.ToList();
     }
 }

@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:resources="clr-namespace:Read_and_learn.AppResources" 
              xmlns:view="clr-namespace:Read_and_learn.View"
-             xmlns:pages="clr-namespace:Read_and_learn.Page"
+             xmlns:home="clr-namespace:Read_and_learn.Page.Home"
              x:Class="Read_and_learn.Page.HomePage"
              Title="{x:Static resources:AppResource.HomePageTitle}"
              BackgroundColor="#EEEEEE">
@@ -14,7 +14,7 @@
 
                 <OnPlatform x:TypeArguments="View">
                     <OnPlatform.WinPhone>
-                        <pages:AddBookCard />
+                        <home:AddBookCard />
                     </OnPlatform.WinPhone>
                     <OnPlatform.Android>
                         <Label IsVisible="False" />

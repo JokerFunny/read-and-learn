@@ -5,9 +5,15 @@ using Xamarin.Forms.Xaml;
 
 namespace Read_and_learn.Page
 {
+    /// <summary>
+    /// Custom <see cref="FlyoutPage"/>.
+    /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MasterFlyoutPage : FlyoutPage
     {
+        /// <summary>
+        /// Default ctor.
+        /// </summary>
         public MasterFlyoutPage()
         {
             InitializeComponent();

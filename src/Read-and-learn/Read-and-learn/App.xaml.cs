@@ -34,8 +34,6 @@ namespace Read_and_learn
 
             _messageBus = IocManager.Container.Resolve<IMessageBus>();
 
-            MainPage = new MainPage();
-
             if (HasMasterDetailPage)
                 MainPage = new MasterFlyoutPage();
             else

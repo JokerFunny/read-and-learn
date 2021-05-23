@@ -6,11 +6,20 @@ using Xamarin.Forms.Xaml;
 
 namespace Read_and_learn.Page
 {
+    /// <summary>
+    /// Details part for <see cref="MasterFlyoutPage"/>
+    /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MasterFlyoutPageDetail : ContentPage
     {
+        /// <summary>
+        /// Elemens of target page.
+        /// </summary>
         public ListView ListView;
 
+        /// <summary>
+        /// Default ctor.
+        /// </summary>
         public MasterFlyoutPageDetail()
         {
             InitializeComponent();
@@ -21,8 +30,14 @@ namespace Read_and_learn.Page
 
         class MasterFlyoutPageDetailViewModel : INotifyPropertyChanged
         {
+            /// <summary>
+            /// Observable collection of <see cref="MasterFlyoutPageFlyoutMenuItem"/>.
+            /// </summary>
             public ObservableCollection<MasterFlyoutPageFlyoutMenuItem> MenuItems { get; set; }
 
+            /// <summary>
+            /// Default ctor.
+            /// </summary>
             public MasterFlyoutPageDetailViewModel()
             {
                 MenuItems = new ObservableCollection<MasterFlyoutPageFlyoutMenuItem>(new[]
@@ -33,9 +48,12 @@ namespace Read_and_learn.Page
                 });
             }
 
+            /// <summary>
+            /// Event for handle property change.
+            /// </summary>
             public event PropertyChangedEventHandler PropertyChanged;
 
-            void OnPropertyChanged([CallerMemberName] string propertyName = "")
+            void _OnPropertyChanged([CallerMemberName] string propertyName = "")
             {
                 if (PropertyChanged == null)
                     return;

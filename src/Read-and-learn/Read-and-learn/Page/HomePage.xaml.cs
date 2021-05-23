@@ -4,6 +4,7 @@ using Microsoft.AppCenter.Crashes;
 using Read_and_learn.Helpers;
 using Read_and_learn.Model.Bookshelf;
 using Read_and_learn.Model.Message;
+using Read_and_learn.Page.Home;
 using Read_and_learn.Service.Interface;
 using System;
 using System.Collections.Generic;
@@ -109,7 +110,6 @@ namespace Read_and_learn.Page
 
                 if (pickedFile != null)
                 {
-
                     try
                     {
                         var book = await _bookshelfService.AddBook(pickedFile);
@@ -129,12 +129,12 @@ namespace Read_and_learn.Page
 
                         Analytics.TrackEvent("Failed to open book", new Dictionary<string, string> 
                         {
-                            { "Extension", ext }
+                            { "File name", ext }
                         });
 
                         Crashes.TrackError(e, new Dictionary<string, string> 
                         {
-                            { "Filename", pickedFile.FileName }
+                            { "File name", pickedFile.FileName }
                         });
 
                         await DisplayAlert("Error", "File failed to open", "OK");

@@ -1,4 +1,5 @@
-﻿using Read_and_learn.Model;
+﻿using Read_and_learn.Helpers.Exceptions;
+using Read_and_learn.Model;
 using Read_and_learn.Model.Bookshelf;
 using Read_and_learn.PlatformRelatedServices;
 using Read_and_learn.Repository.Interface;
@@ -40,6 +41,10 @@ namespace Read_and_learn.Service
         public async Task<Tuple<Book, bool>> AddBook(FileResult file)
         {
             var newBook = false;
+
+            if (!file.FileName.EndsWith(".fb2"))
+                throw new UnknownFileFormatException(file.FileName);
+
             byte[] fileContent = await _fileService.GetByteArrayFromFile(file);
 
             string id = _cryptoService.GetMd5(fileContent);
