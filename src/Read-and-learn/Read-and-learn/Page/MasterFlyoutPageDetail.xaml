@@ -9,7 +9,7 @@
               HasUnevenRows="true"
               ItemsSource="{Binding MenuItems}">
             <ListView.Header>
-                <Grid BackgroundColor="#43A047">
+                <Grid BackgroundColor="#FFA500">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="10"/>
                         <ColumnDefinition Width="*"/>
@@ -23,7 +23,7 @@
                     <Label
                         Grid.Column="1"
                         Grid.Row="1"
-                        Text="OneSync Reader"
+                        Text="Read$Learn"
                         TextColor="White"
                         FontSize="Large"
                         Style="{DynamicResource SubtitleStyle}"/>

@@ -102,7 +102,6 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PlatformRelatedServices\CryptoService.cs" />
     <Compile Include="PlatformRelatedServices\FileHelper.cs" />
     <Compile Include="PlatformRelatedServices\ToastService.cs" />
     <Compile Include="PlatformRelatedServices\UWPAssetsManager.cs" />
@@ -142,11 +141,40 @@
     <Content Include="Assets\Wide310x150Logo.scale-100.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
     <Content Include="Assets\Wide310x150Logo.scale-400.png" />
-    <Content Include="delete.png" />
-    <Content Include="delete_white.png" />
-    <Content Include="info.png" />
     <Content Include="Properties\Default.rd.xml" />
-    <Content Include="settings.png" />
+    <Content Include="..\Read-and-learn\Resources\book.png">
+      <Link>book.png</Link>
+    </Content>
+    <Content Include="..\Read-and-learn\Resources\delete.png">
+      <Link>delete.png</Link>
+    </Content>
+    <Content Include="..\Read-and-learn\Resources\delete_white.png">
+      <Link>delete_white.png</Link>
+    </Content>
+    <Content Include="..\Read-and-learn\Resources\edit.png">
+      <Link>edit.png</Link>
+    </Content>
+    <Content Include="..\Read-and-learn\Resources\edit_white.png">
+      <Link>edit_white.png</Link>
+    </Content>
+    <Content Include="..\Read-and-learn\Resources\info.png">
+      <Link>info.png</Link>
+    </Content>
+    <Content Include="..\Read-and-learn\Resources\info_white.png">
+      <Link>info_white.png</Link>
+    </Content>
+    <Content Include="..\Read-and-learn\Resources\save.png">
+      <Link>save.png</Link>
+    </Content>
+    <Content Include="..\Read-and-learn\Resources\save_white.png">
+      <Link>save_white.png</Link>
+    </Content>
+    <Content Include="..\Read-and-learn\Resources\settings.png">
+      <Link>settings.png</Link>
+    </Content>
+    <Content Include="..\Read-and-learn\Resources\settings_white.png">
+      <Link>settings_white.png</Link>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

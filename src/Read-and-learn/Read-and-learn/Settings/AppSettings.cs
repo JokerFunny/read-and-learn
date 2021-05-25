@@ -7,7 +7,7 @@ namespace Read_and_learn
     /// </summary>
     public static class AppSettings
     {
-        public static string Color = "#43A047";
+        public static string Color = "#FFA500";
 
         /// <summary>
         /// Store secret key for application centre.

@@ -1,11 +1,11 @@
-﻿using Read_and_learn.PlatformRelatedServices;
+﻿using Read_and_learn.Service.Interface;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Read_and_learn.UWP.PlatformRelatedServices
+namespace Read_and_learn.Service
 {
     /// <summary>
-    /// Platform-specific implementation of <see cref="ICryptoService"/>.
+    /// Implementation of <see cref="ICryptoService"/>.
     /// </summary>
     public class CryptoService : ICryptoService
     {

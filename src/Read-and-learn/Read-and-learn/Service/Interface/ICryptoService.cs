@@ -1,7 +1,7 @@
-﻿namespace Read_and_learn.PlatformRelatedServices
+﻿namespace Read_and_learn.Service.Interface
 {
     /// <summary>
-    /// Interface for platform-specific realization of cryptography.
+    /// Interface for realization of cryptography.
     /// </summary>
     public interface ICryptoService
     {

@@ -105,7 +105,6 @@ namespace Read_and_learn.UWP
         private void _SetUpIoc()
         {
             IocManager.ContainerBuilder.RegisterType<UWPAssetsManager>().As<IAssetsManager>();
-            IocManager.ContainerBuilder.RegisterType<CryptoService>().As<ICryptoService>();
             IocManager.ContainerBuilder.RegisterType<FileHelper>().As<IFileHelper>();
             IocManager.ContainerBuilder.RegisterType<ToastService>().As<IToastService>();
             IocManager.ContainerBuilder.RegisterType<VersionProvider>().As<IVersionProvider>();

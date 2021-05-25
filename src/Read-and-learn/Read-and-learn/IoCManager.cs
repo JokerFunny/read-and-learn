@@ -60,6 +60,7 @@ namespace Read_and_learn
             ContainerBuilder.RegisterType<BookmarkService>().As<IBookmarkService>();
             ContainerBuilder.RegisterType<BookshelfService>().As<IBookshelfService>();
             ContainerBuilder.RegisterType<FB2BookService>().As<IBookService>();
+            ContainerBuilder.RegisterType<CryptoService>().As<ICryptoService>();
             ContainerBuilder.RegisterType<DatabaseService>().As<IDatabaseService>().SingleInstance();
             ContainerBuilder.RegisterType<MessageBus>().As<IMessageBus>().SingleInstance();
 

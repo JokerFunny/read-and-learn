@@ -5,7 +5,6 @@ using Read_and_learn.Model.Bookshelf;
 using System;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 
@@ -39,7 +38,6 @@ namespace Read_and_learn.Service.Interface
         {
             FB2File fB2File;
             Fb2Document fb2Document = new Fb2Document();
-
 
             Stream fileStream = await targetFile.OpenReadAsync();
             using (StreamReader sr = new StreamReader(fileStream))

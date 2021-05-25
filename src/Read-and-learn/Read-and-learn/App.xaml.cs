@@ -41,6 +41,29 @@ namespace Read_and_learn
                 MainPage = new NavigationPage(new HomePage());
         }
 
+        public static bool IsCurrentPageOfTargetTypeType(Type type)
+        {
+            var currentPage = Current.MainPage;
+
+            if (currentPage.GetType() == type)
+                return true;
+
+            var lastPage = currentPage.Navigation.NavigationStack.LastOrDefault();
+            if (lastPage != null && lastPage.GetType() == type)
+                return true;
+
+            var masterFlyoutPage = currentPage as MasterFlyoutPage;
+            if (masterFlyoutPage != null)
+            {
+                var lastDetailPage = masterFlyoutPage.Detail.Navigation.NavigationStack.LastOrDefault();
+
+                if (lastDetailPage != null && lastDetailPage.GetType() == type)
+                    return true;
+            }
+
+            return false;
+        }
+
         /// <remarks>
         ///     TBD.
         /// </remarks>
