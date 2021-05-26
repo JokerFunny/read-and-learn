@@ -102,7 +102,7 @@ namespace Read_and_learn
             {
                 var detailPage = master.Detail.Navigation.NavigationStack.LastOrDefault();
 
-                if (detailPage is ReaderPage readerPage && readerPage.IsQuickPanelVisible())
+                if (detailPage is ReaderPage readerPage && readerPage.IsMenuPanelVisible())
                 {
                     _messageBus.Send(new CloseQuickPanelMessage());
                 }

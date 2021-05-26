@@ -1,12 +1,30 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:local="clr-namespace:Read_and_learn.Page.Reader"
              x:Class="Read_and_learn.Page.ReaderPage">
+
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
+        <AbsoluteLayout VerticalOptions="Fill" HorizontalOptions="Fill" CompressedLayout.IsHeadless="true">
+            <local:HeaderPanel AbsoluteLayout.LayoutFlags="WidthProportional" AbsoluteLayout.LayoutBounds="0,0,1,40" />
+            
+            <local:ReaderMenuPanel x:Name="MenuPanel" 
+                              IsVisible="False"
+                              AbsoluteLayout.LayoutFlags="SizeProportional" 
+                              AbsoluteLayout.LayoutBounds="0, 0, 1, 1" />
+            
+            <StackLayout x:Name="ReaderContent" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="SizeProportional" >
+                <Label Text="Welcome to Xamarin.Forms!"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+                
+                <StackLayout.GestureRecognizers>
+                    <SwipeGestureRecognizer Direction="Left" Swiped="_OnSwiped" />
+                    <SwipeGestureRecognizer Direction="Right" Swiped="_OnSwiped"/>
+                    <PanGestureRecognizer PanUpdated="_OnPanUpdated" />
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+        </AbsoluteLayout>
     </ContentPage.Content>
+    
 </ContentPage>

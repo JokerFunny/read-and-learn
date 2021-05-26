@@ -10,7 +10,9 @@ namespace Read_and_learn.Model.Bookshelf
     {
         [PrimaryKey]
         public string Id { get; set; }
+        [NotNull]
         public string Title { get; set; }
+        [NotNull]
         public string Path { get; set; }
         public string Cover { get; set; }
         public DateTimeOffset? FinishedReading { get; set; }

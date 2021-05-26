@@ -12,8 +12,10 @@ namespace Read_and_learn.Model.Bookshelf
         public long Id { get; set; }
         public bool Deleted { get; set; }
         public DateTimeOffset LastChange { get; set; }
+        [NotNull]
         public string Name { get; set; }
         [Indexed]
+        [NotNull]
         public string BookId { get; set; }
         public int Section { get; set; }
         public int SectionPosition { get; set; }

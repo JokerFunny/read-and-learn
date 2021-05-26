@@ -10,6 +10,6 @@ namespace Read_and_learn.Provider
         /// <summary>
         /// Value of current battery level.
         /// </summary>
-        int RemainingChargePercent { get; } = (int)(Battery.ChargeLevel * 100);
+        public int RemainingChargePercent { get; } = (int)(Battery.ChargeLevel * 100);
     }
 }

@@ -42,6 +42,21 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>AppResource.resx</DependentUpon>
     </Compile>
+    <Compile Update="Page\Reader\ReaderMenuPanel.xaml.cs">
+      <DependentUpon>ReaderMenuPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Page\Reader\ReaderTabs\Bookmarks.xaml.cs">
+      <DependentUpon>Bookmarks.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Page\Reader\ReaderTabs\BookmarkTab\BookmarkItem.xaml.cs">
+      <DependentUpon>BookmarkItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Page\Reader\ReaderTabs\Navigation.xaml.cs">
+      <DependentUpon>Navigation.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Page\Reader\ReaderTabs\Settings.xaml.cs">
+      <DependentUpon>Settings.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -72,6 +87,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Page\ReaderPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Page\Reader\HeaderPanel.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Page\SettingsPage.xaml">

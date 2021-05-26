@@ -65,7 +65,7 @@ namespace Read_and_learn
             ContainerBuilder.RegisterType<MessageBus>().As<IMessageBus>().SingleInstance();
 
             // Translation services as keyed.
-            ContainerBuilder.RegisterType<OfflineTranslatorService>().Keyed<ITranslatorService>(TranslationServicesProvider.Offline);
+            ContainerBuilder.RegisterType<GlobalTranslateService>().As<ITranslateService>().SingleInstance();
             ContainerBuilder.RegisterType<ReversoTranslatorService>().Keyed<ITranslatorService>(TranslationServicesProvider.Reverso);
             ContainerBuilder.RegisterType<YandexTranslatorService>().Keyed<ITranslatorService>(TranslationServicesProvider.Yandex_Translator);
             ContainerBuilder.RegisterType<GoogleTranslatorService>().Keyed<ITranslatorService>(TranslationServicesProvider.Google);
