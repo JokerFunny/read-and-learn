@@ -39,9 +39,10 @@ namespace Read_and_learn.Page.Reader.ReaderTabs
         {
             Items.Children.Clear();
 
-            foreach (var item in _GetItems(items))
+            if (items != null)
             {
-                Items.Children.Add(item);
+                foreach (var item in _GetItems(items))
+                    Items.Children.Add(item);
             }
         }
 

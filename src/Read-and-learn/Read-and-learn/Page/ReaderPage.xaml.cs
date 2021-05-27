@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Read_and_learn.Helpers;
 using Read_and_learn.Model;
 using Read_and_learn.Model.Bookshelf;
 using Read_and_learn.Model.DataStructure;
@@ -6,6 +7,7 @@ using Read_and_learn.Model.Message;
 using Read_and_learn.Provider;
 using Read_and_learn.Service.Interface;
 using System;
+using System.IO;
 using System.Linq;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -30,6 +32,7 @@ namespace Read_and_learn.Page
         private Ebook _ebook;
         private bool _resizeFirstRun = true;
         private bool _resizeTimerRunning = false;
+        private int _fontSize;
         private int? _resizeTimerWidth;
         private int? _resizeTimerHeight;
         private Position _lastSavedPosition = null;
@@ -52,6 +55,9 @@ namespace Read_and_learn.Page
 
             _messageBus.Send(new FullscreenRequestMessage(true));
 
+            _SetFontSize();
+            _SetMargin();
+
             if (UserSettings.Reader.NightMode)
                 BackgroundColor = Color.FromRgb(24, 24, 25);
 
@@ -64,31 +70,51 @@ namespace Read_and_learn.Page
         public async void LoadBook(Book book)
         {
             _bookshelfBook = book;
-            _ebook = await _bookService.OpenBook(new FileResult(book.Path));
+
+            if (Device.RuntimePlatform == Device.UWP)
+            {
+                var permissionStatus = await PermissionHelper.CheckAndRequestPermission(Plugin.Permissions.Abstractions.Permission.Storage);
+
+                if (permissionStatus == Plugin.Permissions.Abstractions.PermissionStatus.Granted)
+                {
+                    var fileStream = System.IO.File.Open(book.Path, FileMode.Open);
+                    FileResult targetFile = new FileResult(book.Path);
+
+                    _ebook = await _bookService.OpenBook(fileStream, book.Path);
+                }
+
+            }
+            else
+            {
+                FileResult targetFile = new FileResult(book.Path);
+
+                _ebook = await _bookService.OpenBook(targetFile);
+            }
+
             var position = _bookshelfBook.Position;
 
             MenuPanel.NavigationPanel.SetNavigation(_ebook.Navigation);
             _RefreshBookmarks();
 
-            Section chapter = null;
-            int positionInChapter = -1;
-            if (position != null)
-            {
-                var loadedChapter = _ebook.Sections.ElementAt(position.Section);
+            //Section chapter = null;
+            //int positionInChapter = -1;
+            //if (position != null)
+            //{
+            //    var loadedChapter = _ebook.Sections.ElementAt(position.Section);
 
-                if (loadedChapter != null)
-                {
-                    chapter = loadedChapter;
-                    positionInChapter = position.SectionPosition;
-                }
-            }
-            else
-            {
-                chapter = _ebook.Sections.First();
-                positionInChapter = 0;
-            }
+            //    if (loadedChapter != null)
+            //    {
+            //        chapter = loadedChapter;
+            //        positionInChapter = position.SectionPosition;
+            //    }
+            //}
+            //else
+            //{
+            //    chapter = _ebook.Sections.First();
+            //    positionInChapter = 0;
+            //}
 
-            _OpenChapter(chapter, position: positionInChapter);
+            //_OpenChapter(chapter, position: positionInChapter);
         }
 
         protected override void OnAppearing()
@@ -118,7 +144,8 @@ namespace Read_and_learn.Page
             _messageBus.Subscribe<BookmarkNameChangedMessage>(_BookmarkNameChangedHandler, new string[] { nameof(ReaderPage) });
             _messageBus.Subscribe<GoToPageMessage>(_GoToPageHandler, new string[] { nameof(ReaderPage) });
             _messageBus.Subscribe<NavigationKeyMessage>(_NavigationKeyHandler, new string[] { nameof(ReaderPage) });
-            _messageBus.Subscribe<OpenReaderMenuMessage>(_OnOpenQuickPanelRequest, new string[] { nameof(ReaderPage) });
+            _messageBus.Subscribe<OpenReaderMenuMessage>(_OnOpenReaderMenuRequest, new string[] { nameof(ReaderPage) });
+            _messageBus.Subscribe<CloseReaderMenuMessage>((msg) => _ShowReaderContent(), new string[] { nameof(ReaderPage) });
         }
 
         private void _UnSubscribeMessages()
@@ -214,11 +241,10 @@ namespace Read_and_learn.Page
         }
 
         private void _ChangeMargin(ChangeMarginMessage msg)
-            => _SetMargin(msg.Margin);
+            => _SetMargin();
 
         private void _ChangeFontSize(ChangeFontSizeMessage msg)
-            => _SetFontSize(msg.FontSize);
-
+            => _SetFontSize();
 
         private void _GoToPageHandler(GoToPageMessage msg)
             => _OpenPage(msg.Page, msg.Next, msg.Previous);
@@ -244,7 +270,7 @@ namespace Read_and_learn.Page
             _currentChapter = _ebook.Sections.IndexOf(chapter);
             _bookshelfBook.Section = _currentChapter;
 
-            /////// SOME DARK MAGIC TI GET CONTENT FROM SPINE TO APPROPRIATE FORMAT
+            /////// SOME DARK MAGIC TI GET CONTENT FROM SECTION TO APPROPRIATE FORMAT
         }
 
         private void _SaveProgress()
@@ -254,7 +280,6 @@ namespace Read_and_learn.Page
 
             _bookshelfService.SaveBook(_bookshelfBook);
         }
-
 
         private void _NavigationPanel_OnChapterChange(object sender, Navigation e)
         {
@@ -270,7 +295,48 @@ namespace Read_and_learn.Page
             }
         }
 
-        private void _OnOpenQuickPanelRequest(OpenReaderMenuMessage msg)
-            => MenuPanel.ShowPanel();
+        private void _OnOpenReaderMenuRequest(OpenReaderMenuMessage msg)
+        {
+            ReaderContent.IsVisible = false;
+
+            MenuPanel.ShowPanel();
+        }
+
+        private void _ShowReaderContent()
+            => ReaderContent.IsVisible = true;
+
+        private void _OnNextChapter()
+        {
+            if (_currentChapter < _ebook.Sections.Count - 1)
+            {
+                _OpenChapter(_ebook.Sections[_currentChapter + 1]);
+                _bookshelfBook.FinishedReading = null;
+            }
+            else
+            {
+                _bookshelfBook.FinishedReading = DateTime.UtcNow;
+            }
+
+            _bookshelfService.SaveBook(_bookshelfBook);
+        }
+
+        private void _SetFontSize()
+            => _fontSize = UserSettings.Reader.FontSize;
+
+        private void _SetMargin()
+        {
+            //ReaderPage.Margin = UserSettings.Reader.Margin;
+        }
+
+        private void _OpenPage(int page, bool next, bool previous)
+        {
+            //Reload current view
+        }
+
+        private void _GoToPosition(int position)
+        {
+            //calculate which page should be opened
+            //open proper page via _OpenPage()
+        }
     }
 }

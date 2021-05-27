@@ -25,7 +25,7 @@ namespace Read_and_learn.Page.Reader
 
             InitializeComponent();
 
-            _messageBus.Subscribe<CloseQuickPanelMessage>((msg) => HidePanel());
+            _messageBus.Subscribe<CloseReaderMenuMessage>((msg) => HidePanel());
 
             BindingContext = new ReaderMenuVM();
         }

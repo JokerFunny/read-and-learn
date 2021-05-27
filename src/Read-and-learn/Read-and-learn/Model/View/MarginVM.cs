@@ -39,8 +39,8 @@ namespace Read_and_learn.Model.View
 
                 UserSettings.Reader.Margin = value;
                 OnPropertyChanged();
-                _messageBus.Send(new ChangeMarginMessage { Margin = value });
-                _messageBus.Send(new CloseQuickPanelMessage());
+                _messageBus.Send(new ChangeMarginMessage());
+                _messageBus.Send(new CloseReaderMenuMessage());
             }
         }
     }

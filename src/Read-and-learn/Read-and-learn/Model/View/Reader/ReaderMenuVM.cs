@@ -76,7 +76,7 @@ namespace Read_and_learn.Model.View.Reader
             });
 
             CloseCommand = new Command(() => {
-                IocManager.Container.Resolve<IMessageBus>().Send(new CloseQuickPanelMessage());
+                IocManager.Container.Resolve<IMessageBus>().Send(new CloseReaderMenuMessage());
             });
         }
     }

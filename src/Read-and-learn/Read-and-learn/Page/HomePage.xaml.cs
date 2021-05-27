@@ -153,18 +153,15 @@ namespace Read_and_learn.Page
         private async void _DeleteBook(DeleteBookMessage msg)
         {
             var deleteButton = "Delete";
-            var deleteSyncButton = "Delete including all synchronizations";
-            var confirm = await DisplayActionSheet("Delete book?", deleteButton, "No", deleteSyncButton);
-            if (confirm == deleteButton || confirm == deleteSyncButton)
+            var confirm = await DisplayActionSheet("Delete book?", deleteButton, "No");
+            if (confirm == deleteButton)
             {
                 var card = Bookshelf.Children.FirstOrDefault(o => o.StyleId == msg.Book.Id);
+
                 if (card != null)
-                {
                     Bookshelf.Children.Remove(card);
-                }
 
                 var res = await _bookshelfService.RemoveById(msg.Book.Id);
-
             }
         }
 

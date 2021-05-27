@@ -39,8 +39,8 @@ namespace Read_and_learn.Model.View
 
                 UserSettings.Reader.FontSize = value;
                 OnPropertyChanged();
-                _messageBus.Send(new ChangeFontSizeMessage { FontSize = value });
-                _messageBus.Send(new CloseQuickPanelMessage());
+                _messageBus.Send(new ChangeFontSizeMessage());
+                _messageBus.Send(new CloseReaderMenuMessage());
             }
         }
     }

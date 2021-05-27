@@ -15,16 +15,11 @@ namespace Read_and_learn.Service.Interface
     /// </summary>
     public class FB2BookService : IBookService
     {
-        private IFileService _fileService;
-
         /// <summary>
         /// Default ctor.
         /// </summary>
-        /// <param name="fileService">Target <see cref="IFileService"/></param>
-        public FB2BookService(IFileService fileService)
-        {
-            _fileService = fileService;
-        }
+        public FB2BookService()
+        { }
 
         public Book CreateBookshelfBook(Ebook book)
             => new Book
@@ -36,11 +31,20 @@ namespace Read_and_learn.Service.Interface
 
         public async Task<Ebook> OpenBook(FileResult targetFile)
         {
+            Stream fileStream = await targetFile.OpenReadAsync();
+
+            return await _OpenTargetBook(fileStream, targetFile.FullPath);
+        }
+
+        public Task<Ebook> OpenBook(Stream targetStream, string fullPath)
+            => _OpenTargetBook(targetStream, fullPath);
+
+        private async Task<Ebook> _OpenTargetBook(Stream targetStream, string fullPath)
+        {
             FB2File fB2File;
             Fb2Document fb2Document = new Fb2Document();
 
-            Stream fileStream = await targetFile.OpenReadAsync();
-            using (StreamReader sr = new StreamReader(fileStream))
+            using (StreamReader sr = new StreamReader(targetStream))
             {
                 string fileContent = await sr.ReadToEndAsync();
 
@@ -55,13 +59,12 @@ namespace Read_and_learn.Service.Interface
             Ebook ebook = new Ebook()
             {
                 Id = Guid.NewGuid(),
-                Path = targetFile.FullPath,
+                Path = fullPath,
                 Sections = null, ///add magic
                 Author = fB2File?.TitleInfo?.BookAuthors?.ToString(),
                 Cover = cover,
                 Description = ((FB2Library.Elements.SimpleText)((FB2Library.Elements.ParagraphItem)fB2File?.TitleInfo?.Annotation?.Content?.FirstOrDefault())?
                     .ParagraphData?.FirstOrDefault())?.Text ?? string.Empty,
-                Files = null, ///add magic
                 Language = fB2File?.TitleInfo?.Language ?? "en",
                 Title = fB2File?.TitleInfo?.BookTitle?.Text ?? string.Empty
             };

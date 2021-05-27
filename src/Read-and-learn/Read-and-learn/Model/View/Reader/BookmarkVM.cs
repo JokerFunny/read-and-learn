@@ -70,7 +70,7 @@ namespace Read_and_learn.Model.View.Reader
         private void _OpenBookmark()
         {
             IocManager.Container.Resolve<IMessageBus>().Send(new OpenBookmarkMessage { Bookmark = Bookmark });
-            IocManager.Container.Resolve<IMessageBus>().Send(new CloseQuickPanelMessage());
+            IocManager.Container.Resolve<IMessageBus>().Send(new CloseReaderMenuMessage());
         }
 
         private void _DeleteBookmark()

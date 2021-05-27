@@ -94,6 +94,7 @@ namespace Read_and_learn
             }
         }
 
+        // handle for correctly work with back pressed action.
         private async void _BackPressedMessageSubscriber(BackPressedMessage msg)
         {
             var master = MainPage as MasterFlyoutPage;
@@ -104,7 +105,7 @@ namespace Read_and_learn
 
                 if (detailPage is ReaderPage readerPage && readerPage.IsMenuPanelVisible())
                 {
-                    _messageBus.Send(new CloseQuickPanelMessage());
+                    _messageBus.Send(new CloseReaderMenuMessage());
                 }
                 else if (detailPage is HomePage)
                 {

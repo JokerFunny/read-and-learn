@@ -1,5 +1,6 @@
 ﻿using Read_and_learn.Model;
 using Read_and_learn.Model.Bookshelf;
+using System.IO;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 
@@ -18,6 +19,19 @@ namespace Read_and_learn.Service.Interface
         ///     <see cref="Ebook"/>.
         /// </returns>
         Task<Ebook> OpenBook(FileResult targetFile);
+
+        /// <summary>
+        /// Open book via <paramref name="targetStream"/>.
+        /// </summary>
+        /// <param name="targetStream">Target file stream</param>
+        /// <param name="fullPath">Target path</param>
+        /// <returns>
+        ///     <see cref="Ebook"/>.
+        /// </returns>
+        /// <remarks>
+        ///     HOTFIX FOR UWP due to creation of FileResult via path :(
+        /// </remarks>
+        Task<Ebook> OpenBook(Stream targetStream, string fullPath);
 
         /// <summary>
         /// Prepare formatted data from <paramref name="book"/>.

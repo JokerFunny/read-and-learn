@@ -3,6 +3,6 @@
     /// <summary>
     /// Indicate when quick panel message closed.
     /// </summary>
-    public class CloseQuickPanelMessage
+    public class CloseReaderMenuMessage
     { }
 }

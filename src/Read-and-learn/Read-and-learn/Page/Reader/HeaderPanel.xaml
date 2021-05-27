@@ -21,9 +21,9 @@
     <StackLayout.Children>
         <Label Text="{Binding Pages}" HorizontalOptions="StartAndExpand"></Label>
 
-        <ImageButton Source="menu.png" Clicked="_OpenReaderMenu_Clicked" Margin="0,5" HorizontalOptions="Start" VerticalOptions="Center" />
+        <ImageButton IsEnabled="True" Source="menu.png" Clicked="_OpenReaderMenu_Clicked" Margin="0,5" HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand" HeightRequest="20" WidthRequest="20" />
 
-        <local:ToggleButton Toggled="OnTranslateFeatureToggled" ImageSource="translate.png">
+        <!--<local:ToggleButton Toggled="OnTranslateFeatureToggled" ImageSource="translate.png">
             <VisualStateManager.VisualStateGroups>
                 <VisualStateGroup Name="ToggleStates">
                     <VisualState Name="ToggledOff">
@@ -41,7 +41,7 @@
                     </VisualState>
                 </VisualStateGroup>
             </VisualStateManager.VisualStateGroups>
-        </local:ToggleButton>
+        </local:ToggleButton>-->
         
         <StackLayout HorizontalOptions="EndAndExpand" Orientation="Horizontal" CompressedLayout.IsHeadless="true">
             <Label Text="{Binding Clock}" ></Label>
