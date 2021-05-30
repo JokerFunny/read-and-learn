@@ -55,10 +55,10 @@ namespace Read_and_learn.Service
 
         public async Task<bool> DeleteFolder(string path)
         {
-            var folder = await FileSystem.Current.LocalStorage.GetFolderAsync(path);
-
             try
             {
+                var folder = await FileSystem.Current.LocalStorage.GetFolderAsync(path);
+
                 await folder.DeleteAsync();
 
                 return true;

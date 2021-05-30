@@ -175,6 +175,12 @@
     <Content Include="..\Read-and-learn\Resources\settings_white.png">
       <Link>settings_white.png</Link>
     </Content>
+    <Content Include="..\Read-and-learn\Resources\menu.png">
+      <Link>menu.png</Link>
+    </Content>
+    <Content Include="..\Read-and-learn\Resources\translate.png">
+      <Link>translate.png</Link>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
