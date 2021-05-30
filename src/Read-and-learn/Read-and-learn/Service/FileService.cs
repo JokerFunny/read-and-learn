@@ -4,7 +4,6 @@ using Read_and_learn.Service.Interface;
 using System;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 using FileSystem = PCLStorage.FileSystem;
@@ -16,6 +15,8 @@ namespace Read_and_learn.Service
     /// </summary>
     public class FileService : IFileService
     {
+        public const string fileDesiredName = "book.fb2";
+
         public async Task<IFile> OpenFile(string name, IFolder folder)
         {
             folder = await GetFileFolder(name, folder);
@@ -43,47 +44,13 @@ namespace Read_and_learn.Service
         public string GetLocalFileName(string path)
             => path.Split('/').Last();
 
-        public async Task<string> ReadFileData(string fileName)
-            => await ReadFileData(fileName, FileSystem.Current.LocalStorage);
-
-        public async Task<string> ReadFileData(string fileName, IFolder folder)
+        public async Task<string> ReadFileContent(string folderName)
         {
-            var file = await OpenFile(fileName, folder);
+            var rootFolder = FileSystem.Current.LocalStorage;
+            var folder = await rootFolder.GetFolderAsync(folderName);
+            var contentFile = await folder.GetFileAsync(fileDesiredName);
 
-            return await file.ReadAllTextAsync();
-        }
-
-        public async Task<bool> Save(string path, string content)
-        {
-            var folder = FileSystem.Current.LocalStorage;
-            var file = await folder.CreateFileAsync(path, CreationCollisionOption.ReplaceExisting);
-            var bytes = Encoding.UTF8.GetBytes(content);
-
-            try
-            {
-                using (Stream stream = await file.OpenAsync(PCLStorage.FileAccess.ReadAndWrite))
-                {
-                    await stream.WriteAsync(bytes, 0, bytes.Length);
-
-                    return true;
-                }
-            }
-            catch(Exception ex)
-            {
-                Analytics.TrackEvent($"File save failed. Exception message: {ex.Message}.");
-            }
-
-            return false;
-        }
-
-        public async Task<bool> CheckFile(string fileName)
-        {
-            var folder = FileSystem.Current.LocalStorage;
-
-            var fileFolder = await GetFileFolder(fileName, folder);
-            var exists = await fileFolder.CheckExistsAsync(GetLocalFileName(fileName));
-
-            return exists == ExistenceCheckResult.FileExists;
+            return await contentFile.ReadAllTextAsync();
         }
 
         public async Task<bool> DeleteFolder(string path)
@@ -113,6 +80,20 @@ namespace Read_and_learn.Service
             await fileStream.ReadAsync(result, 0, (int)fileStream.Length);
 
             return result;
+        }
+
+        public async Task<string> CreateLocalCopy(Stream fileDate, string id)
+        {
+            var rootFolder = FileSystem.Current.LocalStorage;
+            var folder = await rootFolder.CreateFolderAsync(id, CreationCollisionOption.ReplaceExisting);
+            var contentFile = await folder.CreateFileAsync(fileDesiredName, CreationCollisionOption.ReplaceExisting);
+
+            using (Stream stream = await contentFile.OpenAsync(PCLStorage.FileAccess.ReadAndWrite))
+            {
+                await fileDate.CopyToAsync(stream);
+            }
+
+            return contentFile.Path;
         }
     }
 }

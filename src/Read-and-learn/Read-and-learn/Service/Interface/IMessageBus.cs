@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Read_and_learn.Service.Interface
 {
     /// <summary>
-    /// Interface to hendle message proceeding.
+    /// Interface to handle message proceeding.
     /// </summary>
     public interface IMessageBus
     {

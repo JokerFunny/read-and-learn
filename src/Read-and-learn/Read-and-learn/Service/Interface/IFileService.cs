@@ -1,4 +1,5 @@
 ﻿using PCLStorage;
+using System.IO;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 
@@ -29,33 +30,23 @@ namespace Read_and_learn.Service.Interface
         string GetLocalFileName(string path);
 
         /// <summary>
-        /// Get file data via <paramref name="fileName"/> and <paramref name="folder"/>.
+        /// Create a local copy of file via <paramref name="fileDate"/>.
         /// </summary>
-        /// <param name="fileName">Target file name</param>
-        /// <param name="folder">Target folder name</param>
+        /// <param name="fileDate">Target data</param>
+        /// <param name="id">Target id</param>
         /// <returns>
-        ///     File content or null if file doesn`t exist.
+        ///     File full path.
         /// </returns>
-        Task<string> ReadFileData(string fileName, IFolder folder);
+        Task<string> CreateLocalCopy(Stream fileDate, string id);
 
         /// <summary>
-        /// Save target file via <paramref name="path"/> and <paramref name="content"/>.
+        /// Get file data via <paramref name="folderName"/>.
         /// </summary>
-        /// <param name="path">Target path</param>
-        /// <param name="content">Target file content</param>
+        /// <param name="folderName">Target folder name</param>
         /// <returns>
-        ///     True if file saved, otherwise false.
+        ///     File content.
         /// </returns>
-        Task<bool> Save(string path, string content);
-
-        /// <summary>
-        /// Chech if target file exist in local storage.
-        /// </summary>
-        /// <param name="fileName">Target file name</param>
-        /// <returns>
-        ///     True if file exist, otherwise false.
-        /// </returns>
-        Task<bool> CheckFile(string fileName);
+        Task<string> ReadFileContent(string folderName);
 
         /// <summary>
         /// Delete local folder via <paramref name="path"/>.
@@ -64,9 +55,6 @@ namespace Read_and_learn.Service.Interface
         /// <returns>
         ///     True if folder deleted, otherwise false.
         /// </returns>
-        /// <remarks>
-        ///     [DN]: Check if needed.
-        /// </remarks>
         Task<bool> DeleteFolder(string path);
 
         /// <summary>

@@ -1,6 +1,5 @@
 ﻿using Read_and_learn.Model;
 using Read_and_learn.Model.Bookshelf;
-using System.IO;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 
@@ -12,26 +11,27 @@ namespace Read_and_learn.Service.Interface
     public interface IBookService
     {
         /// <summary>
-        /// Open book via <paramref name="path"/>.
+        /// Open book via <paramref name="bookId"/> and <paramref name="fullPath"/>.
         /// </summary>
-        /// <param name="targetFile">Target file</param>
+        /// <param name="fullPath">Target fuul path</param>
+        /// <param name="bookId">Target book</param>
         /// <returns>
         ///     <see cref="Ebook"/>.
         /// </returns>
-        Task<Ebook> OpenBook(FileResult targetFile);
+        Task<Ebook> OpenBook(string fullPath, string bookId);
 
         /// <summary>
-        /// Open book via <paramref name="targetStream"/>.
+        /// Get book via <paramref name="targetStream"/>.
         /// </summary>
-        /// <param name="targetStream">Target file stream</param>
-        /// <param name="fullPath">Target path</param>
+        /// <param name="targetFile">Target file</param>
+        /// <param name="bookId">Target id</param>
         /// <returns>
         ///     <see cref="Ebook"/>.
         /// </returns>
         /// <remarks>
-        ///     HOTFIX FOR UWP due to creation of FileResult via path :(
+        ///     Create local copy of target book.
         /// </remarks>
-        Task<Ebook> OpenBook(Stream targetStream, string fullPath);
+        Task<Ebook> GetBook(FileResult targetFile, string bookId);
 
         /// <summary>
         /// Prepare formatted data from <paramref name="book"/>.

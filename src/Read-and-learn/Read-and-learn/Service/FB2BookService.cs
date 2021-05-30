@@ -15,11 +15,16 @@ namespace Read_and_learn.Service.Interface
     /// </summary>
     public class FB2BookService : IBookService
     {
+        private IFileService _fileService;
+
         /// <summary>
         /// Default ctor.
         /// </summary>
-        public FB2BookService()
-        { }
+        /// <param name="fileService">Target <see cref="IFileService"/></param>
+        public FB2BookService(IFileService fileService)
+        {
+            _fileService = fileService;
+        }
 
         public Book CreateBookshelfBook(Ebook book)
             => new Book
@@ -29,33 +34,34 @@ namespace Read_and_learn.Service.Interface
                 Cover = book.Cover
             };
 
-        public async Task<Ebook> OpenBook(FileResult targetFile)
+        public async Task<Ebook> OpenBook(string fullPath, string bookId)
+            => await _OpenTargetBook(bookId, bookId);
+
+        public async Task<Ebook> GetBook(FileResult targetFile, string bookId)
         {
             Stream fileStream = await targetFile.OpenReadAsync();
 
-            return await _OpenTargetBook(fileStream, targetFile.FullPath);
+            var path = await _fileService.CreateLocalCopy(fileStream, bookId);
+
+            return await _OpenTargetBook(path, bookId);
         }
 
-        public Task<Ebook> OpenBook(Stream targetStream, string fullPath)
-            => _OpenTargetBook(targetStream, fullPath);
-
-        private async Task<Ebook> _OpenTargetBook(Stream targetStream, string fullPath)
+        private async Task<Ebook> _OpenTargetBook(string fullPath, string bookId)
         {
             FB2File fB2File;
             Fb2Document fb2Document = new Fb2Document();
 
-            using (StreamReader sr = new StreamReader(targetStream))
-            {
-                string fileContent = await sr.ReadToEndAsync();
+            string fileContent = await _fileService.ReadFileContent(bookId);
 
-                fB2File = await new FB2Reader().ReadAsync(fileContent);
+            fB2File = await new FB2Reader().ReadAsync(fileContent);
 
-                fb2Document.Load(fileContent);
-            }
+            fb2Document.Load(fileContent);
+
+            string cover = fb2Document.BinaryImages
+                .FirstOrDefault(i => i.Attributes["id"] == "cover.jpg")?.Content 
+                ?? null;
 
             // MAGIC OF CONVERSION
-            string cover = fb2Document.BinaryImages.FirstOrDefault(i => i.Attributes["id"] == "cover.jpg")?.Content ?? null;
-
             Ebook ebook = new Ebook()
             {
                 Id = Guid.NewGuid(),

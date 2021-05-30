@@ -54,11 +54,11 @@ namespace Read_and_learn.Service
 
             if (bookshelfBook == null)
             {
-                Ebook ebook = await _bookService.OpenBook(file);
+                Ebook ebook = await _bookService.GetBook(file, id);
 
                 bookshelfBook = _bookService.CreateBookshelfBook(ebook);
                 bookshelfBook.Id = id;
-                bookshelfBook.Path = file.FullPath;
+                bookshelfBook.Path = ebook.Path;
 
                 await _bookRepository.SaveBookAsync(bookshelfBook);
                 newBook = true;
@@ -75,11 +75,14 @@ namespace Read_and_learn.Service
             var book = await _bookRepository.GetBookByIdAsync(id);
             if (book != null)
             {
+                // delete local book copy.
+                await _fileService.DeleteFolder(book.Id);
+
+                // delete all related bookmarks.
                 var bookmarks = await _bookmarkRepository.GetBookmarksByBookIDAsync(id);
                 foreach (var bookmark in bookmarks)
-                {
                     await _bookmarkRepository.DeleteBookmarkAsync(bookmark);
-                }
+
                 return await _bookRepository.DeleteBookAsync(book) > 0;
             }
 

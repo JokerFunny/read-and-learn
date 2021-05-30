@@ -71,25 +71,7 @@ namespace Read_and_learn.Page
         {
             _bookshelfBook = book;
 
-            if (Device.RuntimePlatform == Device.UWP)
-            {
-                var permissionStatus = await PermissionHelper.CheckAndRequestPermission(Plugin.Permissions.Abstractions.Permission.Storage);
-
-                if (permissionStatus == Plugin.Permissions.Abstractions.PermissionStatus.Granted)
-                {
-                    var fileStream = System.IO.File.Open(book.Path, FileMode.Open);
-                    FileResult targetFile = new FileResult(book.Path);
-
-                    _ebook = await _bookService.OpenBook(fileStream, book.Path);
-                }
-
-            }
-            else
-            {
-                FileResult targetFile = new FileResult(book.Path);
-
-                _ebook = await _bookService.OpenBook(targetFile);
-            }
+            _ebook = await _bookService.OpenBook(book.Path, book.Id);
 
             var position = _bookshelfBook.Position;
 
