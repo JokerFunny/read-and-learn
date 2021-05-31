@@ -15,6 +15,8 @@ namespace Read_and_learn.Model.DataStructure
     public enum ElementType
     {
         Text,
-        Image
+        Image,
+        Symbol,
+        NewLine
     }
 }

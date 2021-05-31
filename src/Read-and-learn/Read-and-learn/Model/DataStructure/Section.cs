@@ -10,7 +10,7 @@ namespace Read_and_learn.Model.DataStructure
         public string Id { get; set; }
         public string Title { get; set; }
         public int Position { get; set; }
-        public string Epigraph { get; set; }
+        public int Depth { get; set; }
         public List<Element> Elements { get; set; }
     }
 }
