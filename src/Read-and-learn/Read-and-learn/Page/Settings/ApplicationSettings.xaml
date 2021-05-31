@@ -51,6 +51,7 @@
                                 </Picker.Title>
                             </Picker>
                         </StackLayout>
+                        <Label Text="The language used to localize the application." Style="{StaticResource note}" />
                     </StackLayout>
                     
                     <StackLayout Style="{StaticResource wrapper}">

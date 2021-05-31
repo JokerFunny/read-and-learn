@@ -1,0 +1,256 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Comment CommentText="Platform-specific interfaces">
+    <Position X="14" Y="7.25" Height="0.295" Width="2.095" />
+  </Comment>
+  <Comment CommentText="Translation providers">
+    <Position X="8.668" Y="9.143" Height="0.295" Width="1.49" />
+  </Comment>
+  <Class Name="Read_and_learn.Repository.BookmarkRepository">
+    <Position X="12.25" Y="0.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAIAAABAA=</HashCode>
+      <FileName>Repository\BookmarkRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Read_and_learn.Repository.BookRepository">
+    <Position X="15.25" Y="0.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAACAAAAAAAAAQAAAAAAAAAAAAQABAE=</HashCode>
+      <FileName>Repository\BookRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Read_and_learn.Service.BookmarkService">
+    <Position X="3" Y="6.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAQAAAAAEAAAEAAAAAAABAAAI=</HashCode>
+      <FileName>Service\BookmarkService.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_bookmarkRepository" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Read_and_learn.Service.BookshelfService">
+    <Position X="1" Y="6.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AABiAAAAAgAAIgAACCAIAAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>Service\BookshelfService.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_bookmarkRepository" />
+      <Field Name="_bookRepository" />
+      <Field Name="_bookService" />
+      <Field Name="_cryptoService" />
+      <Field Name="_fileService" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Read_and_learn.Service.CryptoService">
+    <Position X="5.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Service\CryptoService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Read_and_learn.Service.DatabaseService">
+    <Position X="7.25" Y="6.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAEAAAAAAAAAAAQAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>Service\DatabaseService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Read_and_learn.Service.FileService">
+    <Position X="3" Y="8.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAEgEAAAAAAAAAAAgABAAAAACAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Service\FileService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Read_and_learn.Service.MessageBus">
+    <Position X="5.25" Y="8" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="Read_and_learn.Service.MessageBus.Subscriber">
+        <TypeIdentifier>
+          <NewMemberFileName>Service\MessageBus.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAEEAAAAAAAACAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Service\MessageBus.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Read_and_learn.Service.Translation.GlobalTranslateService">
+    <Position X="9.25" Y="6.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAABEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Service\Translation\GlobalTranslateService.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_offlineTranslator" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Read_and_learn.Service.Translation.GoogleTranslatorService">
+    <Position X="9.5" Y="11.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAABAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>Service\Translation\GoogleTranslatorService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Read_and_learn.Service.Translation.OfflineTranslatorService">
+    <Position X="9.5" Y="9.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Service\Translation\OfflineTranslatorService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Read_and_learn.Service.Translation.ReversoTranslatorService">
+    <Position X="7.25" Y="9.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Service\Translation\ReversoTranslatorService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Read_and_learn.Service.Translation.YandexTranslatorService">
+    <Position X="7.25" Y="11.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Service\Translation\YandexTranslatorService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="Read_and_learn.PlatformRelatedServices.IAssetsManager">
+    <Position X="12.75" Y="7.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PlatformRelatedServices\IAssetsManager.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Read_and_learn.PlatformRelatedServices.IBrightnessProvider">
+    <Position X="14.75" Y="7.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIA=</HashCode>
+      <FileName>PlatformRelatedServices\IBrightnessProvider.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Read_and_learn.PlatformRelatedServices.IFileHelper">
+    <Position X="12.75" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAA=</HashCode>
+      <FileName>PlatformRelatedServices\IFileHelper.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Read_and_learn.PlatformRelatedServices.IToastService">
+    <Position X="14.5" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PlatformRelatedServices\IToastService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Read_and_learn.PlatformRelatedServices.IVersionProvider">
+    <Position X="16.25" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>PlatformRelatedServices\IVersionProvider.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Read_and_learn.Repository.Interface.IBookmarkRepository">
+    <Position X="12.25" Y="3.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Repository\Interface\IBookmarkRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Read_and_learn.Repository.Interface.IBookRepository">
+    <Position X="15.25" Y="3.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAACAAAAAAAAAQAAAAAAAAAAAAQAAAE=</HashCode>
+      <FileName>Repository\Interface\IBookRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Read_and_learn.Service.Interface.IBookmarkService">
+    <Position X="1" Y="0.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAQAAAAAEAAAEAAAAAAABAAAA=</HashCode>
+      <FileName>Service\Interface\IBookmarkService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Read_and_learn.Service.Interface.IBookService">
+    <Position X="1" Y="2.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAAAAAAAAAAAABAgAAAAAQAAAAAAAAAAAA=</HashCode>
+      <FileName>Service\Interface\IBookService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Read_and_learn.Service.Interface.IBookshelfService">
+    <Position X="5.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAgAACCAIAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Service\Interface\IBookshelfService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Read_and_learn.Service.Interface.ICloudStorageService">
+    <Position X="7" Y="2.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAEQAEAAAAAAAQAAAAAAAAAAA=</HashCode>
+      <FileName>Service\Interface\ICloudStorageService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Read_and_learn.Service.Interface.ICryptoService">
+    <Position X="3.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Service\Interface\ICryptoService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Read_and_learn.Service.Interface.IDatabaseService">
+    <Position X="9" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Service\Interface\IDatabaseService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Read_and_learn.Service.Interface.IFileService">
+    <Position X="3.25" Y="0.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAEgEAAAAAAAAAAAAAAAAAAACAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Service\Interface\IFileService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Read_and_learn.Service.Interface.IMessageBus">
+    <Position X="5.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAEAAAAAAAAACAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Service\Interface\IMessageBus.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Read_and_learn.Service.Interface.ITranslateService">
+    <Position X="7" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Service\Interface\ITranslateService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Read_and_learn.Service.Interface.ITranslatorService">
+    <Position X="8.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Service\Interface\ITranslatorService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

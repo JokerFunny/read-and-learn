@@ -25,14 +25,21 @@
             <Label Text="{Binding Version}" FontSize="Small" />
             <Label Text="{Binding Description}"></Label>
             <Label Text="{Binding Copyright}"></Label>
-            <Label Text="https://github.com/JokerFunny/read-and-learn/" Style="{StaticResource link}">
+            <Label />
+            <Label Text="Useful links:" />
+            <Label Text="Github: https://github.com/JokerFunny/read-and-learn/" Style="{StaticResource link}" FontSize="Medium">
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding OpenUrlCommand}" CommandParameter="https://github.com/JokerFunny/read-and-learn/"></TapGestureRecognizer>
                 </Label.GestureRecognizers>
             </Label>
-            <Label Text="https://www.linkedin.com/in/danylo-novykov-315075194/" Style="{StaticResource link}">
+            <Label Text="LinkedIn: https://www.linkedin.com/in/danylo-novykov-315075194/" Style="{StaticResource link}" FontSize="Medium">
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding OpenUrlCommand}" CommandParameter="https://www.linkedin.com/in/danylo-novykov-315075194/"></TapGestureRecognizer>
+                </Label.GestureRecognizers>
+            </Label>
+            <Label Text="Image assets original site: https://www.flaticon.com/" Style="{StaticResource link}" FontSize="Medium">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding OpenUrlCommand}" CommandParameter="https://www.flaticon.com/"></TapGestureRecognizer>
                 </Label.GestureRecognizers>
             </Label>
 

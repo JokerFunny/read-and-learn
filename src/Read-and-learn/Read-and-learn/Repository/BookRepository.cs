@@ -23,7 +23,7 @@ namespace Read_and_learn.Repository
             _connection = databaseService.Connection;
         }
 
-        Task<List<Book>> IBookRepository.GetAllBooksAsync()
+        public Task<List<Book>> GetAllBooksAsync()
             => _connection.Table<Book>().ToListAsync();
 
         public Task<Book> GetBookByIdAsync(string id)

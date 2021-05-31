@@ -3,7 +3,9 @@ using Fb2.Document.Models;
 using FB2Library;
 using Read_and_learn.Model;
 using Read_and_learn.Model.Bookshelf;
+using Read_and_learn.Model.DataStructure;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -94,8 +96,8 @@ namespace Read_and_learn.Service.Interface
                     Description = _GetDescription(),
                     Language = _GetLanguage(),
                     Cover = _GetCoverImage(),
-                    Sections = null,
-                    Navigation = new System.Collections.Generic.List<Model.DataStructure.Navigation>()
+                    Sections = _GetSections(),
+                    Navigation = _GetNavigationItems()
                 };
 
                 return ebook;
@@ -103,7 +105,7 @@ namespace Read_and_learn.Service.Interface
 
             private string _GetCoverImage()
             {
-                return _fb2Document.BinaryImages
+                return _fb2Document.BinaryImages?
                     .FirstOrDefault(i => i.Attributes["id"] == "cover.jpg")?.Content
                     ?? null;
             }
@@ -111,7 +113,7 @@ namespace Read_and_learn.Service.Interface
             private string _GetTitle()
             {
                 return ((BookTitle)_fb2Document.Title?.Content?
-                    .Where(c => c.Name == "book-title")
+                    .Where(c => c.Name == "book-title")?
                     .FirstOrDefault())?.Content
                     ?? null;
             }
@@ -119,7 +121,7 @@ namespace Read_and_learn.Service.Interface
             private string _GetLanguage()
             {
                 return ((Lang)_fb2Document.Title?.Content?
-                    .Where(c => c.Name == "lang")
+                    .Where(c => c.Name == "lang")?
                     .FirstOrDefault())?.Content
                     ?? DefaultLanguage;
             }
@@ -127,8 +129,8 @@ namespace Read_and_learn.Service.Interface
             private string _GetDescription()
             {
                 return ((Annotation)_fb2Document.Title?.Content?
-                    .Where(c => c.Name == "annotation")
-                    .FirstOrDefault()).Content?
+                    .Where(c => c.Name == "annotation")?
+                    .FirstOrDefault())?.Content?
                     .Select(p => ((TextItem)((Paragraph)p).Content[0])?.Content)?
                     .Aggregate((total, part) => total + part)
                     ?? null;
@@ -138,8 +140,33 @@ namespace Read_and_learn.Service.Interface
             {
                 return string.Join(",",
                     _fB2File?.TitleInfo?.BookAuthors?
-                    .Select(a => a.FirstName.Text + " " + a.LastName.Text)
+                    .Select(a => a.FirstName.Text + " " + a.LastName.Text)?
                     .ToArray() ?? null);
+            }
+
+            private List<Section> _GetSections()
+            {
+                var result = new List<Section>();
+
+                var sections = _fB2File.Bodies;
+
+                foreach (var section in sections)
+                {
+                    var sec = new Section();
+
+                    var p = section.Title.TitleData;
+                }
+
+                return result;
+            }
+
+            private List<Navigation> _GetNavigationItems()
+            {
+                var result = new List<Navigation>();
+
+
+
+                return result;
             }
         }
     }

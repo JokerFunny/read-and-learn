@@ -34,18 +34,19 @@
 
     <ContentPage.Content>
         <ScrollView Orientation="Vertical" Margin="0,20,0,0">
-            <StackLayout VerticalOptions="Fill" Orientation="Vertical" CompressedLayout.IsHeadless="true">
+            <StackLayout VerticalOptions="Fill" Orientation="Vertical">
                 <StackLayout Orientation="Vertical">
 
                     <StackLayout Style="{StaticResource wrapper}">
                         <StackLayout Orientation="Horizontal" CompressedLayout.IsHeadless="true">
-                            <Label Text="Selected language for translate" Style="{StaticResource title}" />
+                            <Label Text="Selected language for translate" Style="{StaticResource title}"/>
                             <Picker ItemsSource="{Binding TranslationLanguageProvider.Items}" SelectedItem="{Binding TranslationLanguageProvider.Value}" Style="{StaticResource control}">
                                 <Picker.Title>
                                     <OnPlatform x:TypeArguments="x:String" Android="Select target language for translation" />
                                 </Picker.Title>
                             </Picker>
                         </StackLayout>
+                        <Label Text="The language into which the translation will be made." Style="{StaticResource note}" />
                     </StackLayout>
 
                     <StackLayout Style="{StaticResource wrapper}">
@@ -57,6 +58,7 @@
                                 </Picker.Title>
                             </Picker>
                         </StackLayout>
+                        <Label Text="Provider for online translation." Style="{StaticResource note}" />
                     </StackLayout>
 
                 </StackLayout>

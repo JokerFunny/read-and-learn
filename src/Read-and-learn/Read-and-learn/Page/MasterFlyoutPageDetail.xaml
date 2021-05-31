@@ -23,7 +23,7 @@
                     <Label
                         Grid.Column="1"
                         Grid.Row="1"
-                        Text="Read$Learn"
+                        Text="Read_and_Learn"
                         TextColor="White"
                         FontSize="Large"
                         Style="{DynamicResource SubtitleStyle}"/>
