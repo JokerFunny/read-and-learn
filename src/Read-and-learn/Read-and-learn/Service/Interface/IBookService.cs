@@ -34,15 +34,6 @@ namespace Read_and_learn.Service.Interface
         Task<Ebook> GetBook(FileResult targetFile, string bookId);
 
         /// <summary>
-        /// Prepare formatted data from <paramref name="book"/>.
-        /// </summary>
-        /// <param name="book">Target book to parse</param>
-        /// <returns>
-        ///     <see cref="FormattedBook"/>.
-        /// </returns>
-        Task<FormattedBook> PrepareFormattedData(Ebook book);
-
-        /// <summary>
         /// Create bookself book <see cref="Book"/> for target <paramref name="book"/>.
         /// </summary>
         /// <param name="book">Target <see cref="Ebook"/></param>

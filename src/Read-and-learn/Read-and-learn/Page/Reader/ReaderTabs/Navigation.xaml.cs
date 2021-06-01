@@ -41,7 +41,9 @@ namespace Read_and_learn.Page.Reader.ReaderTabs
 
             if (items != null)
             {
-                foreach (var item in _GetItems(items))
+                List<Label> navigationResult = _GetItems(items);
+
+                foreach (var item in navigationResult)
                     Items.Children.Add(item);
             }
         }

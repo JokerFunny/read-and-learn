@@ -1,5 +1,4 @@
 ﻿using Autofac;
-using Read_and_learn.Helpers;
 using Read_and_learn.Model;
 using Read_and_learn.Model.Bookshelf;
 using Read_and_learn.Model.DataStructure;
@@ -7,9 +6,7 @@ using Read_and_learn.Model.Message;
 using Read_and_learn.Provider;
 using Read_and_learn.Service.Interface;
 using System;
-using System.IO;
 using System.Linq;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -30,12 +27,8 @@ namespace Read_and_learn.Page
         private int _currentChapter;
         private Book _bookshelfBook;
         private Ebook _ebook;
-        private bool _resizeFirstRun = true;
-        private bool _resizeTimerRunning = false;
+        private List<Page> _pages;
         private int _fontSize;
-        private int? _resizeTimerWidth;
-        private int? _resizeTimerHeight;
-        private Position _lastSavedPosition = null;
         private Position _lastLoadedPosition = new Position();
 
         /// <summary>
@@ -78,25 +71,25 @@ namespace Read_and_learn.Page
             MenuPanel.NavigationPanel.SetNavigation(_ebook.Navigation);
             _RefreshBookmarks();
 
-            //Section chapter = null;
-            //int positionInChapter = -1;
-            //if (position != null)
-            //{
-            //    var loadedChapter = _ebook.Sections.ElementAt(position.Section);
+            Section chapter = null;
+            int positionInChapter = -1;
+            if (position != null)
+            {
+                var loadedChapter = _ebook.Sections.FirstOrDefault(s => s.Position == position.Section);
 
-            //    if (loadedChapter != null)
-            //    {
-            //        chapter = loadedChapter;
-            //        positionInChapter = position.SectionPosition;
-            //    }
-            //}
-            //else
-            //{
-            //    chapter = _ebook.Sections.First();
-            //    positionInChapter = 0;
-            //}
+                if (loadedChapter != null)
+                {
+                    chapter = loadedChapter;
+                    positionInChapter = position.SectionPosition;
+                }
+            }
+            else
+            {
+                chapter = _ebook.Sections.First();
+                positionInChapter = 0;
+            }
 
-            //_OpenChapter(chapter, position: positionInChapter);
+            _OpenChapter(chapter, position: positionInChapter);
         }
 
         protected override void OnAppearing()
@@ -165,10 +158,10 @@ namespace Read_and_learn.Page
             switch (e.Direction)
             {
                 case SwipeDirection.Left:
-                    // Handle the swipe
+                    _OpenPage(0, true, false);
                     break;
                 case SwipeDirection.Right:
-                    // Handle the swipe
+                    _OpenPage(0, false, true);
                     break;
             }
         }
@@ -267,13 +260,13 @@ namespace Read_and_learn.Page
         {
             if (e.Id != null)
             {
-                var path = e.Id.Split('#');
-                var id = path.First();
-                var marker = path.Skip(1).FirstOrDefault() ?? string.Empty;
-
                 var section = _ebook.Sections.FirstOrDefault(s => s.Position == e.Position);
                 if (section != null)
-                    _OpenChapter(section, marker: marker);
+                {
+                    _OpenChapter(section);
+
+                    _ShowReaderContent();
+                }
             }
         }
 
@@ -303,11 +296,15 @@ namespace Read_and_learn.Page
         }
 
         private void _SetFontSize()
-            => _fontSize = UserSettings.Reader.FontSize;
+        {
+            _fontSize = UserSettings.Reader.FontSize;
+
+            _RefreshPage();
+        }
 
         private void _SetMargin()
         {
-            //ReaderPage.Margin = UserSettings.Reader.Margin;
+            ReaderContent.Margin = UserSettings.Reader.Margin;
         }
 
         private void _OpenPage(int page, bool next, bool previous)

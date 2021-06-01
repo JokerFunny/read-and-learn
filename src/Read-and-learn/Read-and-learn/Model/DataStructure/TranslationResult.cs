@@ -13,6 +13,11 @@ namespace Read_and_learn.Model.DataStructure
         public string Result { get; set; }
 
         /// <summary>
+        /// Name of provider that was used to perform translation.
+        /// </summary>
+        public string Provider { get; set; }
+
+        /// <summary>
         /// Hold exception if it appears during translation.
         /// </summary>
         public Exception Error { get; set; }

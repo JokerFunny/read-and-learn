@@ -1,12 +1,12 @@
 ﻿using Fb2.Document;
 using Fb2.Document.Models;
 using Fb2.Document.Models.Base;
-using FB2Library;
 using Read_and_learn.Model;
 using Read_and_learn.Model.Bookshelf;
 using Read_and_learn.Model.DataStructure;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -54,16 +54,12 @@ namespace Read_and_learn.Service.Interface
 
         private async Task<Ebook> _OpenTargetBook(string fullPath, string bookId)
         {
-            FB2File fB2File;
             Fb2Document fb2Document = new Fb2Document();
-
             string fileContent = await _fileService.ReadFileContent(bookId);
-
-            fB2File = await new FB2Reader().ReadAsync(fileContent);
 
             fb2Document.Load(fileContent);
 
-            var parser = new FB2ToAppropriateFormatParser(fb2Document, fB2File);
+            var parser = new FB2ToAppropriateFormatParser(fb2Document);
 
             // MAGIC OF CONVERSION
             Ebook ebook = parser.ParseTargetFB2Book();
@@ -72,41 +68,42 @@ namespace Read_and_learn.Service.Interface
             return ebook;
         }
 
-        public Task<FormattedBook> PrepareFormattedData(Ebook book)
-        {
-            throw new NotImplementedException();
-        }
-
         private class FB2ToAppropriateFormatParser
         {
             private Fb2Document _fb2Document;
-            private FB2File _fB2File;
 
+            private int _currentInSectionPosition;
             private static List<string> _missedTypes = new List<string>();
             private static Regex _itemsRegex = new Regex(@"\w+|\W+", RegexOptions.Compiled);
             private static Regex _wordRegex = new Regex(@"\w+", RegexOptions.Compiled);
 
-            internal FB2ToAppropriateFormatParser(Fb2Document fb2Document, FB2File fB2File)
+            internal FB2ToAppropriateFormatParser(Fb2Document fb2Document)
             {
                 _fb2Document = fb2Document;
-                _fB2File = fB2File;
             }
 
             internal Ebook ParseTargetFB2Book()
             {
-                Guid bookId = Guid.NewGuid();
+                Stopwatch stopWatch = new Stopwatch();
+                stopWatch.Start();
 
                 Ebook ebook = new Ebook()
                 {
-                    Id = bookId,
+                    Id = Guid.NewGuid(),
                     Title = _GetTitle(),
                     Author = _GetAuthor(),
                     Description = _GetDescription(),
                     Language = _GetLanguage(),
-                    Cover = _GetCoverImage(),
-                    Sections = _GetSections(),
-                    Navigation = _GetNavigationItems()
+                    Cover = _GetCoverImage()
                 };
+
+                var sections = _GetSections();
+                var navigation = _GetNavigationItems(sections);
+
+                ebook.Sections = sections;
+                ebook.Navigation = navigation;
+
+                stopWatch.Stop();
 
                 return ebook;
             }
@@ -146,10 +143,23 @@ namespace Read_and_learn.Service.Interface
 
             private string _GetAuthor()
             {
-                return string.Join(",",
-                    _fB2File?.TitleInfo?.BookAuthors?
-                    .Select(a => a.FirstName.Text + " " + a.LastName.Text)?
-                    .ToArray() ?? null);
+                var authorElement = ((Author)_fb2Document.Title?.Content?
+                    .Where(c => c.Name == "author")
+                    .FirstOrDefault());
+
+                string firstName = ((FirstName)authorElement.Content?
+                    .Where(c => c.Name == "first-name")?
+                    .FirstOrDefault())?.Content ?? null;
+
+                string middleName = ((MiddleName)authorElement.Content?
+                    .Where(c => c.Name == "middle-name")?
+                    .FirstOrDefault())?.Content ?? null;
+
+                string lastName = ((LastName)authorElement.Content?
+                    .Where(c => c.Name == "last-name")?
+                    .FirstOrDefault())?.Content ?? null;
+
+                return $"{firstName} {middleName} {lastName}";
             }
 
             private List<Section> _GetSections()
@@ -167,21 +177,35 @@ namespace Read_and_learn.Service.Interface
                     sec.Position = positionCounter;
                     sec.Depth = 0;
 
+                    // handle section elements.
+                    _currentInSectionPosition = 0;
+
                     var innerAdditionalElements = body.Content?
                         .Where(c => c.Name == "title" || c.Name == "epigraph");
 
                     if (innerAdditionalElements.Any())
                         sec.Elements = _GetElementsFromTargetNodes(innerAdditionalElements, positionCounter);
 
-                    // increment section position before proceed inner sections.
-                    positionCounter++;
-
+                    // handle structure for notes.
                     if (body.Attributes != null && body.Attributes["name"] == "notes")
                     {
-                        var etsts = body;
-                    }
+                        var innerSections = body.Content?
+                            .Where(c => c.Name == "section");
 
-                    result.AddRange(_HadleInnerSections(body, ref positionCounter));
+                        var innerNotesElements = innerSections.SelectMany(s => ((BodySection)s).Content?.Where(c => c.Name != "image" && c.Name != "table" && c.Name != "section"));
+
+                        if (innerNotesElements.Any())
+                            sec.Elements.AddRange(_GetElementsFromTargetNodes(innerNotesElements, positionCounter));
+
+                    }
+                    // handle inner sections in any other case.
+                    else
+                    {
+                        // increment section position before proceed inner sections.
+                        positionCounter++;
+
+                        result.AddRange(_HadleInnerSections(body, ref positionCounter));
+                    }
 
                     result.Add(sec);
                 }
@@ -203,6 +227,9 @@ namespace Read_and_learn.Service.Interface
                     sec.Title = _GetSectionTitle(section, positionCounter);
                     sec.Position = positionCounter;
                     sec.Depth = depth;
+
+                    // handle inner section elements.
+                    _currentInSectionPosition = 0;
 
                     // [TODO]: add support for target elements.
                     // except "section" -> due to inner sections model.
@@ -235,7 +262,7 @@ namespace Read_and_learn.Service.Interface
 
             // add mechanism for element counter.
             // [TODO]: refactor this terrible method...
-            private List<Element> _GetElementsFromTargetNodes(IEnumerable<Fb2Node> targetContent, int parentPosition, int elementPosition = 0)
+            private List<Element> _GetElementsFromTargetNodes(IEnumerable<Fb2Node> targetContent, int parentPosition)
             {
                 var result = new List<Element>();
 
@@ -247,7 +274,7 @@ namespace Read_and_learn.Service.Interface
                         var epigraphElements = epigraph.Content?.Where(c => c.Name != "cite");
 
                         if (epigraphElements.Any())
-                            result.AddRange(_GetElementsFromTargetNodes(epigraphElements, parentPosition, elementPosition));
+                            result.AddRange(_GetElementsFromTargetNodes(epigraphElements, parentPosition));
                     }
                     else if (content is Title)
                     {
@@ -255,7 +282,7 @@ namespace Read_and_learn.Service.Interface
                         var titleContent = title.Content;
 
                         if (titleContent.Count > 0)
-                            result.AddRange(_GetElementsFromTargetNodes(titleContent, parentPosition, elementPosition));
+                            result.AddRange(_GetElementsFromTargetNodes(titleContent, parentPosition));
                     }
                     else if (content is SubTitle)
                     {
@@ -263,7 +290,7 @@ namespace Read_and_learn.Service.Interface
                         var subTitleContent = subTitle.Content;
 
                         if (subTitleContent.Count > 0)
-                            result.AddRange(_GetElementsFromTargetNodes(subTitleContent, parentPosition, elementPosition));
+                            result.AddRange(_GetElementsFromTargetNodes(subTitleContent, parentPosition));
                     }
                     else if (content is Paragraph)
                     {
@@ -272,7 +299,7 @@ namespace Read_and_learn.Service.Interface
                         var textElements = paragraph.Content?.Where(c => c.Name == "text");
 
                         if (textElements.Any())
-                            result.AddRange(_GetElementsFromTargetNodes(textElements, parentPosition, elementPosition));
+                            result.AddRange(_GetElementsFromTargetNodes(textElements, parentPosition));
                     }
                     else if (content is TextAutor)
                     {
@@ -281,7 +308,7 @@ namespace Read_and_learn.Service.Interface
                         var textAutorContent = textAutor.Content;
 
                         if (textAutorContent.Count > 0)
-                            result.AddRange(_GetElementsFromTargetNodes(textAutorContent, parentPosition, elementPosition));
+                            result.AddRange(_GetElementsFromTargetNodes(textAutorContent, parentPosition));
                     }
                     else if (content is Poem)
                     {
@@ -289,7 +316,7 @@ namespace Read_and_learn.Service.Interface
 
                         var poemContent = poem.Content;
                         if (poemContent.Count > 0)
-                            result.AddRange(_GetElementsFromTargetNodes(poemContent, parentPosition, elementPosition));
+                            result.AddRange(_GetElementsFromTargetNodes(poemContent, parentPosition));
                     }
                     else if (content is Quote)
                     {
@@ -297,7 +324,7 @@ namespace Read_and_learn.Service.Interface
 
                         var quoteContent = quote.Content;
                         if (quoteContent.Count > 0)
-                            result.AddRange(_GetElementsFromTargetNodes(quoteContent, parentPosition, elementPosition));
+                            result.AddRange(_GetElementsFromTargetNodes(quoteContent, parentPosition));
                     }
                     else if (content is Emphasis)
                     {
@@ -305,7 +332,7 @@ namespace Read_and_learn.Service.Interface
 
                         var emphasisContent = emphasis.Content;
                         if (emphasisContent.Count > 0)
-                            result.AddRange(_GetElementsFromTargetNodes(emphasisContent, parentPosition, elementPosition));
+                            result.AddRange(_GetElementsFromTargetNodes(emphasisContent, parentPosition));
                     }
                     else if (content is Annotation)
                     {
@@ -313,7 +340,7 @@ namespace Read_and_learn.Service.Interface
 
                         var annotationContent = annotation.Content;
                         if (annotationContent.Count > 0)
-                            result.AddRange(_GetElementsFromTargetNodes(annotationContent, parentPosition, elementPosition));
+                            result.AddRange(_GetElementsFromTargetNodes(annotationContent, parentPosition));
                     }
                     else if (content is TextItem)
                     {
@@ -333,7 +360,7 @@ namespace Read_and_learn.Service.Interface
                                     Type = _wordRegex.IsMatch(element) 
                                         ? ElementType.Text 
                                         : ElementType.Symbol,
-                                    Position = new Position(parentPosition, elementPosition++)
+                                    Position = new Position(parentPosition, _currentInSectionPosition++)
                                 };
 
                                 result.Add(newElement);
@@ -343,7 +370,7 @@ namespace Read_and_learn.Service.Interface
                             {
                                 Value = null,
                                 Type = ElementType.NewLine,
-                                Position = new Position(parentPosition, elementPosition)
+                                Position = new Position(parentPosition, _currentInSectionPosition++)
                             });
                         }
                     }
@@ -353,7 +380,7 @@ namespace Read_and_learn.Service.Interface
                         {
                             Value = null,
                             Type = ElementType.NewLine,
-                            Position = new Position(parentPosition, elementPosition)
+                            Position = new Position(parentPosition, _currentInSectionPosition++)
                         });
                     }
                     // handle missed types to add later.
@@ -369,13 +396,24 @@ namespace Read_and_learn.Service.Interface
                 return result;
             }    
 
-            private List<Navigation> _GetNavigationItems()
+            private List<Navigation> _GetNavigationItems(List<Section> bookSections)
             {
                 var result = new List<Navigation>();
 
+                foreach (var section in bookSections)
+                {
+                    result.Add(new Navigation()
+                    {
+                        Id = section.Id,
+                        Title = section.Title,
+                        Position = section.Position,
+                        Depth = section.Depth
+                    });
+                }
 
-
-                return result;
+                return result.OrderBy(r => r.Position)
+                    .ThenBy(r => r.Depth)
+                    .ToList();
             }
         }
     }
