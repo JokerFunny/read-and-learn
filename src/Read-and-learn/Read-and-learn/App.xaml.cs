@@ -8,7 +8,6 @@ using Read_and_learn.Page;
 using Read_and_learn.PlatformRelatedServices;
 using Read_and_learn.Service.Interface;
 using System;
-using System.IO;
 using System.Linq;
 using System.Reflection;
 using Xamarin.Forms;

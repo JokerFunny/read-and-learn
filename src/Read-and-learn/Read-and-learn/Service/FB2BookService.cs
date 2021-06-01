@@ -171,11 +171,14 @@ namespace Read_and_learn.Service.Interface
 
                 foreach (var body in bodies)
                 {
-                    var sec = new Section();
-                    sec.Id = Guid.NewGuid().ToString();
-                    sec.Title = _GetSectionTitle(body, positionCounter);
-                    sec.Position = positionCounter;
-                    sec.Depth = 0;
+                    var sec = new Section()
+                    {
+                        Id = Guid.NewGuid().ToString(),
+                        Title = _GetSectionTitle(body, positionCounter),
+                        Position = positionCounter,
+                        Depth = 0,
+                        Elements = new List<Element>()
+                    };
 
                     // handle section elements.
                     _currentInSectionPosition = 0;
@@ -222,11 +225,14 @@ namespace Read_and_learn.Service.Interface
 
                 foreach (BodySection section in innerSections)
                 {
-                    var sec = new Section();
-                    sec.Id = Guid.NewGuid().ToString();
-                    sec.Title = _GetSectionTitle(section, positionCounter);
-                    sec.Position = positionCounter;
-                    sec.Depth = depth;
+                    var sec = new Section()
+                    {
+                        Id = Guid.NewGuid().ToString(),
+                        Title = _GetSectionTitle(section, positionCounter),
+                        Position = positionCounter,
+                        Depth = 0,
+                        Elements = new List<Element>()
+                    };
 
                     // handle inner section elements.
                     _currentInSectionPosition = 0;

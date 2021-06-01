@@ -8,15 +8,20 @@
         <AbsoluteLayout VerticalOptions="Fill" HorizontalOptions="Fill" CompressedLayout.IsHeadless="true">
 
             <StackLayout x:Name="ReaderContent" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="SizeProportional" Margin="0,40,0,0" >
-                <Label FontSize="Medium" Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed facilisis ultricies enim, eget finibus lorem tempor et. Praesent quis suscipit ligula. Vestibulum pellentesque lorem et bibendum placerat. Cras dui leo, finibus a consectetur et, molestie sit amet elit. Curabitur vehicula erat in sem ultrices, ultricies pretium odio vehicula. Ut magna orci, vestibulum ac dolor quis, scelerisque hendrerit ex. Sed quis elit lorem. Nulla facilisi. Donec pellentesque mattis nulla, in maximus eros aliquet vel. Nulla facilisi. Suspendisse libero tortor, pretium eget elit a, tincidunt venenatis felis.
-Nunc at elit sit amet tortor feugiat tempus. Proin commodo massa eget massa mattis lacinia ut at sapien. Pellentesque aliquam, sem quis rhoncus molestie, dolor lectus porttitor risus, in egestas felis nisi non mi. Phasellus in tellus ac lorem feugiat sodales non tempus ante. Ut fringilla sit amet est a posuere. Sed cursus mi a felis egestas, nec consectetur lorem rutrum. Morbi mattis gravida risus, a imperdiet ante faucibus at. Nulla facilisi. In eleifend lacus at odio commodo, et condimentum urna volutpat. Quisque nec varius eros. Quisque posuere orci lorem, id vulputate massa porta et. Integer vel risus arcu. Donec libero urna, interdum id egestas eget, euismod eu turpis. Fusce imperdiet, neque in viverra condimentum, diam neque dictum nunc, nec feugiat arcu ligula nec quam. Maecenas non odio augue."
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-
-                <StackLayout.GestureRecognizers>
-                    <SwipeGestureRecognizer Direction="Left" Swiped="_OnSwiped" />
-                    <SwipeGestureRecognizer Direction="Right" Swiped="_OnSwiped"/>
-                </StackLayout.GestureRecognizers>
+                <ScrollView VerticalOptions="FillAndExpand" Orientation="Vertical">
+                    <ScrollView.Content>
+                        <FlexLayout x:Name="PageContent" Direction="Row" Wrap="Wrap" JustifyContent="Start" AlignItems="Start" AlignContent="Start">
+                            <!--<Button Text="mmmmmmmmm1mmmmmmmmm2" FontSize="20"></Button>
+                            <Button Text="mmmmmmmmm1mmmmmmmmm2mmmmmmmmm3" FontSize="20"></Button>
+                            <Label FontSize="Medium" Text="mmmmmmmmm1mmmmmmmmm2mmmmmmmmm3mmmmmmmmm4mmmmmmmmm5mmmmmmmmm6mmmmmmmmm7mmmmmmmmm1mmmmmmmmm2mmmmmmmmm3mmmmmmmmm4mmmmmmmmm5mmmmmmmmm6mmmmmmmmm7mmmmmmmmm1mmmmmmmmm2mmmmmmmmm3mmmmmmmmm4mmmmmmmmm5mmmmmmmmm6mmmmmmmmm7mmmmmmmmm1mmmmmmmmm2mmmmmmmmm3mmmmmmmmm4mmmmmmmmm5mmmmmmmmm6mmmmmmmmm7mmmmmmmmm1mmmmmmmmm2mmmmmmmmm3mmmmmmmmm4mmmmmmmmm5mmmmmmmmm6mmmmmmmmm7mmmmmmmmm1mmmmmmmmm2mmmmmmmmm3mmmmmmmmm4mmmmmmmmm5mmmmmmmmm6mmmmmmmmm7mmmmmmmmm1mmmmmmmmm2mmmmmmmmm3mmmmmmmmm4mmmmmmmmm5mmmmmmmmm6mmmmmmmmm7mmmmmmmmm1mmmmmmmmm2mmmmmmmmm3mmmmmmmmm4mmmmmmmmm5mmmmmmmmm6mmmmmmmmm7mmmmmmmmm1mmmmmmmmm2mmmmmmmmm3mmmmmmmmm4mmmmmmmmm5mmmmmmmmm6mmmmmmmmm7mmmmmmmmm1mmmmmmmmm2mmmmmmmmm3mmmmmmmmm4mmmmmmmmm5mmmmmmmmm6mmmmmmmmm7mmmmmmmmm1mmmmmmmmm2mmmmmmmmm3mmmmmmmmm4mmmmmmmmm5mmmmmmmmm6mmmmmmmmm7mmmmmmmmm1mmmmmmmmm2mmmmmmmmm3mmmmmmmmm4mmmmmmmmm5mmmmmmmmm6mmmmmmmmm7mmmmmmmmm1mmmmmmmmm2mmmmmmmmm3mmmmmmmmm4mmmmmmmmm5mmmmmmmmm6mmmmmmmmm7mmmmmmmmm1mmmmmmmmm2mmmmmmmmm3mmmmmmmmm4mmmmmmmmm5mmmmmmmmm6mmmmmmmmm7mmmmmmmmm1mmmmmmmmm2mmmmmmmmm3mmmmmmmmm4mmmmmmmmm5mmmmmmmmm6mmmmmmmmm7mmmmmmmmm1mmmmmmmmm2mmmmmmmmm3mmmmmmmmm4mmmmmmmmm5mmmmmmmmm6mmmmmmmmm7mmmmmmmmm1mmmmmmmmm2mmmmmmmmm3mmmmmmmmm4mmmmmmmmm5mmmmmmmmm6mmmmmmmmm7" 
+                HorizontalOptions="CenterAndExpand" />-->
+                            <FlexLayout.GestureRecognizers>
+                                <SwipeGestureRecognizer Direction="Left" Swiped="_OnSwiped" />
+                                <SwipeGestureRecognizer Direction="Right" Swiped="_OnSwiped"/>
+                            </FlexLayout.GestureRecognizers>
+                        </FlexLayout>
+                    </ScrollView.Content>
+                </ScrollView>
             </StackLayout>
             
             <local:HeaderPanel AbsoluteLayout.LayoutFlags="WidthProportional" AbsoluteLayout.LayoutBounds="0,0,1,40" />

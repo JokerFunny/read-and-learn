@@ -3,9 +3,10 @@ using Read_and_learn.Model;
 using Read_and_learn.Model.Bookshelf;
 using Read_and_learn.Model.DataStructure;
 using Read_and_learn.Model.Message;
-using Read_and_learn.Provider;
+using Read_and_learn.PlatformRelatedServices;
 using Read_and_learn.Service.Interface;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -24,10 +25,18 @@ namespace Read_and_learn.Page
         private IBookService _bookService;
         private ITranslateService _translateService;
 
+        private const int _marginTopConstant = 40;
+        // rework to be more flexible.
+        private int _charactersInOneLine = Device.RuntimePlatform == Device.Android ? 30 : 36;
+        private int _linesCount = Device.RuntimePlatform == Device.Android ? 25 : 27;
+
+        private Color _textColor = Color.Black;
+        private int _charactersPerPage;
         private int _currentChapter;
+        private int _currentPage;
         private Book _bookshelfBook;
         private Ebook _ebook;
-        private List<Page> _pages;
+        private List<BookPage> _pages;
         private int _fontSize;
         private Position _lastLoadedPosition = new Position();
 
@@ -48,11 +57,15 @@ namespace Read_and_learn.Page
 
             _messageBus.Send(new FullscreenRequestMessage(true));
 
+            _charactersPerPage = _linesCount * _charactersInOneLine;
             _SetFontSize();
             _SetMargin();
 
             if (UserSettings.Reader.NightMode)
+            {
                 BackgroundColor = Color.FromRgb(24, 24, 25);
+                _textColor = Color.AntiqueWhite;
+            }
 
             NavigationPage.SetHasNavigationBar(this, false);
         }
@@ -66,30 +79,17 @@ namespace Read_and_learn.Page
 
             _ebook = await _bookService.OpenBook(book.Path, book.Id);
 
-            var position = _bookshelfBook.Position;
+            _PreparePages(_ebook);
 
             MenuPanel.NavigationPanel.SetNavigation(_ebook.Navigation);
             _RefreshBookmarks();
 
-            Section chapter = null;
-            int positionInChapter = -1;
+            // open target page.
+            var position = _bookshelfBook.Position;
             if (position != null)
-            {
-                var loadedChapter = _ebook.Sections.FirstOrDefault(s => s.Position == position.Section);
-
-                if (loadedChapter != null)
-                {
-                    chapter = loadedChapter;
-                    positionInChapter = position.SectionPosition;
-                }
-            }
+                _OpenChapter(position.Section, position.SectionPosition);
             else
-            {
-                chapter = _ebook.Sections.First();
-                positionInChapter = 0;
-            }
-
-            _OpenChapter(chapter, position: positionInChapter);
+                _OpenChapter();
         }
 
         protected override void OnAppearing()
@@ -126,33 +126,9 @@ namespace Read_and_learn.Page
         private void _UnSubscribeMessages()
             => _messageBus.UnSubscribe(nameof(ReaderPage));
 
-        /// <remarks>
-        ///     DEBUG THIS PIECE.
-        /// </remarks>
-        private void _OnPanUpdated(object sender, PanUpdatedEventArgs e)
-        {
-            if (UserSettings.Control.BrightnessChange == BrightnessChange.None)
-                return;
-
-            switch (e.StatusType)
-            {
-                case GestureStatus.Completed:
-                    // Store the translation applied during the pan
-                    var totalWidth = (int)ReaderContent.Width;
-                    var edge = totalWidth / 5;
-
-                    if ((UserSettings.Control.BrightnessChange == BrightnessChange.Left && e.TotalX <= edge) ||
-                        (UserSettings.Control.BrightnessChange == BrightnessChange.Right && e.TotalX >= totalWidth - edge))
-                    {
-                        float brightness = 1 - ((float)e.TotalY / ((int)ReaderContent.Height + (2 * UserSettings.Reader.Margin)));
-
-                        _messageBus.Send(new ChangeBrightnessMessage { Brightness = brightness });
-                    }
-
-                    break;
-            }
-        }
-
+        /// <summary>
+        /// [TODO]
+        /// </summary>
         private void _OnSwiped(object sender, SwipedEventArgs e)
         {
             switch (e.Direction)
@@ -169,6 +145,9 @@ namespace Read_and_learn.Page
         private void _ApplicationSleepSubscriber(ApplicationSleepMessage msg)
             => _SaveProgress();
 
+        /// <summary>
+        /// [TODO]: check work.
+        /// </summary>
         private void _AddBookmark(AddBookmarkMessage msg)
         {
             _bookmarkService.CreateBookmark(DateTimeOffset.Now.ToString(), _bookshelfBook.Id, _bookshelfBook.Position);
@@ -176,6 +155,9 @@ namespace Read_and_learn.Page
             _RefreshBookmarks();
         }
 
+        /// <summary>
+        /// [TODO]: check work.
+        /// </summary>
         private void _DeleteBookmark(DeleteBookmarkMessage msg)
         {
             _bookmarkService.DeleteBookmark(msg.Bookmark);
@@ -199,19 +181,13 @@ namespace Read_and_learn.Page
 
         private void _OpenBookmark(OpenBookmarkMessage msg)
         {
-            var loadedChapter = _ebook.Sections.ElementAt(msg.Bookmark.Position.Section);
-            if (loadedChapter != null)
+            // check if target section exist in the book (for magic reasons it could not exist).
+            var bookSection = _ebook.Sections.ElementAt(msg.Bookmark.Position.Section);
+            if (bookSection != null)
             {
-                if (_currentChapter != msg.Bookmark.Position.Section)
-                {
-                    _OpenChapter(loadedChapter, position: msg.Bookmark.Position.SectionPosition);
-                }
-                else
-                {
-                    _bookshelfBook.SectionPosition = msg.Bookmark.Position.SectionPosition;
+                _OpenChapter(msg.Bookmark.Position.Section, msg.Bookmark.Position.SectionPosition);
 
-                    _GoToPosition(msg.Bookmark.Position.SectionPosition);
-                }
+                _ShowReaderContent();
             }
         }
 
@@ -240,12 +216,17 @@ namespace Read_and_learn.Page
             }
         }
 
-        private async void _OpenChapter(Section chapter, int position = 0, bool lastPage = false, string marker = "")
+        private void _OpenChapter(int sectionPosition = 0, int inSectionPosition = 0)
         {
-            _currentChapter = _ebook.Sections.IndexOf(chapter);
-            _bookshelfBook.Section = _currentChapter;
+            _currentChapter = sectionPosition;
+            _bookshelfBook.Section = sectionPosition;
 
-            /////// SOME DARK MAGIC TI GET CONTENT FROM SECTION TO APPROPRIATE FORMAT
+            int targetPage = _pages?
+                .Where(p => p.SectionId == _ebook.Sections.FirstOrDefault(s => s.Position == sectionPosition).Id 
+                    && p.StartPosition <= inSectionPosition)?
+                .LastOrDefault()?.Number ?? 0;
+
+            _OpenPage(targetPage, sectionPosition: sectionPosition);
         }
 
         private void _SaveProgress()
@@ -260,13 +241,14 @@ namespace Read_and_learn.Page
         {
             if (e.Id != null)
             {
-                var section = _ebook.Sections.FirstOrDefault(s => s.Position == e.Position);
-                if (section != null)
+                if (_ebook.Sections.FirstOrDefault(s => s.Position == e.Position) != null)
                 {
-                    _OpenChapter(section);
+                    _OpenChapter(e.Position);
 
                     _ShowReaderContent();
                 }
+                else
+                    throw new Exception("Bug during navigation via chapters!");
             }
         }
 
@@ -280,42 +262,190 @@ namespace Read_and_learn.Page
         private void _ShowReaderContent()
             => ReaderContent.IsVisible = true;
 
-        private void _OnNextChapter()
+        private void _SetFontSize()
         {
-            if (_currentChapter < _ebook.Sections.Count - 1)
+            _fontSize = UserSettings.Reader.FontSize;
+
+            if (_ebook != null)
             {
-                _OpenChapter(_ebook.Sections[_currentChapter + 1]);
+                _PreparePages(_ebook);
+                _RefreshPage();
+            }
+        }
+
+        private void _SetMargin()
+        {
+            ReaderContent.Margin = new Thickness(UserSettings.Reader.Margin,
+                _marginTopConstant,
+                UserSettings.Reader.Margin,
+                UserSettings.Reader.Margin);
+
+            // In ideal world this should be inplemented also...
+            //_PreparePages(_ebook);
+            //_RefreshPage();
+        }
+
+        private void _OpenPage(int page, bool next = false, bool previous = false, int sectionPosition = -1)
+        {
+            if (page == 0 && next)
+                _currentPage++;
+            else if (page == 0 && previous && _currentPage > 0)
+                _currentPage--;
+            else
+                _currentPage = page;
+
+            _RefreshPage();
+
+            var nextPage = _pages.FirstOrDefault(p => p.Number == _currentPage);
+
+            if (nextPage != null)
+            {
+                _RefreshPage();
+
                 _bookshelfBook.FinishedReading = null;
+
+                // handle change in HeaderPanel for pages count.
+
+                _bookshelfBook.Section = sectionPosition == -1
+                    ? _ebook.Sections.FirstOrDefault(s => s.Id == nextPage.SectionId).Position
+                    : sectionPosition;
+                _bookshelfBook.SectionPosition = nextPage.StartPosition;
+                _messageBus.Send(new PageChangeMessage { CurrentPage = _currentPage + 1, TotalPages = _pages.Count, Position = nextPage.StartPosition });
             }
             else
             {
                 _bookshelfBook.FinishedReading = DateTime.UtcNow;
+
+                IocManager.Container.Resolve<IToastService>().Show("You have finished reading this book!");
             }
 
             _bookshelfService.SaveBook(_bookshelfBook);
         }
 
-        private void _SetFontSize()
+        private void _PreparePages(Ebook ebook)
         {
-            _fontSize = UserSettings.Reader.FontSize;
+            _pages = new List<BookPage>();
+            int pageNumber = 0;
+            int startPostition = 0;
 
-            _RefreshPage();
+            foreach (var section in ebook.Sections)
+            {
+                int pageContentCount = 0;
+
+                BookPage result = new BookPage()
+                {
+                    SectionId = section.Id,
+                    Number = pageNumber,
+                    StartPosition = startPostition,
+                    Content = new List<Model.DataStructure.Element>()
+                };
+
+                foreach (var element in section.Elements)
+                {
+                    int availableLineSpace = _charactersInOneLine - pageContentCount % _charactersInOneLine;
+
+                    // if element is a new line - ignore end of current line due to line brake.
+                    if (element.Type == ElementType.NewLine)
+                    {
+                        pageContentCount += availableLineSpace;
+
+                        element.Value = new string('-', availableLineSpace);
+                    }
+                    else
+                    {
+                        int currentElementLength = element.Value.Length;
+
+                        // handle if target element bigger than available in line space.
+                        if (currentElementLength > availableLineSpace)
+                            pageContentCount += availableLineSpace + currentElementLength;
+                        else
+                            pageContentCount += currentElementLength;
+                    }
+
+                    // check if page already full and target element can`t be added to it.
+                    if (pageContentCount > _charactersPerPage)
+                    {
+                        _pages.Add(result);
+
+                        pageNumber++;
+                        pageContentCount = 0;
+
+                        // prepare a "new" page.
+
+                        result = new BookPage()
+                        {
+                            SectionId = section.Id,
+                            Number = pageNumber,
+                            StartPosition = element.Position.SectionPosition,
+                            Content = new List<Model.DataStructure.Element>()
+                        };
+                    }
+
+                    result.Content.Add(element);
+                }
+
+                // add page with some content.
+                if (result.Content.Any())
+                {
+                    _pages.Add(result);
+
+                    pageNumber++;
+                }
+            }
         }
 
-        private void _SetMargin()
+        private void _RefreshPage()
         {
-            ReaderContent.Margin = UserSettings.Reader.Margin;
+            // refresh current page.
+            //Device.BeginInvokeOnMainThread(() =>
+            //{
+            //    _SetItems(_pages.FirstOrDefault(p => p.Number == _currentPage).Content);
+            //});
+
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                _SetItemsTestMode();
+            });
+
+            _bookshelfService.SaveBook(_bookshelfBook);
         }
 
-        private void _OpenPage(int page, bool next, bool previous)
+        private void _SetItems(List<Model.DataStructure.Element> items)
         {
-            //Reload current view
+            PageContent.Children.Clear();
+
+            foreach (Model.DataStructure.Element item in items)
+            {
+                Label label = new Label
+                {
+                    Text = item.Value,
+                    FontSize = _fontSize,
+                    TextColor = _textColor,
+                    LineBreakMode = LineBreakMode.TailTruncation
+                };
+
+                if (item.Type == ElementType.NewLine)
+                    label.IsVisible = false;
+                
+                PageContent.Children.Add(label);
+            }
         }
 
-        private void _GoToPosition(int position)
+        private void _SetItemsTestMode()
         {
-            //calculate which page should be opened
-            //open proper page via _OpenPage()
+            PageContent.Children.Clear();
+            List<char> items = "aaaaaaaaa1aaaaaaaaa2aaaaaaaaa3aaaaaaaaa4aaaaaaaaa5aaaaaaaaa6aaaaaaaaa7aaaaaaaaa1aaaaaaaaa2aaaaaaaaa3aaaaaaaaa4aaaaaaaaa5aaaaaaaaa6aaaaaaaaa7aaaaaaaaa1aaaaaaaaa2aaaaaaaaa3aaaaaaaaa4aaaaaaaaa5aaaaaaaaa6aaaaaaaaa7aaaaaaaaa1aaaaaaaaa2aaaaaaaaa3aaaaaaaaa4aaaaaaaaa5aaaaaaaaa6aaaaaaaaa7aaaaaaaaa1aaaaaaaaa2aaaaaaaaa3aaaaaaaaa4aaaaaaaaa5aaaaaaaaa6aaaaaaaaa7aaaaaaaaa1aaaaaaaaa2aaaaaaaaa3aaaaaaaaa4aaaaaaaaa5aaaaaaaaa6aaaaaaaaa7aaaaaaaaa1aaaaaaaaa2aaaaaaaaa3aaaaaaaaa4aaaaaaaaa5aaaaaaaaa6aaaaaaaaa7".ToCharArray().ToList();
+
+            foreach (var item in items)
+            {
+                Label label = new Label
+                {
+                    Text = item + "",
+                    FontSize = _fontSize
+                };
+
+                PageContent.Children.Add(label);
+            }
         }
     }
 }
