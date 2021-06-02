@@ -31,7 +31,9 @@ namespace Read_and_learn.Service
                 BookId = bookID,
             };
 
-            return SaveBookmark(bookmark).Result;
+            Task<bool> task = Task.Run(async () => await SaveBookmark(bookmark));
+
+            return task.Result;
         }
 
         public async Task<bool> DeleteBookmark(Bookmark bookmark)

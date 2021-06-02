@@ -19,7 +19,7 @@ namespace Read_and_learn.Service.Translation
         {
             var result = await _Translate(targetWord, sourceLanguage);
 
-            return (WordTranslationResult)result;
+            return WordTranslationResult.GetWordTranslationResult(result);
         }
 
         public Task<TranslationResult> TranslatePart(string targetPart, string sourceLanguage)

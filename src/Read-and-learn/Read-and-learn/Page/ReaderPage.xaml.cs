@@ -8,6 +8,7 @@ using Read_and_learn.Service.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -153,9 +154,12 @@ namespace Read_and_learn.Page
         /// </summary>
         private void _AddBookmark(AddBookmarkMessage msg)
         {
-            _bookmarkService.CreateBookmark(DateTimeOffset.Now.ToString(), _bookshelfBook.Id, _bookshelfBook.Position);
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                _bookmarkService.CreateBookmark(_bookshelfBook.Title + " " + DateTimeOffset.Now.ToString(), _bookshelfBook.Id, _bookshelfBook.Position);
 
-            _RefreshBookmarks();
+                _RefreshBookmarks();
+            });
         }
 
         private void _OpenBookmark(OpenBookmarkMessage msg)
@@ -554,13 +558,16 @@ namespace Read_and_learn.Page
                     return false;
                 }
 
-                var translation = _translateService.TranslateWord(targetObj.Text, _ebook.Language).Result;
+                Task<WordTranslationResult> task = Task.Run(async () 
+                    => await _translateService.TranslateWord(targetObj.Text, _ebook.Language));
+
+                var translation = task.Result;
 
                 string result = null;
                 if (translation.Error != null)
                     result = "Error during translation. Please contact the developer.";
                 else
-                    result = $"Provider: {translation.Provider}\n\rResult: {translation.Result}{(translation.Synonyms.Any() ? $"\n\rSynonyms: {string.Join(", ", translation.Synonyms)}" : "")}";
+                    result = $"Provider: {translation.Provider}\r\nResult: {translation.Result}{(translation.Synonyms?.Any() ?? false ? $"\r\nSynonyms: {string.Join(", ", translation.Synonyms)}" : "")}";
 
                 _toastService.Show(result);
 

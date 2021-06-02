@@ -2,6 +2,7 @@
 <StackLayout xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              x:Class="Read_and_learn.Page.Reader.ReaderTabs.BookmarkTab.BookmarkItem"
+             xmlns:converter="clr-namespace:Read_and_learn.Helpers.Converters"
              Orientation="Horizontal"
              CompressedLayout.IsHeadless="true">
 
@@ -33,7 +34,7 @@
         <StackLayout x:Name="previewMode"
                      Orientation="Horizontal"
                      CompressedLayout.IsHeadless="true"
-                     IsVisible="{Binding EditMode}">
+                     IsVisible="{Binding EditMode, Converter={converter:InverseBoolConverter}}}">
             <Image Source="edit_white.png">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ShowEditCommand}" CommandParameter="{x:Reference NameEntry}" />

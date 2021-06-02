@@ -12,7 +12,9 @@
                     <ScrollView.Content>
                         <StackLayout x:Name="PageContentLayout" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" AbsoluteLayout.LayoutFlags="SizeProportional">
                             <!-- To show on first run "loading" process -->
-                            <ActivityIndicator HorizontalOptions="Center" VerticalOptions="Center" IsRunning="true" Color="Orange" />
+                            <FlexLayout JustifyContent="Center" AlignContent="Center" AlignItems="Center">
+                                <ActivityIndicator HorizontalOptions="Center" VerticalOptions="Center" IsRunning="true" Color="Orange" />
+                            </FlexLayout>
                             <StackLayout.GestureRecognizers>
                                 <SwipeGestureRecognizer Direction="Left" Swiped="_OnSwiped" />
                                 <SwipeGestureRecognizer Direction="Right" Swiped="_OnSwiped"/>
