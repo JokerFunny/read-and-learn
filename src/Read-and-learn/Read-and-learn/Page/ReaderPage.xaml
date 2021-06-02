@@ -8,18 +8,20 @@
         <AbsoluteLayout VerticalOptions="Fill" HorizontalOptions="Fill" CompressedLayout.IsHeadless="true">
 
             <StackLayout x:Name="ReaderContent" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="SizeProportional" Margin="0,40,0,0" >
-                <ScrollView VerticalOptions="FillAndExpand" Orientation="Vertical">
+                <ScrollView x:Name="ReaderScrollView" VerticalOptions="FillAndExpand" Orientation="Vertical">
                     <ScrollView.Content>
-                        <FlexLayout x:Name="PageContent" Direction="Row" Wrap="Wrap" JustifyContent="Start" AlignItems="Start" AlignContent="Start">
-                            <!--<Button Text="mmmmmmmmm1mmmmmmmmm2" FontSize="20"></Button>
-                            <Button Text="mmmmmmmmm1mmmmmmmmm2mmmmmmmmm3" FontSize="20"></Button>
-                            <Label FontSize="Medium" Text="mmmmmmmmm1mmmmmmmmm2mmmmmmmmm3mmmmmmmmm4mmmmmmmmm5mmmmmmmmm6mmmmmmmmm7mmmmmmmmm1mmmmmmmmm2mmmmmmmmm3mmmmmmmmm4mmmmmmmmm5mmmmmmmmm6mmmmmmmmm7mmmmmmmmm1mmmmmmmmm2mmmmmmmmm3mmmmmmmmm4mmmmmmmmm5mmmmmmmmm6mmmmmmmmm7mmmmmmmmm1mmmmmmmmm2mmmmmmmmm3mmmmmmmmm4mmmmmmmmm5mmmmmmmmm6mmmmmmmmm7mmmmmmmmm1mmmmmmmmm2mmmmmmmmm3mmmmmmmmm4mmmmmmmmm5mmmmmmmmm6mmmmmmmmm7mmmmmmmmm1mmmmmmmmm2mmmmmmmmm3mmmmmmmmm4mmmmmmmmm5mmmmmmmmm6mmmmmmmmm7mmmmmmmmm1mmmmmmmmm2mmmmmmmmm3mmmmmmmmm4mmmmmmmmm5mmmmmmmmm6mmmmmmmmm7mmmmmmmmm1mmmmmmmmm2mmmmmmmmm3mmmmmmmmm4mmmmmmmmm5mmmmmmmmm6mmmmmmmmm7mmmmmmmmm1mmmmmmmmm2mmmmmmmmm3mmmmmmmmm4mmmmmmmmm5mmmmmmmmm6mmmmmmmmm7mmmmmmmmm1mmmmmmmmm2mmmmmmmmm3mmmmmmmmm4mmmmmmmmm5mmmmmmmmm6mmmmmmmmm7mmmmmmmmm1mmmmmmmmm2mmmmmmmmm3mmmmmmmmm4mmmmmmmmm5mmmmmmmmm6mmmmmmmmm7mmmmmmmmm1mmmmmmmmm2mmmmmmmmm3mmmmmmmmm4mmmmmmmmm5mmmmmmmmm6mmmmmmmmm7mmmmmmmmm1mmmmmmmmm2mmmmmmmmm3mmmmmmmmm4mmmmmmmmm5mmmmmmmmm6mmmmmmmmm7mmmmmmmmm1mmmmmmmmm2mmmmmmmmm3mmmmmmmmm4mmmmmmmmm5mmmmmmmmm6mmmmmmmmm7mmmmmmmmm1mmmmmmmmm2mmmmmmmmm3mmmmmmmmm4mmmmmmmmm5mmmmmmmmm6mmmmmmmmm7mmmmmmmmm1mmmmmmmmm2mmmmmmmmm3mmmmmmmmm4mmmmmmmmm5mmmmmmmmm6mmmmmmmmm7mmmmmmmmm1mmmmmmmmm2mmmmmmmmm3mmmmmmmmm4mmmmmmmmm5mmmmmmmmm6mmmmmmmmm7" 
-                HorizontalOptions="CenterAndExpand" />-->
-                            <FlexLayout.GestureRecognizers>
+                        <StackLayout x:Name="PageContentLayout" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" AbsoluteLayout.LayoutFlags="SizeProportional">
+                            <!--<FlexLayout x:Name="PageContent" Direction="Row" Wrap="Wrap" JustifyContent="Start" AlignItems="Start" AlignContent="Start">
+                                <Button Text="mmmmmmmmm1mmmmmmmmm2" FontSize="20"></Button>
+                                <Button Text="mmmmmmmmm1mmmmmmmmm2mmmmmmmmm3" FontSize="20"></Button>
+                                <Label FontSize="Medium" Text="mmmmmmmmm1mmmmmmmmm2mmmmmmmmm3mmmmmmmmm4mmmmmmmmm5mmmmmmmmm6mmmmmmmmm7mmmmmmmmm1mmmmmmmmm2mmmmmmmmm3mmmmmmmmm4mmmmmmmmm5mmmmmmmmm6mmmmmmmmm7mmmmmmmmm1mmmmmmmmm2mmmmmmmmm3mmmmmmmmm4mmmmmmmmm5mmmmmmmmm6mmmmmmmmm7mmmmmmmmm1mmmmmmmmm2mmmmmmmmm3mmmmmmmmm4mmmmmmmmm5mmmmmmmmm6mmmmmmmmm7mmmmmmmmm1mmmmmmmmm2mmmmmmmmm3mmmmmmmmm4mmmmmmmmm5mmmmmmmmm6mmmmmmmmm7mmmmmmmmm1mmmmmmmmm2mmmmmmmmm3mmmmmmmmm4mmmmmmmmm5mmmmmmmmm6mmmmmmmmm7mmmmmmmmm1mmmmmmmmm2mmmmmmmmm3mmmmmmmmm4mmmmmmmmm5mmmmmmmmm6mmmmmmmmm7mmmmmmmmm1mmmmmmmmm2mmmmmmmmm3mmmmmmmmm4mmmmmmmmm5mmmmmmmmm6mmmmmmmmm7mmmmmmmmm1mmmmmmmmm2mmmmmmmmm3mmmmmmmmm4mmmmmmmmm5mmmmmmmmm6mmmmmmmmm7mmmmmmmmm1mmmmmmmmm2mmmmmmmmm3mmmmmmmmm4mmmmmmmmm5mmmmmmmmm6mmmmmmmmm7mmmmmmmmm1mmmmmmmmm2mmmmmmmmm3mmmmmmmmm4mmmmmmmmm5mmmmmmmmm6mmmmmmmmm7mmmmmmmmm1mmmmmmmmm2mmmmmmmmm3mmmmmmmmm4mmmmmmmmm5mmmmmmmmm6mmmmmmmmm7mmmmmmmmm1mmmmmmmmm2mmmmmmmmm3mmmmmmmmm4mmmmmmmmm5mmmmmmmmm6mmmmmmmmm7mmmmmmmmm1mmmmmmmmm2mmmmmmmmm3mmmmmmmmm4mmmmmmmmm5mmmmmmmmm6mmmmmmmmm7mmmmmmmmm1mmmmmmmmm2mmmmmmmmm3mmmmmmmmm4mmmmmmmmm5mmmmmmmmm6mmmmmmmmm7mmmmmmmmm1mmmmmmmmm2mmmmmmmmm3mmmmmmmmm4mmmmmmmmm5mmmmmmmmm6mmmmmmmmm7mmmmmmmmm1mmmmmmmmm2mmmmmmmmm3mmmmmmmmm4mmmmmmmmm5mmmmmmmmm6mmmmmmmmm7" 
+                HorizontalOptions="CenterAndExpand" />
+                            </FlexLayout> -->
+                            <StackLayout.GestureRecognizers>
                                 <SwipeGestureRecognizer Direction="Left" Swiped="_OnSwiped" />
                                 <SwipeGestureRecognizer Direction="Right" Swiped="_OnSwiped"/>
-                            </FlexLayout.GestureRecognizers>
-                        </FlexLayout>
+                            </StackLayout.GestureRecognizers>
+                        </StackLayout>
                     </ScrollView.Content>
                 </ScrollView>
             </StackLayout>

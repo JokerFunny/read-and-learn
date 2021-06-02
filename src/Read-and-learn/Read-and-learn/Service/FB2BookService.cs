@@ -74,8 +74,9 @@ namespace Read_and_learn.Service.Interface
 
             private int _currentInSectionPosition;
             private static List<string> _missedTypes = new List<string>();
-            private static Regex _itemsRegex = new Regex(@"\w+|\W+", RegexOptions.Compiled);
+            private static Regex _itemsRegex = new Regex(@"\w+|\s+|\W", RegexOptions.Compiled);
             private static Regex _wordRegex = new Regex(@"\w+", RegexOptions.Compiled);
+            private static Regex _spaceRegex = new Regex(@"\s+", RegexOptions.Compiled);
 
             internal FB2ToAppropriateFormatParser(Fb2Document fb2Document)
             {
@@ -365,6 +366,8 @@ namespace Read_and_learn.Service.Interface
                                     Value = element,
                                     Type = _wordRegex.IsMatch(element) 
                                         ? ElementType.Text 
+                                        : _spaceRegex.IsMatch(element) 
+                                        ? ElementType.WhiteSpace
                                         : ElementType.Symbol,
                                     Position = new Position(parentPosition, _currentInSectionPosition++)
                                 };

@@ -27,9 +27,10 @@ namespace Read_and_learn.Page
 
         private const int _marginTopConstant = 40;
         // rework to be more flexible.
-        private int _charactersInOneLine = Device.RuntimePlatform == Device.Android ? 30 : 36;
+        private int _charactersInOneLine = Device.RuntimePlatform == Device.Android ? 30 : 40;
         private int _linesCount = Device.RuntimePlatform == Device.Android ? 25 : 27;
 
+        private Color _backGroundColor = Color.White;
         private Color _textColor = Color.Black;
         private int _charactersPerPage;
         private int _currentChapter;
@@ -64,6 +65,8 @@ namespace Read_and_learn.Page
             if (UserSettings.Reader.NightMode)
             {
                 BackgroundColor = Color.FromRgb(24, 24, 25);
+
+                _backGroundColor = BackgroundColor;
                 _textColor = Color.AntiqueWhite;
             }
 
@@ -348,12 +351,14 @@ namespace Read_and_learn.Page
                     if (element.Type == ElementType.NewLine)
                     {
                         pageContentCount += availableLineSpace;
-
-                        element.Value = new string('-', availableLineSpace);
                     }
                     else
                     {
                         int currentElementLength = element.Value.Length;
+
+                        // change value for WhiteSpace element due to feature with label component...
+                        if (element.Type == ElementType.WhiteSpace)
+                            element.Value = new string('-', currentElementLength);
 
                         // handle if target element bigger than available in line space.
                         if (currentElementLength > availableLineSpace)
@@ -396,55 +401,99 @@ namespace Read_and_learn.Page
 
         private void _RefreshPage()
         {
-            // refresh current page.
+           // refresh current page.
+           Device.BeginInvokeOnMainThread(() =>
+           {
+               _SetItems(_pages.FirstOrDefault(p => p.Number == _currentPage).Content);
+           });
+
             //Device.BeginInvokeOnMainThread(() =>
             //{
-            //    _SetItems(_pages.FirstOrDefault(p => p.Number == _currentPage).Content);
+            //    _SetItemsTestMode();
             //});
-
-            Device.BeginInvokeOnMainThread(() =>
-            {
-                _SetItemsTestMode();
-            });
 
             _bookshelfService.SaveBook(_bookshelfBook);
         }
 
         private void _SetItems(List<Model.DataStructure.Element> items)
         {
-            PageContent.Children.Clear();
+            PageContentLayout.Children.Clear();
+
+            FlexLayout flexLayout = new FlexLayout()
+            {
+                Direction = FlexDirection.Row,
+                Wrap = FlexWrap.Wrap,
+                JustifyContent = FlexJustify.Start,
+                AlignItems = FlexAlignItems.Start,
+                AlignContent = FlexAlignContent.Start
+            };
 
             foreach (Model.DataStructure.Element item in items)
             {
+                // in case of new line - create new container to handle text.
+                if (item.Type == ElementType.NewLine)
+                {
+                    PageContentLayout.Children.Add(flexLayout);
+
+                    flexLayout = new FlexLayout()
+                    {
+                        Direction = FlexDirection.Row,
+                        Wrap = FlexWrap.Wrap,
+                        JustifyContent = FlexJustify.Start,
+                        AlignItems = FlexAlignItems.Start,
+                        AlignContent = FlexAlignContent.Start
+                    };
+                }
+
                 Label label = new Label
                 {
                     Text = item.Value,
                     FontSize = _fontSize,
-                    TextColor = _textColor,
-                    LineBreakMode = LineBreakMode.TailTruncation
+                    TextColor = _textColor
                 };
 
-                if (item.Type == ElementType.NewLine)
-                    label.IsVisible = false;
-                
-                PageContent.Children.Add(label);
+                if (item.Type == ElementType.WhiteSpace)
+                {
+                    label.TextColor = _backGroundColor;
+                }
+
+                flexLayout.Children.Add(label);
             }
+
+            PageContentLayout.Children.Add(flexLayout);
         }
 
         private void _SetItemsTestMode()
         {
-            PageContent.Children.Clear();
-            List<char> items = "aaaaaaaaa1aaaaaaaaa2aaaaaaaaa3aaaaaaaaa4aaaaaaaaa5aaaaaaaaa6aaaaaaaaa7aaaaaaaaa1aaaaaaaaa2aaaaaaaaa3aaaaaaaaa4aaaaaaaaa5aaaaaaaaa6aaaaaaaaa7aaaaaaaaa1aaaaaaaaa2aaaaaaaaa3aaaaaaaaa4aaaaaaaaa5aaaaaaaaa6aaaaaaaaa7aaaaaaaaa1aaaaaaaaa2aaaaaaaaa3aaaaaaaaa4aaaaaaaaa5aaaaaaaaa6aaaaaaaaa7aaaaaaaaa1aaaaaaaaa2aaaaaaaaa3aaaaaaaaa4aaaaaaaaa5aaaaaaaaa6aaaaaaaaa7aaaaaaaaa1aaaaaaaaa2aaaaaaaaa3aaaaaaaaa4aaaaaaaaa5aaaaaaaaa6aaaaaaaaa7aaaaaaaaa1aaaaaaaaa2aaaaaaaaa3aaaaaaaaa4aaaaaaaaa5aaaaaaaaa6aaaaaaaaa7".ToCharArray().ToList();
+            //PageContent.Children.Clear();
 
-            foreach (var item in items)
+            PageContentLayout.Children.Clear();
+
+            for (int i = 0; i < 2; i++)
             {
-                Label label = new Label
+                FlexLayout flexLayout = new FlexLayout()
                 {
-                    Text = item + "",
-                    FontSize = _fontSize
+                    Direction = FlexDirection.Row,
+                    Wrap = FlexWrap.Wrap,
+                    JustifyContent = FlexJustify.Start,
+                    AlignItems = FlexAlignItems.Start,
+                    AlignContent = FlexAlignContent.Start
                 };
 
-                PageContent.Children.Add(label);
+                List<char> items = "aaaaaaaaa1aaaaaaaaa2aaaaaaaaa3aaaaaaaaa4aaaaaaaaa5aaaaaaaaa6aaaaaaaaa7aaaaaaaaa1aaaaaaaaa2aaaaaaaaa3aaaaaaaaa4aaaaaaaaa5aaaaaaaaa6aaaaaaaaa7aaaaaaaaa1aaaaaaaaa2aaaaaaaaa3aaaaaaaaa4aaaaaaaaa5aaaaaaaaa6aaaaaaaaa7aaaaaaaaa1aaaaaaaaa2aaaaaaaaa3aaaaaaaaa4aaaaaaaaa5aaaaaaaaa6aaaaaaaaa7aaaaaaaaa1aaaaaaaaa2aaaaaaaaa3aaaaaaaaa4aaaaaaaaa5aaaaaaaaa6aaaaaaaaa7aaaaaaaaa1aaaaaaaaa2aaaaaaaaa3aaaaaaaaa4aaaaaaaaa5aaaaaaaaa6aaaaaaaaa7aaaaaaaaa1aaaaaaaaa2aaaaaaaaa3aaaaaaaaa4aaaaaaaaa5aaaaaaaaa6aaaaaaaaa7".ToCharArray().ToList();
+
+                foreach (var item in items)
+                {
+                    Label label = new Label
+                    {
+                        Text = item + "",
+                        FontSize = _fontSize
+                    };
+
+                    flexLayout.Children.Add(label);
+                }
+
+                PageContentLayout.Children.Add(flexLayout);
             }
         }
     }

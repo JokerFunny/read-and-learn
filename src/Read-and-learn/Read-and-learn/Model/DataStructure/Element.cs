@@ -31,6 +31,7 @@ namespace Read_and_learn.Model.DataStructure
         Text,
         Image,
         Symbol,
+        WhiteSpace,
         NewLine
     }
 }
