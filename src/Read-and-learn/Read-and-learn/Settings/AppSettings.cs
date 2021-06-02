@@ -53,5 +53,21 @@ namespace Read_and_learn
             /// </summary>
             public static string SqlLiteFilename = "bookshelf.db3";
         }
+
+        /// <summary>
+        /// Hold settings related to the translation.
+        /// </summary>
+        public static class Translation
+        {
+            /// <summary>
+            /// API key for Yandex translator.
+            /// </summary>
+            public static string YandexTranslationAPIKey = ConfigurationManager.AppSettings["Yandex_Translation_API_key"];
+
+            /// <summary>
+            /// API key for Yandex dictionary.
+            /// </summary>
+            public static string YandexDictionaryAPIKey = ConfigurationManager.AppSettings["Yandex_Dictionary_API_key"];
+        }
     }
 }

@@ -15,7 +15,7 @@ namespace Read_and_learn.Service.Interface
         /// <param name="targetWord">Target word to translate</param>
         /// <param name="sourceLanguage">Word source language</param>
         /// <returns>
-        ///     Result of translation.
+        ///     Result of translation, <see cref="WordTranslationResult"/>.
         /// </returns>
         Task<WordTranslationResult> TranslateWord(string targetWord, string sourceLanguage);
 
@@ -25,7 +25,7 @@ namespace Read_and_learn.Service.Interface
         /// <param name="targetPart">Target part to translate</param>
         /// <param name="sourceLanguage">Word source language</param>
         /// <returns>
-        ///     Result of translation.
+        ///     Result of translation, <see cref="TranslationResult"/>.
         /// </returns>
         /// <remarks>
         ///     The target part is meant as a phrase, part of a sentence, sentence, or even more, for example, a paragraph of text.

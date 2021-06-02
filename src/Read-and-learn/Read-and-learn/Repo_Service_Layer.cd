@@ -40,11 +40,11 @@
       <FileName>Service\BookshelfService.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Field Name="_bookmarkRepository" />
-      <Field Name="_bookRepository" />
-      <Field Name="_bookService" />
-      <Field Name="_cryptoService" />
       <Field Name="_fileService" />
+      <Field Name="_cryptoService" />
+      <Field Name="_bookService" />
+      <Field Name="_bookRepository" />
+      <Field Name="_bookmarkRepository" />
     </ShowAsAssociation>
     <Lollipop Position="0.2" />
   </Class>
@@ -102,7 +102,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Read_and_learn.Service.Translation.GoogleTranslatorService">
-    <Position X="10" Y="11.5" Width="2" />
+    <Position X="10" Y="12" Width="2" />
     <TypeIdentifier>
       <HashCode>AIAAAAABAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAA=</HashCode>
       <FileName>Service\Translation\GoogleTranslatorService.cs</FileName>
@@ -126,9 +126,9 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Read_and_learn.Service.Translation.YandexTranslatorService">
-    <Position X="7.75" Y="11.5" Width="2" />
+    <Position X="7.75" Y="12" Width="2" />
     <TypeIdentifier>
-      <HashCode>AIAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AIAAAAABAAAAAAAAAAAACIAAAAAAAAAAAAAAAAACAAA=</HashCode>
       <FileName>Service\Translation\YandexTranslatorService.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />

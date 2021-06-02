@@ -5,8 +5,13 @@ using System.Threading.Tasks;
 
 namespace Read_and_learn.Service.Translation
 {
+    /// <summary>
+    /// Implementation of <see cref="ITranslatorService"/> for <see cref="TranslationServicesProvider.Reverso"/>.
+    /// </summary>
     public class ReversoTranslatorService : ITranslatorService
     {
+        //private ReversoService _reversoService;
+
         public Task<TranslationResult> TranslatePart(string targetPart, string sourceLanguage)
         {
             throw new NotImplementedException();

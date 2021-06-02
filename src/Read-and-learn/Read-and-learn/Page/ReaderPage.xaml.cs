@@ -8,6 +8,7 @@ using Read_and_learn.Service.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -24,15 +25,21 @@ namespace Read_and_learn.Page
         private IBookmarkService _bookmarkService;
         private IBookService _bookService;
         private ITranslateService _translateService;
+        private IToastService _toastService;
 
         private const int _marginTopConstant = 40;
         // rework to be more flexible.
+        private int _charactersPerPage;
         private int _charactersInOneLine = Device.RuntimePlatform == Device.Android ? 30 : 40;
         private int _linesCount = Device.RuntimePlatform == Device.Android ? 25 : 27;
 
+        private bool _labelDoubleCliked = false;
+        private Label _firsClickedLabel = null;
         private Color _backGroundColor = Color.White;
         private Color _textColor = Color.Black;
-        private int _charactersPerPage;
+        private Color _singleClickColor = Color.Green;
+        private Color _doubleClickColor = Color.Orange;
+
         private int _currentChapter;
         private int _currentPage;
         private Book _bookshelfBook;
@@ -53,6 +60,7 @@ namespace Read_and_learn.Page
             _bookmarkService = IocManager.Container.Resolve<IBookmarkService>();
             _bookService = IocManager.Container.Resolve<IBookService>();
             _translateService = IocManager.Container.Resolve<ITranslateService>();
+            _toastService = IocManager.Container.Resolve<IToastService>();
 
             MenuPanel.NavigationPanel.OnChapterChange += _NavigationPanel_OnChapterChange;
 
@@ -129,21 +137,13 @@ namespace Read_and_learn.Page
         private void _UnSubscribeMessages()
             => _messageBus.UnSubscribe(nameof(ReaderPage));
 
-        /// <summary>
-        /// [TODO]
-        /// </summary>
-        private void _OnSwiped(object sender, SwipedEventArgs e)
-        {
-            switch (e.Direction)
-            {
-                case SwipeDirection.Left:
-                    _OpenPage(0, true, false);
-                    break;
-                case SwipeDirection.Right:
-                    _OpenPage(0, false, true);
-                    break;
-            }
-        }
+        #region Subscribers
+
+        private void _ChangeMargin(ChangeMarginMessage msg)
+            => _SetMargin();
+
+        private void _ChangeFontSize(ChangeFontSizeMessage msg)
+            => _SetFontSize();
 
         private void _ApplicationSleepSubscriber(ApplicationSleepMessage msg)
             => _SaveProgress();
@@ -156,6 +156,18 @@ namespace Read_and_learn.Page
             _bookmarkService.CreateBookmark(DateTimeOffset.Now.ToString(), _bookshelfBook.Id, _bookshelfBook.Position);
 
             _RefreshBookmarks();
+        }
+
+        private void _OpenBookmark(OpenBookmarkMessage msg)
+        {
+            // check if target section exist in the book (for magic reasons it could not exist).
+            var bookSection = _ebook.Sections.ElementAt(msg.Bookmark.Position.Section);
+            if (bookSection != null)
+            {
+                _OpenChapter(msg.Bookmark.Position.Section, msg.Bookmark.Position.SectionPosition);
+
+                _ShowReaderContent();
+            }
         }
 
         /// <summary>
@@ -174,31 +186,6 @@ namespace Read_and_learn.Page
 
             _RefreshBookmarks();
         }
-
-        private async void _RefreshBookmarks()
-        {
-            var bookmarks = await _bookmarkService.LoadBookmarksByBookId(_bookshelfBook.Id);
-
-            MenuPanel.BookmarksPanel.UpdateBookmarks(bookmarks);
-        }
-
-        private void _OpenBookmark(OpenBookmarkMessage msg)
-        {
-            // check if target section exist in the book (for magic reasons it could not exist).
-            var bookSection = _ebook.Sections.ElementAt(msg.Bookmark.Position.Section);
-            if (bookSection != null)
-            {
-                _OpenChapter(msg.Bookmark.Position.Section, msg.Bookmark.Position.SectionPosition);
-
-                _ShowReaderContent();
-            }
-        }
-
-        private void _ChangeMargin(ChangeMarginMessage msg)
-            => _SetMargin();
-
-        private void _ChangeFontSize(ChangeFontSizeMessage msg)
-            => _SetFontSize();
 
         private void _GoToPageHandler(GoToPageMessage msg)
             => _OpenPage(msg.Page, msg.Next, msg.Previous);
@@ -219,13 +206,51 @@ namespace Read_and_learn.Page
             }
         }
 
+        private void _OnOpenReaderMenuRequest(OpenReaderMenuMessage msg)
+        {
+            // [TODO]: check if this really needed...
+            _labelDoubleCliked = false;
+            _firsClickedLabel = null;
+
+            ReaderContent.IsVisible = false;
+
+            MenuPanel.ShowPanel();
+        }
+
+        private void _ShowReaderContent()
+            => ReaderContent.IsVisible = true;
+
+        #endregion
+
+        #region ReaderMainFunctions
+
+        private void _OnSwiped(object sender, SwipedEventArgs e)
+        {
+            switch (e.Direction)
+            {
+                case SwipeDirection.Left:
+                    _OpenPage(0, true, false);
+                    break;
+                case SwipeDirection.Right:
+                    _OpenPage(0, false, true);
+                    break;
+            }
+        }
+
+        private async void _RefreshBookmarks()
+        {
+            var bookmarks = await _bookmarkService.LoadBookmarksByBookId(_bookshelfBook.Id);
+
+            MenuPanel.BookmarksPanel.UpdateBookmarks(bookmarks);
+        }
+
         private void _OpenChapter(int sectionPosition = 0, int inSectionPosition = 0)
         {
             _currentChapter = sectionPosition;
             _bookshelfBook.Section = sectionPosition;
 
             int targetPage = _pages?
-                .Where(p => p.SectionId == _ebook.Sections.FirstOrDefault(s => s.Position == sectionPosition).Id 
+                .Where(p => p.SectionId == _ebook.Sections.FirstOrDefault(s => s.Position == sectionPosition).Id
                     && p.StartPosition <= inSectionPosition)?
                 .LastOrDefault()?.Number ?? 0;
 
@@ -234,7 +259,7 @@ namespace Read_and_learn.Page
 
         private void _SaveProgress()
         {
-            if (_bookshelfBook == null) 
+            if (_bookshelfBook == null)
                 return;
 
             _bookshelfService.SaveBook(_bookshelfBook);
@@ -255,23 +280,14 @@ namespace Read_and_learn.Page
             }
         }
 
-        private void _OnOpenReaderMenuRequest(OpenReaderMenuMessage msg)
-        {
-            ReaderContent.IsVisible = false;
-
-            MenuPanel.ShowPanel();
-        }
-
-        private void _ShowReaderContent()
-            => ReaderContent.IsVisible = true;
-
         private void _SetFontSize()
         {
             _fontSize = UserSettings.Reader.FontSize;
 
             if (_ebook != null)
             {
-                _PreparePages(_ebook);
+                // [TODO]: calculate a proper count of chars on page...
+                //_PreparePages(_ebook);
                 _RefreshPage();
             }
         }
@@ -290,14 +306,15 @@ namespace Read_and_learn.Page
 
         private void _OpenPage(int page, bool next = false, bool previous = false, int sectionPosition = -1)
         {
+            _labelDoubleCliked = false;
+            _firsClickedLabel = null;
+
             if (page == 0 && next)
                 _currentPage++;
             else if (page == 0 && previous && _currentPage > 0)
                 _currentPage--;
             else
                 _currentPage = page;
-
-            _RefreshPage();
 
             var nextPage = _pages.FirstOrDefault(p => p.Number == _currentPage);
 
@@ -319,7 +336,7 @@ namespace Read_and_learn.Page
             {
                 _bookshelfBook.FinishedReading = DateTime.UtcNow;
 
-                IocManager.Container.Resolve<IToastService>().Show("You have finished reading this book!");
+                _toastService.Show("You have finished reading this book!");
             }
 
             _bookshelfService.SaveBook(_bookshelfBook);
@@ -401,11 +418,11 @@ namespace Read_and_learn.Page
 
         private void _RefreshPage()
         {
-           // refresh current page.
-           Device.BeginInvokeOnMainThread(() =>
-           {
-               _SetItems(_pages.FirstOrDefault(p => p.Number == _currentPage).Content);
-           });
+            // refresh current page.
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                _SetItems(_pages.FirstOrDefault(p => p.Number == _currentPage).Content);
+            });
 
             //Device.BeginInvokeOnMainThread(() =>
             //{
@@ -456,6 +473,18 @@ namespace Read_and_learn.Page
                 {
                     label.TextColor = _backGroundColor;
                 }
+                else if (item.Type == ElementType.Text)
+                {
+                    var singleTapGestureRecognizer = new TapGestureRecognizer();
+                    singleTapGestureRecognizer.Tapped += (o, e) => _OnTextPressed(o, e);
+
+                    var doubleTapGestureRecognizer = new TapGestureRecognizer();
+                    doubleTapGestureRecognizer.NumberOfTapsRequired = 2;
+                    doubleTapGestureRecognizer.Tapped += (o, e) => _OnTextDoublePressed(o, e);
+
+                    label.GestureRecognizers.Add(singleTapGestureRecognizer);
+                    label.GestureRecognizers.Add(doubleTapGestureRecognizer);
+                }
 
                 flexLayout.Children.Add(label);
             }
@@ -496,5 +525,121 @@ namespace Read_and_learn.Page
                 PageContentLayout.Children.Add(flexLayout);
             }
         }
+
+        private async void _ChangeBackgroundColor(Label targetObj)
+        {
+
+        }
+
+        #endregion
+
+        #region Translation
+
+        private void _OnTextPressed(object sender, EventArgs e)
+        {
+            // remove double clicked from label.
+            if (_labelDoubleCliked)
+                return;
+
+            Label targetObj = (Label)sender;
+
+            targetObj.BackgroundColor = _singleClickColor;
+
+            Device.StartTimer(new TimeSpan(0, 0, 0, 0, 500), () => {
+                if (_labelDoubleCliked)
+                {
+                    if (targetObj.BackgroundColor == _singleClickColor)
+                        targetObj.BackgroundColor = _backGroundColor;
+
+                    return false;
+                }
+
+                var translation = _translateService.TranslateWord(targetObj.Text, _ebook.Language).Result;
+
+                string result = null;
+                if (translation.Error != null)
+                    result = "Error during translation. Please contact the developer.";
+                else
+                    result = $"Provider: {translation.Provider}\n\rResult: {translation.Result}{(translation.Synonyms.Any() ? $"\n\rSynonyms: {string.Join(", ", translation.Synonyms)}" : "")}";
+
+                _toastService.Show(result);
+
+                Device.StartTimer(new TimeSpan(0, 0, 2), () =>
+                {
+                    targetObj.BackgroundColor = _backGroundColor;
+                    return false;
+                });
+
+                return false;
+            });
+        }
+
+        private void _OnTextDoublePressed(object sender, EventArgs e)
+        {
+            Label targetObj = (Label)sender;
+
+            if (!_labelDoubleCliked)
+            {
+                _labelDoubleCliked = true;
+
+                _firsClickedLabel = targetObj;
+                targetObj.BackgroundColor = Color.Orange;
+            }
+            else
+            {
+                var current = Connectivity.NetworkAccess;
+
+                // if exist - try to translate current part
+                if (current == NetworkAccess.Internet)
+                {
+                    _labelDoubleCliked = false;
+
+                    var startPos = PageContentLayout.Children.IndexOf(_firsClickedLabel);
+                    var endPos = PageContentLayout.Children.IndexOf(targetObj);
+
+                    if (endPos < startPos)
+                    {
+                        int swap = endPos;
+                        endPos = startPos;
+                        startPos = swap;
+                    }
+
+                    // add backgroun color for all elements that should be translated.
+                    string targetPart = null;
+                    for (; startPos <= endPos; startPos++)
+                    {
+                        Label part = (Label)PageContentLayout.Children[startPos];
+                        part.BackgroundColor = Color.Orange;
+
+                        targetPart += part.Text;
+                    }
+
+                    var translation = _translateService.TranslatePart(targetPart, _ebook.Language).Result;
+
+                    string result = $"{(translation.Error != null ? "Error during translation. Please contact the developer." : "Provider: {translation.Provider}\n\rResult: {translation.Result}.")}";
+
+                    DisplayAlert("Translation result:", result, "OK");
+
+                    //Device.StartTimer(new TimeSpan(0, 0, 2), () => {
+                    //    //change color for all object to default.
+                    //
+                    //    _labelDoubleCliked = false;
+                    //    _firsClickedLabel = null;
+                    //
+                    //    return false;
+                    //});
+                }
+                else
+                {
+                    _toastService.Show("You can`t translate part of text without Internet connection.");
+                    _firsClickedLabel.BackgroundColor = _backGroundColor;
+
+                    _labelDoubleCliked = false;
+                    _firsClickedLabel = null;
+                }
+            }
+        }
+
+        #endregion
     }
 }

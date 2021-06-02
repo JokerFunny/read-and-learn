@@ -1,20 +1,106 @@
 ﻿using Read_and_learn.Model.DataStructure;
 using Read_and_learn.Service.Interface;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using YandexLinguistics.NET;
+using YandexLinguistics.NET.Dictionary;
+using YandexLinguistics.NET.Translator;
 
 namespace Read_and_learn.Service.Translation
 {
+    /// <summary>
+    /// Implementation of <see cref="ITranslatorService"/> for <see cref="TranslationServicesProvider.Yandex_Translator"/>.
+    /// </summary>
     public class YandexTranslatorService : ITranslatorService
     {
-        public Task<TranslationResult> TranslatePart(string targetPart, string sourceLanguage)
+        private TranslatorService _translatorService; 
+        private DictionaryService _dictionaryService;
+
+        /// <summary>
+        /// Public ctor.
+        /// </summary>
+        public YandexTranslatorService()
         {
-            throw new NotImplementedException();
+            _translatorService = new TranslatorService(AppSettings.Translation.YandexTranslationAPIKey);
+            _dictionaryService = new DictionaryService(AppSettings.Translation.YandexDictionaryAPIKey);
         }
 
-        public Task<WordTranslationResult> TranslateWord(string targetWord, string sourceLanguage)
+        public async Task<TranslationResult> TranslatePart(string targetPart, string sourceLanguage)
         {
-            throw new NotImplementedException();
+            string translationResult = null;
+
+            try
+            {
+                var targetLanguage = _ParseLanguage();
+
+                // translate with auto-detect source language.
+                var translation = await _translatorService.TranslateAsync(targetPart,
+                       new LanguagePair(Language.None, targetLanguage), null, true);
+
+                translationResult = translation.Texts[0];
+            }
+            catch (Exception ex)
+            {
+                return new TranslationResult()
+                {
+                    Error = ex,
+                    Result = ""
+                };
+            }
+
+            return new TranslationResult()
+            {
+                Error = null,
+                Result = translationResult
+            };
+        }
+
+        public async Task<WordTranslationResult> TranslateWord(string targetWord, string sourceLanguage)
+        {
+            string translationResult = null;
+            List<string> synonyms = null;
+
+            try
+            {
+                var targetLanguage = _ParseLanguage();
+
+                // translate with auto-detect source language.
+                var translation = await _dictionaryService.LookupAsync(new LanguagePair(Language.None, targetLanguage), "time");
+                
+                var def0 = translation.Definitions[0];
+                var tr = def0.Translations[0];
+                translationResult = tr.Text;
+                synonyms = (List<string>)tr.Synonyms.Select(s => s.Text);
+
+            }
+            catch (Exception ex)
+            {
+                return new WordTranslationResult()
+                {
+                    Error = ex,
+                    Result = ""
+                };
+            }
+
+            return new WordTranslationResult()
+            {
+                Error = null,
+                Result = translationResult,
+                Synonyms = synonyms
+            };
+        }
+
+
+        private Language _ParseLanguage()
+        {
+            var language = UserSettings.Translation.SelectedLanguage;
+
+            if (Enum.TryParse(language, true, out Language supportedType))
+                return supportedType;
+
+            return Language.Uk;
         }
     }
 }

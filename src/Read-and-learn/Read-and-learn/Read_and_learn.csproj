@@ -33,6 +33,7 @@
     <PackageReference Include="Xam.Plugins.Settings" Version="4.1.0-beta" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
     <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
+    <PackageReference Include="YandexLinguistics.NET" Version="2.0.0" />
   </ItemGroup>
 
   <ItemGroup>

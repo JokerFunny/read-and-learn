@@ -4,9 +4,9 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web;
-using File = System.IO.File;
 
 namespace Read_and_learn.Service.Translation
 {
@@ -17,9 +17,9 @@ namespace Read_and_learn.Service.Translation
     {
         public async Task<WordTranslationResult> TranslateWord(string targetWord, string sourceLanguage)
         {
-            WordTranslationResult result = (WordTranslationResult)await _Translate(targetWord, sourceLanguage);
+            var result = await _Translate(targetWord, sourceLanguage);
 
-            return result;
+            return (WordTranslationResult)result;
         }
 
         public Task<TranslationResult> TranslatePart(string targetPart, string sourceLanguage)
@@ -38,44 +38,54 @@ namespace Read_and_learn.Service.Translation
                                             targetLanguage,
                                             HttpUtility.UrlEncode(targetText));
 
-                string outputFile = Path.GetTempFileName();
-                using (WebClient wc = new WebClient())
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                var response = await request.GetResponseAsync().ConfigureAwait(false);
+                HttpWebResponse httpResponse = (HttpWebResponse)response;
+
+                string result = string.Empty;
+
+                if (httpResponse.StatusCode == HttpStatusCode.OK)
                 {
-                    wc.Headers.Add("user-agent", "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36");
-                    await wc.DownloadFileTaskAsync(url, outputFile);
+                    using(Stream receiveStream = httpResponse.GetResponseStream())
+                    using (StreamReader readStream = string.IsNullOrWhiteSpace(httpResponse.CharacterSet)
+                        ? new StreamReader(receiveStream)
+                        : new StreamReader(receiveStream, Encoding.GetEncoding(httpResponse.CharacterSet)))
+
+                        result = await readStream.ReadToEndAsync();
+
+                    httpResponse.Close();
                 }
 
                 // Get translated text
-                if (File.Exists(outputFile))
+                if (!string.IsNullOrEmpty(result))
                 {
                     // Get phrase collection
-                    string text = File.ReadAllText(outputFile);
-                    int index = text.IndexOf(string.Format(",,\"{0}\"", sourceLanguage));
+                    int index = result.IndexOf(string.Format(",,\"{0}\"", sourceLanguage));
 
                     if (index == -1)
                     {
                         // Translation of single word
-                        int startQuote = text.IndexOf('\"');
+                        int startQuote = result.IndexOf('\"');
                         if (startQuote != -1)
                         {
-                            int endQuote = text.IndexOf('\"', startQuote + 1);
+                            int endQuote = result.IndexOf('\"', startQuote + 1);
                             if (endQuote != -1)
                             {
-                                translation = text.Substring(startQuote + 1, endQuote - startQuote - 1);
+                                translation = result.Substring(startQuote + 1, endQuote - startQuote - 1);
                             }
                         }
                     }
                     else
                     {
                         // Translation of phrase
-                        text = text.Substring(0, index);
-                        text = text.Replace("],[", ",");
-                        text = text.Replace("]", string.Empty);
-                        text = text.Replace("[", string.Empty);
-                        text = text.Replace("\",\"", "\"");
+                        result = result.Substring(0, index);
+                        result = result.Replace("],[", ",");
+                        result = result.Replace("]", string.Empty);
+                        result = result.Replace("[", string.Empty);
+                        result = result.Replace("\",\"", "\"");
 
                         // Get translated phrases
-                        string[] phrases = text.Split(new[] { '\"' }, StringSplitOptions.RemoveEmptyEntries);
+                        string[] phrases = result.Split(new[] { '\"' }, StringSplitOptions.RemoveEmptyEntries);
                         for (int i = 0; (i < phrases.Count()); i += 2)
                         {
                             string translatedPhrase = phrases[i];
