@@ -553,16 +553,17 @@ namespace Read_and_learn.Page
 
         private void _OnTextPressed(object sender, EventArgs e)
         {
-            // remove double clicked from label.
+            Label targetObj = (Label)sender;
+
+            // remove double clicked from label if clicked on another word.
             if (_labelDoubleCliked)
             {
-                _ChangeBackgroundColor(_firsClickedLabel, _doubleClickColor, 250);
+                if (_firsClickedLabel != targetObj)
+                    _ChangeBackgroundColor(_firsClickedLabel, _doubleClickColor, 250);
 
                 _labelDoubleCliked = false;
                 _firsClickedLabel = null;
             }
-
-            Label targetObj = (Label)sender;
 
             targetObj.BackgroundColor = _singleClickColor;
 
@@ -589,8 +590,6 @@ namespace Read_and_learn.Page
                 _toastService.Show(result);
 
                 _ChangeBackgroundColor(targetObj, _singleClickColor);
-                //Task changeColorTask = Task.Run(async ()
-                //    => await _ChangeBackgroundColor(targetObj, _singleClickColor));
 
                 return false;
             });
@@ -607,7 +606,7 @@ namespace Read_and_learn.Page
                 _firsClickedLabel = targetObj;
                 targetObj.BackgroundColor = Color.Orange;
             }
-            else
+            else if (targetObj != _firsClickedLabel)
             {
                 var current = Connectivity.NetworkAccess;
 
@@ -659,6 +658,10 @@ namespace Read_and_learn.Page
                     _labelDoubleCliked = false;
                     _firsClickedLabel = null;
                 }
+            }
+            else
+            {
+                _toastService.Show("Choose second word!");
             }
         }
 
