@@ -9,6 +9,7 @@ using Read_and_learn.View.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -41,6 +42,7 @@ namespace Read_and_learn.Page
         private Color _textColor = Color.Black;
         private Color _singleClickColor = Color.Green;
         private Color _doubleClickColor = Color.Orange;
+        private StringBuilder _targetTextStringBuilder = new StringBuilder();
 
         private int _currentChapter;
         private int _currentPage;
@@ -634,43 +636,45 @@ namespace Read_and_learn.Page
                 {
                     // set to false due to removing of color in future and correct proceeding with single click.
 
-                    var targetLabels = new List<Label>();
+                    var targetLabels = _GetTargetLabels(targetObj);
 
-                    // find all inner elements between selected.
-                    var startPos = PageContentLayout.Children.IndexOf(_firsClickedLabel);
-                    var endPos = PageContentLayout.Children.IndexOf(targetObj);
-
-                    if (endPos < startPos)
-                    {
-                        int swap = endPos;
-                        endPos = startPos;
-                        startPos = swap;
-                    }
+                    _targetTextStringBuilder.Clear();
 
                     // add backgroun color for all elements that should be translated.
-                    //string targetPart = null;
-                    //for (; startPos <= endPos; startPos++)
-                    //{
-                    //    Label part = (Label)PageContentLayout.Children[startPos];
-                    //    part.BackgroundColor = Color.Orange;
+                    // get all text for translation.
+                    foreach (var item in targetLabels)
+                    {
+                        _targetTextStringBuilder.Append(item.Text);
 
-                    //    targetPart += part.Text;
-                    //}
+                        item.BackgroundColor = Color.Orange;
+                    }
 
-                    //var translation = _translateService.TranslatePart(targetPart, _ebook.Language).Result;
+                    string targetText = _targetTextStringBuilder.ToString().Replace('-', ' ');
 
-                    //string result = $"{(translation.Error != null ? "Error during translation. Please contact the developer." : "Provider: {translation.Provider}\n\rResult: {translation.Result}.")}";
+                    // get translation.
+                    Task<TranslationResult> translationTask = Task.Run(async ()
+                        => await _translateService.TranslatePart(targetText, _ebook.Language));
 
-                    //DisplayAlert("Translation result:", result, "OK");
+                    var translation = translationTask.Result;
 
-                    //Device.StartTimer(new TimeSpan(0, 0, 2), () => {
-                    //    //change color for all object to default.
-                    //
-                    //    _labelDoubleCliked = false;
-                    //    _firsClickedLabel = null;
-                    //
-                    //    return false;
-                    //});
+                    string result = null;
+                    if (translation.Error != null)
+                        result = "Error during translation. Please contact the developer.";
+                    else
+                        result = $"Provider: {translation.Provider}\r\nResult: {translation.Result}";
+
+                    DisplayAlert("Translation result:", result, "OK");
+
+                    // changle color back.
+                    foreach (var item in targetLabels)
+                        _ChangeBackgroundColor(item, _doubleClickColor);
+
+                    Device.StartTimer(new TimeSpan(0, 0, 0, 0, 500), () => {
+                        _labelDoubleCliked = false;
+                        _firsClickedLabel = null;
+
+                        return false;
+                    });
                 }
                 else
                 {
@@ -681,6 +685,91 @@ namespace Read_and_learn.Page
                     _firsClickedLabel = null;
                 }
             }
+        }
+
+        private bool _SwapPositionsIfNeeded(ref int start, ref int end)
+        {
+            if (end < start)
+            {
+                int swap = end;
+                end = start;
+                start = swap;
+
+                return true;
+            }
+
+            return false;
+        }
+
+        private List<Label> _GetTargetLabels(Label targetObj)
+        {
+            var result = new List<Label>();
+
+            // find all inner elements between selected.
+            int startPos = -1;
+            int endPos = -1;
+
+            // check if elements in one paragraph (belong to the single FlexLayout.
+            if (_firsClickedLabel.Parent == targetObj.Parent)
+            {
+                var parentObj = (FlexLayout)_firsClickedLabel.Parent;
+                startPos = parentObj.Children.IndexOf(_firsClickedLabel);
+                endPos = parentObj.Children.IndexOf(targetObj);
+
+                _SwapPositionsIfNeeded(ref startPos, ref endPos);
+
+                result.AddRange(_GetInnerLabelsFromSingleParent(parentObj, startPos, endPos));
+            }
+            // the elements you are looking for are in different parent elements. Find them.
+            else
+            {
+                // get position of parents.
+                int startParentPos = PageContentLayout.Children.IndexOf((Xamarin.Forms.View)_firsClickedLabel.Parent);
+                int endParentPos = PageContentLayout.Children.IndexOf((Xamarin.Forms.View)targetObj.Parent);
+
+                // if parents was swapped -> swap firstSelectedElement with targetObj.
+                if (_SwapPositionsIfNeeded(ref startParentPos, ref endParentPos))
+                {
+                    var swap = _firsClickedLabel;
+                    _firsClickedLabel = targetObj;
+                    targetObj = swap;
+                }
+
+                // handle first parent.
+                var parentObj = (FlexLayout)PageContentLayout.Children.ElementAt(startParentPos);
+                startPos = parentObj.Children.IndexOf(_firsClickedLabel);
+
+                result.AddRange(_GetInnerLabelsFromSingleParent(parentObj, startPos));
+
+                // handle inner sections if exist.
+                for (int i = startParentPos + 1; i < endParentPos; i++)
+                {
+                    parentObj = (FlexLayout)PageContentLayout.Children.ElementAt(i);
+
+                    // get all inner elements.
+                    result.AddRange(_GetInnerLabelsFromSingleParent(parentObj));
+                }
+
+                // handle last parent.
+                parentObj = (FlexLayout)PageContentLayout.Children.ElementAt(endParentPos);
+                endPos = parentObj.Children.IndexOf(targetObj);
+
+                result.AddRange(_GetInnerLabelsFromSingleParent(parentObj, endPos: endPos));
+            }
+
+            return result;
+        }
+
+        private List<Label> _GetInnerLabelsFromSingleParent(FlexLayout parent, int startPos = 0, int endPos = -1)
+        {
+            var result = new List<Label>();
+
+            for (; startPos < (endPos > 0 ? endPos + 1 : parent.Children.Count); startPos++)
+            {
+                result.Add((Label)parent.Children[startPos]);
+            }
+
+            return result;
         }
 
         private void _OnEmptyPageSpacePressed(object sender, EventArgs e)

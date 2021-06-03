@@ -15,6 +15,8 @@ namespace Read_and_learn.Service.Translation
     /// </summary>
     public class GoogleTranslatorService : ITranslatorService
     {
+        private const string _firstPartStartSymbols = "[[[\"";
+
         public async Task<WordTranslationResult> TranslateWord(string targetWord, string sourceLanguage)
         {
             var result = await _Translate(targetWord, sourceLanguage);
@@ -60,7 +62,7 @@ namespace Read_and_learn.Service.Translation
                 if (!string.IsNullOrEmpty(result))
                 {
                     // Get phrase collection
-                    int index = result.IndexOf(string.Format(",,\"{0}\"", sourceLanguage));
+                    int index = result.IndexOf(string.Format(",\"{0}\"", sourceLanguage));
 
                     if (index == -1)
                     {
@@ -79,6 +81,11 @@ namespace Read_and_learn.Service.Translation
                     {
                         // Translation of phrase
                         result = result.Substring(0, index);
+
+                        int firstPartStartIndex = result.IndexOf(_firstPartStartSymbols);
+                        string firstPart = result.Substring(firstPartStartIndex + _firstPartStartSymbols.Length, result.IndexOf("\",\"", firstPartStartIndex));
+
+
                         result = result.Replace("],[", ",");
                         result = result.Replace("]", string.Empty);
                         result = result.Replace("[", string.Empty);
@@ -86,7 +93,7 @@ namespace Read_and_learn.Service.Translation
 
                         // Get translated phrases
                         string[] phrases = result.Split(new[] { '\"' }, StringSplitOptions.RemoveEmptyEntries);
-                        for (int i = 0; (i < phrases.Count()); i += 2)
+                        for (int i = 0; (i < phrases.Count()); i += 3)
                         {
                             string translatedPhrase = phrases[i];
                             if (translatedPhrase.StartsWith(",,"))
@@ -100,6 +107,7 @@ namespace Read_and_learn.Service.Translation
 
                     // Fix up translation
                     translation = translation.Trim();
+                    translation = translation.Replace("  ", " ");
                     translation = translation.Replace(" ?", "?");
                     translation = translation.Replace(" !", "!");
                     translation = translation.Replace(" ,", ",");
