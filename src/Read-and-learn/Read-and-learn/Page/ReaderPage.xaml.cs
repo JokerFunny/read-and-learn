@@ -555,26 +555,34 @@ namespace Read_and_learn.Page
         {
             Label targetObj = (Label)sender;
 
-            // remove double clicked from label if clicked on another word.
-            if (_labelDoubleCliked)
-            {
-                if (_firsClickedLabel != targetObj)
-                    _ChangeBackgroundColor(_firsClickedLabel, _doubleClickColor, 250);
+            // if there is no doubleclick anywhere - make the selected element green.
+            if (_firsClickedLabel == null)
+                targetObj.BackgroundColor = _singleClickColor;
 
-                _labelDoubleCliked = false;
-                _firsClickedLabel = null;
-            }
-
-            targetObj.BackgroundColor = _singleClickColor;
+            // set flag to false due to there was an a single click.
+            _labelDoubleCliked = false;
 
             Device.StartTimer(new TimeSpan(0, 0, 0, 0, 500), () => {
+
+                // if after a single click a second click was made.
                 if (_labelDoubleCliked)
                 {
-                    if (targetObj.BackgroundColor == _singleClickColor)
-                        targetObj.BackgroundColor = _backGroundColor;
+                    // if there was a double click on another word - remove the background from the current one.
+                    if (_firsClickedLabel != targetObj && targetObj.BackgroundColor == _singleClickColor)
+                        _ChangeBackgroundColor(targetObj, _backGroundColor, 250);
 
+                    // if double click on this word - return, the color will be determined in the corresponding method.
                     return false;
                 }
+                // if a double click did not happen, but the first element was already selected - remove its background color, clean the element.
+                else if (_firsClickedLabel != null)
+                {
+                    _ChangeBackgroundColor(_firsClickedLabel, _doubleClickColor, 250);
+
+                    _firsClickedLabel = null;
+                }
+
+                targetObj.BackgroundColor = _singleClickColor;
 
                 Task<WordTranslationResult> translationTask = Task.Run(async () 
                     => await _translateService.TranslateWord(targetObj.Text, _ebook.Language));
@@ -599,22 +607,36 @@ namespace Read_and_learn.Page
         {
             Label targetObj = (Label)sender;
 
-            if (!_labelDoubleCliked)
-            {
-                _labelDoubleCliked = true;
+            // set double click to true.
+            _labelDoubleCliked = true;
 
+            // change background color to the proper one.
+            targetObj.BackgroundColor = Color.Orange;
+
+            // check if there wasn`t any selected element.
+            if (_firsClickedLabel == null)
+            {
+                // save selected element.
                 _firsClickedLabel = targetObj;
-                targetObj.BackgroundColor = Color.Orange;
             }
-            else if (targetObj != _firsClickedLabel)
+            // if the same element is selected for the second time - show notification that another element must be selected.
+            else if (_firsClickedLabel == targetObj)
+            {
+                _toastService.Show("Choose second word!");
+            }
+            // second element selected - process.
+            else
             {
                 var current = Connectivity.NetworkAccess;
 
-                // if exist - try to translate current part
+                // check Internet connection. if exist - try to translate current part.
                 if (current == NetworkAccess.Internet)
                 {
-                    _labelDoubleCliked = false;
+                    // set to false due to removing of color in future and correct proceeding with single click.
 
+                    var targetLabels = new List<Label>();
+
+                    // find all inner elements between selected.
                     var startPos = PageContentLayout.Children.IndexOf(_firsClickedLabel);
                     var endPos = PageContentLayout.Children.IndexOf(targetObj);
 
@@ -626,20 +648,20 @@ namespace Read_and_learn.Page
                     }
 
                     // add backgroun color for all elements that should be translated.
-                    string targetPart = null;
-                    for (; startPos <= endPos; startPos++)
-                    {
-                        Label part = (Label)PageContentLayout.Children[startPos];
-                        part.BackgroundColor = Color.Orange;
+                    //string targetPart = null;
+                    //for (; startPos <= endPos; startPos++)
+                    //{
+                    //    Label part = (Label)PageContentLayout.Children[startPos];
+                    //    part.BackgroundColor = Color.Orange;
 
-                        targetPart += part.Text;
-                    }
+                    //    targetPart += part.Text;
+                    //}
 
-                    var translation = _translateService.TranslatePart(targetPart, _ebook.Language).Result;
+                    //var translation = _translateService.TranslatePart(targetPart, _ebook.Language).Result;
 
-                    string result = $"{(translation.Error != null ? "Error during translation. Please contact the developer." : "Provider: {translation.Provider}\n\rResult: {translation.Result}.")}";
+                    //string result = $"{(translation.Error != null ? "Error during translation. Please contact the developer." : "Provider: {translation.Provider}\n\rResult: {translation.Result}.")}";
 
-                    DisplayAlert("Translation result:", result, "OK");
+                    //DisplayAlert("Translation result:", result, "OK");
 
                     //Device.StartTimer(new TimeSpan(0, 0, 2), () => {
                     //    //change color for all object to default.
@@ -659,9 +681,21 @@ namespace Read_and_learn.Page
                     _firsClickedLabel = null;
                 }
             }
-            else
+        }
+
+        private void _OnEmptyPageSpacePressed(object sender, EventArgs e)
+        {
+            // remove doubleclick flag.
+            _labelDoubleCliked = false;
+
+            // if there was any selected element - diselect it.
+            if (_firsClickedLabel != null)
             {
-                _toastService.Show("Choose second word!");
+                // change color to the default one.
+                _ChangeBackgroundColor(_firsClickedLabel, _doubleClickColor, 250);
+
+                // clear clicked element.
+                _firsClickedLabel = null;
             }
         }
 

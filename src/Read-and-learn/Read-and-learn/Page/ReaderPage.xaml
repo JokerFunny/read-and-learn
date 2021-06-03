@@ -14,6 +14,7 @@
                             <StackLayout.GestureRecognizers>
                                 <SwipeGestureRecognizer Direction="Left" Swiped="_OnSwiped" />
                                 <SwipeGestureRecognizer Direction="Right" Swiped="_OnSwiped"/>
+                                <TapGestureRecognizer Tapped="_OnEmptyPageSpacePressed" />
                             </StackLayout.GestureRecognizers>
                         </StackLayout>
                     </ScrollView.Content>
