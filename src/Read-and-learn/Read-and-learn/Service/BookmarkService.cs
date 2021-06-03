@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace Read_and_learn.Service
 {
+    /// <summary>
+    /// Implementation of <see cref="IBookmarkService"/>.
+    /// </summary>
     public class BookmarkService : IBookmarkService
     {
         IBookmarkRepository _bookmarkRepository;

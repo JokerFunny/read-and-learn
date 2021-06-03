@@ -5,6 +5,7 @@ using Read_and_learn.Model.DataStructure;
 using Read_and_learn.Model.Message;
 using Read_and_learn.PlatformRelatedServices;
 using Read_and_learn.Service.Interface;
+using Read_and_learn.View.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -422,11 +423,15 @@ namespace Read_and_learn.Page
 
         private void _RefreshPage()
         {
+            _ShowLoading();
+
             // refresh current page.
             Device.BeginInvokeOnMainThread(() =>
             {
                 _SetItems(_pages.FirstOrDefault(p => p.Number == _currentPage).Content);
             });
+
+            _HideLoading();
 
             //Device.BeginInvokeOnMainThread(() =>
             //{
@@ -496,6 +501,18 @@ namespace Read_and_learn.Page
             PageContentLayout.Children.Add(flexLayout);
         }
 
+        private void _ShowLoading()
+        {
+            LoadingActivity.IsRunning = true;
+            LoadingLayout.IsVisible = true;
+        }
+
+        private void _HideLoading()
+        {
+            LoadingActivity.IsRunning = false;
+            LoadingLayout.IsVisible = false;
+        }
+
         private void _SetItemsTestMode()
         {
             //PageContent.Children.Clear();
@@ -530,11 +547,6 @@ namespace Read_and_learn.Page
             }
         }
 
-        private async void _ChangeBackgroundColor(Label targetObj)
-        {
-
-        }
-
         #endregion
 
         #region Translation
@@ -543,7 +555,12 @@ namespace Read_and_learn.Page
         {
             // remove double clicked from label.
             if (_labelDoubleCliked)
-                return;
+            {
+                _ChangeBackgroundColor(_firsClickedLabel, _doubleClickColor, 250);
+
+                _labelDoubleCliked = false;
+                _firsClickedLabel = null;
+            }
 
             Label targetObj = (Label)sender;
 
@@ -558,10 +575,10 @@ namespace Read_and_learn.Page
                     return false;
                 }
 
-                Task<WordTranslationResult> task = Task.Run(async () 
+                Task<WordTranslationResult> translationTask = Task.Run(async () 
                     => await _translateService.TranslateWord(targetObj.Text, _ebook.Language));
 
-                var translation = task.Result;
+                var translation = translationTask.Result;
 
                 string result = null;
                 if (translation.Error != null)
@@ -571,11 +588,9 @@ namespace Read_and_learn.Page
 
                 _toastService.Show(result);
 
-                Device.StartTimer(new TimeSpan(0, 0, 2), () =>
-                {
-                    targetObj.BackgroundColor = _backGroundColor;
-                    return false;
-                });
+                _ChangeBackgroundColor(targetObj, _singleClickColor);
+                //Task changeColorTask = Task.Run(async ()
+                //    => await _ChangeBackgroundColor(targetObj, _singleClickColor));
 
                 return false;
             });
@@ -645,6 +660,12 @@ namespace Read_and_learn.Page
                     _firsClickedLabel = null;
                 }
             }
+        }
+
+        private void _ChangeBackgroundColor(Label targetObj, Color fromColor, uint animationTime = 2500)
+        {
+            Task.Run(async ()
+                => await targetObj.ColorTo(fromColor, _backGroundColor, c => targetObj.BackgroundColor = c, animationTime));
         }
 
         #endregion

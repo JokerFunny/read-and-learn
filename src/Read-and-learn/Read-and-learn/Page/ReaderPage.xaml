@@ -11,10 +11,6 @@
                 <ScrollView x:Name="ReaderScrollView" VerticalOptions="FillAndExpand" Orientation="Vertical">
                     <ScrollView.Content>
                         <StackLayout x:Name="PageContentLayout" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" AbsoluteLayout.LayoutFlags="SizeProportional">
-                            <!-- To show on first run "loading" process -->
-                            <FlexLayout JustifyContent="Center" AlignContent="Center" AlignItems="Center">
-                                <ActivityIndicator HorizontalOptions="Center" VerticalOptions="Center" IsRunning="true" Color="Orange" />
-                            </FlexLayout>
                             <StackLayout.GestureRecognizers>
                                 <SwipeGestureRecognizer Direction="Left" Swiped="_OnSwiped" />
                                 <SwipeGestureRecognizer Direction="Right" Swiped="_OnSwiped"/>
@@ -31,7 +27,13 @@
                               AbsoluteLayout.LayoutFlags="SizeProportional" 
                               AbsoluteLayout.LayoutBounds="0, 0, 1, 1" />
 
+            <FlexLayout x:Name="LoadingLayout" VerticalOptions="Center" HorizontalOptions="Center" JustifyContent="Center" AlignContent="Center" AlignItems="Center">
+                <!-- To show on first run "loading" process -->
+                <ActivityIndicator x:Name="LoadingActivity" HorizontalOptions="Center" VerticalOptions="Center" IsRunning="true" Color="Orange" />
+            </FlexLayout>
+            
         </AbsoluteLayout>
+        
     </ContentPage.Content>
     
 </ContentPage>
