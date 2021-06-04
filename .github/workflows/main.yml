@@ -29,7 +29,7 @@ jobs:
         env:
           ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'   
       - name: Build Solution
-        run: msbuild ./src/Read-and-learn/ /restore /p:Configuration=Release
+        run: msbuild ./src/ /restore /p:Configuration=Release
       - name: Create and Sign the APK
         run: msbuild ./src/Read-and-learn/Read-and-learn.Android/Read_and_learn.Android.csproj /t:PackageForAndroid /t:SignAndroidPackage /p:Configuration=Release /p:OutputPath=bin\Release\
       - name: Upload artifact
