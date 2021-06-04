@@ -18,6 +18,11 @@ namespace Read_and_learn.Model.DataStructure
         public string Transcription { get; set; }
 
         /// <summary>
+        /// Context of target word using.
+        /// </summary>
+        public List<string> Contexts { get; set; }
+
+        /// <summary>
         /// Get <see cref="WordTranslationResult"/> for <paramref name="translationResult"/>.
         /// </summary>
         /// <param name="translationResult">Target <see cref="TranslationResult"/></param>

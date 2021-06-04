@@ -593,11 +593,16 @@ namespace Read_and_learn.Page
 
                 string result = null;
                 if (translation.Error != null)
-                    result = "Error during translation. Please contact the developer.";
+                    result = $"Error during translation. Please contact the developer.\r\nException message: {translation.Error.Message}";
                 else
-                    result = $"Provider: {translation.Provider}\r\nResult: {translation.Result}{(translation.Synonyms?.Any() ?? false ? $"\r\nSynonyms: {string.Join(", ", translation.Synonyms)}" : "")}";
+                    result = $"Provider: {translation.Provider}\r\nResult: {translation.Result}" +
+                        $"{(translation.Synonyms?.Any() ?? false ? $"\r\nSynonyms: {string.Join(", ", translation.Synonyms)}" : "")}" +
+                        $"{(translation.Contexts?.Any() ?? false ? $"\r\nExamples of usage: {string.Join("\r\n", translation.Contexts)}" : "")}";
 
-                _toastService.Show(result);
+                if (translation.Contexts?.Any() ?? false)
+                    DisplayAlert("Translation result:", result, "OK");
+                else
+                    _toastService.Show(result);
 
                 _ChangeBackgroundColor(targetObj, _singleClickColor);
 
@@ -644,7 +649,10 @@ namespace Read_and_learn.Page
                     // get all text for translation.
                     foreach (var item in targetLabels)
                     {
-                        _targetTextStringBuilder.Append(item.Text);
+                        if (string.IsNullOrEmpty(item.Text))
+                            _targetTextStringBuilder.Append("\r\n");
+                        else
+                            _targetTextStringBuilder.Append(item.Text);
 
                         item.BackgroundColor = Color.Orange;
                     }
@@ -659,7 +667,7 @@ namespace Read_and_learn.Page
 
                     string result = null;
                     if (translation.Error != null)
-                        result = "Error during translation. Please contact the developer.";
+                        result = $"Error during translation. Please contact the developer.\r\nException message: {translation.Error.Message}";
                     else
                         result = $"Provider: {translation.Provider}\r\nResult: {translation.Result}";
 

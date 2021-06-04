@@ -107,6 +107,7 @@ namespace Read_and_learn.Service.Translation
                     translation = translation.Replace("\\\"", "\"");
                     translation = translation.Replace(" \"", "\"");
                     translation = translation.Replace("\" ", "\"");
+                    translation = translation.Replace("\\r\\n", "\r\n");
                     translation = translation.Replace(" ?", "?");
                     translation = translation.Replace(" !", "!");
                     translation = translation.Replace(" ,", ",");

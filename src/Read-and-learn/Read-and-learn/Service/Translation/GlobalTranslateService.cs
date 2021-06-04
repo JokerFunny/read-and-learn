@@ -37,10 +37,10 @@ namespace Read_and_learn.Service.Translation
                 if (result.Error != null)
                 {
                     Crashes.TrackError(result.Error, new Dictionary<string, string> {
-                    { "Provider", UserSettings.Translation.Provider },
-                    { "Target part", targetPart },
-                    { "Source language", sourceLanguage }
-                });
+                        { "Provider", UserSettings.Translation.Provider },
+                        { "Target part", targetPart },
+                        { "Source language", sourceLanguage }
+                    });
                 }
 
                 result.Provider = currentProvider;

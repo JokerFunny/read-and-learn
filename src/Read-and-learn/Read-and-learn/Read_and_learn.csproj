@@ -26,6 +26,7 @@
     <PackageReference Include="PCLAppConfig" Version="0.4.1" />
     <PackageReference Include="PCLStorage" Version="1.0.2" />
     <PackageReference Include="Plugin.Permissions" Version="6.0.1" />
+    <PackageReference Include="RestSharp" Version="106.11.7" />
     <PackageReference Include="sqlite-net-pcl" Version="1.7.335" />
     <PackageReference Include="SQLitePCLRaw.bundle_green" Version="2.0.4" />
     <PackageReference Include="SQLitePCLRaw.core" Version="2.0.4" />
@@ -107,9 +108,5 @@
     <EmbeddedResource Update="Page\Settings\TranslationSettings.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Model\Translation\ReversoAPI\" />
   </ItemGroup>
 </Project>
