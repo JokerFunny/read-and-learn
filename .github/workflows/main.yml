@@ -15,7 +15,7 @@ jobs:
     - name: Build solution
       run: |
         dotnet restore ./src/
-        dotnet build -c Release --no-restore ./src/Read-and-learn/
+        dotnet build -c Release --no-restore ./src/Read-and-learn/Read_and_learn.csproj
     - name: Run tests
       run: |
         dotnet test --no-restore -v m ./src/Read_and_learn.Tests/
@@ -33,4 +33,4 @@ jobs:
     - uses: actions/upload-artifact@v2
       with:
         name: Android App apk
-        path: ./src/Read-and-learn/Read-and-learn.Android/bin/Release/com.tfp.read_and_learn-Signed.apk    
+        path: ./src/Read-and-learn/Read-and-learn.Android/bin/Release/danylo.novykov.read_and_learn-Signed.apk    
