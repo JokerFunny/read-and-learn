@@ -22,9 +22,6 @@ namespace Read_and_learn.Page.Reader
             BindingContext = new HeaderPanelVM();
         }
 
-        private void OnTranslateFeatureToggled(object sender, ToggledEventArgs args)
-            => _messageBus.Send(new TranslateFeatureMessage() { IsEnabled = args.Value });
-
         private void _OpenReaderMenu_Clicked(object sender, EventArgs e)
             => _messageBus.Send(new OpenReaderMenuMessage());
     }

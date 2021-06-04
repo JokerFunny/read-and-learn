@@ -23,26 +23,6 @@
 
         <ImageButton IsEnabled="True" Source="menu.png" Clicked="_OpenReaderMenu_Clicked" Margin="0,5" HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand" HeightRequest="20" WidthRequest="20" />
 
-        <!--<local:ToggleButton Toggled="OnTranslateFeatureToggled" ImageSource="translate.png">
-            <VisualStateManager.VisualStateGroups>
-                <VisualStateGroup Name="ToggleStates">
-                    <VisualState Name="ToggledOff">
-                        <VisualState.Setters>
-                            <Setter Property="BackgroundColor" Value="#C0C0C0" />
-                            <Setter Property="TextColor" Value="Black" />
-                        </VisualState.Setters>
-                    </VisualState>
-
-                    <VisualState Name="ToggledOn">
-                        <VisualState.Setters>
-                            <Setter Property="BackgroundColor" Value="#404040" />
-                            <Setter Property="TextColor" Value="White" />
-                        </VisualState.Setters>
-                    </VisualState>
-                </VisualStateGroup>
-            </VisualStateManager.VisualStateGroups>
-        </local:ToggleButton>-->
-        
         <StackLayout HorizontalOptions="EndAndExpand" Orientation="Horizontal" CompressedLayout.IsHeadless="true">
             <Label Text="{Binding Clock}" ></Label>
             <Image Source="{Binding BatteryIcon}" HeightRequest="20" WidthRequest="20" IsVisible="{Binding ShowBattery}"  />
