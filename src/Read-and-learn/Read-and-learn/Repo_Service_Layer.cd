@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Comment CommentText="Platform-specific interfaces">
-    <Position X="14.5" Y="7.25" Height="0.295" Width="2.095" />
+    <Position X="14.776" Y="7.274" Height="0.295" Width="1.819" />
   </Comment>
   <Comment CommentText="Translation providers">
-    <Position X="9.168" Y="9.143" Height="0.295" Width="1.49" />
+    <Position X="9.168" Y="9.143" Height="0.295" Width="1.358" />
   </Comment>
   <Class Name="Read_and_learn.Repository.BookmarkRepository">
     <Position X="13.25" Y="0.75" Width="2.25" />
@@ -93,7 +93,7 @@
   <Class Name="Read_and_learn.Service.Translation.GlobalTranslateService">
     <Position X="9.75" Y="6.5" Width="2" />
     <TypeIdentifier>
-      <HashCode>AIAAAAABEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AIAAAAABEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAA=</HashCode>
       <FileName>Service\Translation\GlobalTranslateService.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -102,31 +102,34 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Read_and_learn.Service.Translation.GoogleTranslatorService">
-    <Position X="10" Y="12" Width="2" />
+    <Position X="7.75" Y="12.5" Width="2" />
     <TypeIdentifier>
-      <HashCode>AIAAAAABAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAA=</HashCode>
+      <HashCode>AKAAAAABAAAAAAAAAAAAAAAAAAAAAAABAAAAAAEIAAA=</HashCode>
       <FileName>Service\Translation\GoogleTranslatorService.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Read_and_learn.Service.Translation.OfflineTranslatorService">
-    <Position X="10" Y="9.75" Width="2" />
+    <Position X="10" Y="9.75" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AIAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AIACAAABEAAAAAAAAAAAAAAAAAAAAAQAAAAAAACAgAA=</HashCode>
       <FileName>Service\Translation\OfflineTranslatorService.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Read_and_learn.Service.Translation.ReversoTranslatorService">
-    <Position X="7.75" Y="9.75" Width="2" />
+    <Position X="10" Y="12.75" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AIAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AIAAAAABEAAAAAAAAAAAAAAAAAKAAAABAAAAAAACAAA=</HashCode>
       <FileName>Service\Translation\ReversoTranslatorService.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_api" />
+    </ShowAsAssociation>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Read_and_learn.Service.Translation.YandexTranslatorService">
-    <Position X="7.75" Y="12" Width="2" />
+    <Position X="7.75" Y="9.75" Width="2" />
     <TypeIdentifier>
       <HashCode>AIAAAAABAAAAAAAAAAAACIAAAAAAAAAAAAAAAAACAAA=</HashCode>
       <FileName>Service\Translation\YandexTranslatorService.cs</FileName>
@@ -153,6 +156,13 @@
       <Field Name="_fileService" />
     </ShowAsAssociation>
     <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Read_and_learn.Service.Translation.ReversoApi.ReversoApi">
+    <Position X="13" Y="12.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAACAAAAAIAAAA=</HashCode>
+      <FileName>Service\Translation\ReversoApi\ReversoApi.cs</FileName>
+    </TypeIdentifier>
   </Class>
   <Interface Name="Read_and_learn.PlatformRelatedServices.IAssetsManager">
     <Position X="13.25" Y="7.75" Width="1.75" />
