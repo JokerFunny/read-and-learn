@@ -42,10 +42,9 @@ namespace Read_and_learn.Tests.Service.Translation
 
             if (string.IsNullOrEmpty(result.Result))
             {
-                result.Error.Should().BeNull();
-
                 result.Error.Should().NotBeNull()
                     .And.BeOfType<YandexLinguisticsException>();
+
                 result.Error.Message.Should().Be("The specified language is not supported");
             }
             else
