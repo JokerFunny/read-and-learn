@@ -15,7 +15,7 @@ jobs:
     - name: Build solution
       run: |
         dotnet restore ./src/
-        dotnet build -c Release --no-restore ./src/Read-and-learn/Read_and_learn.csproj
+        dotnet build -c Release --no-restore ./src/Read-and-learn/Read-and-learn/Read_and_learn.csproj
     - name: Run tests
       run: |
         dotnet test --no-restore -v m ./src/Read_and_learn.Tests/
@@ -27,8 +27,10 @@ jobs:
     - name: Android
       run: |
         cd ./src/
+        ls
         nuget restore
         cd ./src/Read-and-learn/Read-and-learn.Android/
+        ls
         msbuild Read_and_learn.Android.csproj /verbosity:normal /t:Rebuild /t:PackageForAndroid /t:SignAndroidPackage /p:Configuration=Release 
     - uses: actions/upload-artifact@v2
       with:
