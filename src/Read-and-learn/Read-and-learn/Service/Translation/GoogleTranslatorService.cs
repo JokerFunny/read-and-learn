@@ -2,7 +2,6 @@
 using Read_and_learn.Service.Interface;
 using System;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +15,8 @@ namespace Read_and_learn.Service.Translation
     public class GoogleTranslatorService : ITranslatorService
     {
         private const string _firstPartStartSymbols = "[[[\"";
+        private const string _tranlationSeparator = "\",\"";
+        private const string _innerPhraseStartIndex = "]\n,[\"";
 
         public async Task<WordTranslationResult> TranslateWord(string targetWord, string sourceLanguage)
         {
@@ -83,31 +84,29 @@ namespace Read_and_learn.Service.Translation
                         result = result.Substring(0, index);
 
                         int firstPartStartIndex = result.IndexOf(_firstPartStartSymbols);
-                        string firstPart = result.Substring(firstPartStartIndex + _firstPartStartSymbols.Length, result.IndexOf("\",\"", firstPartStartIndex));
+                        translation += result.Substring(firstPartStartIndex + _firstPartStartSymbols.Length, 
+                            result.IndexOf(_tranlationSeparator, firstPartStartIndex) - _tranlationSeparator.Length - 1);
 
+                        result = result.Substring(result.IndexOf(_tranlationSeparator, firstPartStartIndex));
 
-                        result = result.Replace("],[", ",");
-                        result = result.Replace("]", string.Empty);
-                        result = result.Replace("[", string.Empty);
-                        result = result.Replace("\",\"", "\"");
-
-                        // Get translated phrases
-                        string[] phrases = result.Split(new[] { '\"' }, StringSplitOptions.RemoveEmptyEntries);
-                        for (int i = 0; (i < phrases.Count()); i += 3)
+                        // check if translation contain additional phrases.
+                        int phraseIndex = result.IndexOf(_innerPhraseStartIndex);
+                        while (phraseIndex != -1)
                         {
-                            string translatedPhrase = phrases[i];
-                            if (translatedPhrase.StartsWith(",,"))
-                            {
-                                i--;
-                                continue;
-                            }
-                            translation += translatedPhrase + "  ";
+                            result = result.Substring(phraseIndex + _innerPhraseStartIndex.Length);
+
+                            translation += result.Substring(0, result.IndexOf(_tranlationSeparator));
+
+                            phraseIndex = result.IndexOf(_innerPhraseStartIndex);
                         }
                     }
 
                     // Fix up translation
                     translation = translation.Trim();
                     translation = translation.Replace("  ", " ");
+                    translation = translation.Replace("\\\"", "\"");
+                    translation = translation.Replace(" \"", "\"");
+                    translation = translation.Replace("\" ", "\"");
                     translation = translation.Replace(" ?", "?");
                     translation = translation.Replace(" !", "!");
                     translation = translation.Replace(" ,", ",");
