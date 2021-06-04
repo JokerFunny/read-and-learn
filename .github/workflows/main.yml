@@ -1,0 +1,32 @@
+name: CI on Push and Pull Request
+
+on: [push, pull_request]
+
+jobs:
+  gated_build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.301
+    
+    - name: Build solution
+      run: |
+        dotnet restore ./src/
+        dotnet build -c Release --no-restore ./src/
+    - name: Run tests
+      run: |
+        dotnet test --no-restore -v m ./src/Read_and_learn.Tests/
+
+  Android:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Android
+      run: |
+        cd ./src/
+        nuget restore
+        cd ./src/Read-and-learn/Read-and-learn.Android/
+        msbuild Read_and_learn.Android.csproj /verbosity:normal /t:Rebuild /p:Configuration=Release 
