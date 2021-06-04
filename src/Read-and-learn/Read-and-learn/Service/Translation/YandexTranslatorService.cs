@@ -29,7 +29,7 @@ namespace Read_and_learn.Service.Translation
 
         public async Task<TranslationResult> TranslatePart(string targetPart, string sourceLanguage)
         {
-            string translationResult = null;
+            string translationResult;
 
             try
             {
