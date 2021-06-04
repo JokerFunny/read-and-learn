@@ -77,7 +77,9 @@ namespace Read_and_learn.Service.Translation
                 }
             }
 
-            result.Provider = currentProvider;
+            result.Provider = translatorProvider is OfflineTranslatorService 
+                ? TranslationServicesProvider.Offline 
+                : currentProvider;
 
             return result;
         }

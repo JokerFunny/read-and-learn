@@ -12,12 +12,10 @@
 
   <ItemGroup>
     <None Remove="app.config" />
-    <None Remove="Resources\OfflineDictionary\en-uk.xml" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="app.config" />
-    <EmbeddedResource Include="Resources\OfflineDictionary\en-uk.xml" />
   </ItemGroup>
 
   <ItemGroup>
