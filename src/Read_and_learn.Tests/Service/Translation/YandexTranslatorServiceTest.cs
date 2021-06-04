@@ -34,15 +34,27 @@ namespace Read_and_learn.Tests.Service.Translation
         [Trait("Category", "UnitTests")]
         [Trait("Category", "Translation")]
         [Trait("Category", "YandexTranslatorService")]
-        public async Task YandexTranslatorService_Throw_For_Blocked_Country()
+        public async Task YandexTranslatorService_Throw_For_Blocked_Country_Or_For_Incorrect_Language()
         {
             var result = await _translatorService.TranslateWord("pizza", "en");
 
             result.Should().NotBeNull();
 
-            result.Error.Should().NotBeNull()
-                .And.BeOfType<YandexLinguisticsException>();
-            result.Error.Message.Should().Be("A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond. (dictionary.yandex.net:443)");
+            if (string.IsNullOrEmpty(result.Result))
+            {
+                result.Error.Should().BeNull();
+
+                result.Error.Should().NotBeNull()
+                    .And.BeOfType<YandexLinguisticsException>();
+                result.Error.Message.Should().Be("The specified language is not supported");
+            }
+            else
+            {
+                result.Error.Should().BeNull();
+
+                result.Result.Should().NotBeNullOrEmpty()
+                    .And.Be("You can`t use target provider due to internet settings (blocked in the Ukraine).");
+            }
         }
 
         [Fact]

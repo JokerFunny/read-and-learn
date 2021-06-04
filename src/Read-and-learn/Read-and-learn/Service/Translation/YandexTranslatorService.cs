@@ -17,6 +17,8 @@ namespace Read_and_learn.Service.Translation
     {
         private TranslatorService _translatorService; 
         private DictionaryService _dictionaryService;
+        private const string _blockedMessage = "A connection attempt failed because the connected party did not properly respond after " +
+            "a period of time, or established connection failed because connected host has failed to respond. (dictionary.yandex.net:443)";
 
         /// <summary>
         /// Public ctor.
@@ -40,6 +42,24 @@ namespace Read_and_learn.Service.Translation
                        new LanguagePair(Language.None, targetLanguage), null, true);
 
                 translationResult = translation.Texts[0];
+            }
+            catch(YandexLinguisticsException ex)
+            {
+                if (ex.Message == _blockedMessage)
+                {
+                    return new WordTranslationResult()
+                    {
+                        Result = "You can`t use target provider due to internet settings (blocked in the Ukraine)."
+                    };
+                }
+                else
+                {
+                    return new WordTranslationResult()
+                    {
+                        Error = ex,
+                        Result = ""
+                    };
+                }
             }
             catch (Exception ex)
             {
@@ -74,6 +94,24 @@ namespace Read_and_learn.Service.Translation
                 translationResult = tr.Text;
                 synonyms = (List<string>)tr.Synonyms.Select(s => s.Text);
 
+            }
+            catch (YandexLinguisticsException ex)
+            {
+                if (ex.Message == _blockedMessage)
+                {
+                    return new WordTranslationResult()
+                    {
+                        Result = "You can`t use target provider due to internet settings (blocked in the Ukraine)."
+                    };
+                }
+                else
+                {
+                    return new WordTranslationResult()
+                    {
+                        Error = ex,
+                        Result = ""
+                    };
+                }
             }
             catch (Exception ex)
             {
