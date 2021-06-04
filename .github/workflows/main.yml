@@ -25,7 +25,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Setup MSBuild
-        uses: microsoft/setup-msbuild@v1.0.0       
+        uses: microsoft/setup-msbuild@v1.0.0      
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'   
       - name: Build Solution
         run: msbuild ./src/Read-and-learn/ /restore /p:Configuration=Release
       - name: Create and Sign the APK
