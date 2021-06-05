@@ -42,6 +42,9 @@ namespace Read_and_learn.Service
 
         public async Task<Tuple<Book, bool>> AddBook(FileResult file)
         {
+            if (file == null)
+                throw new ArgumentNullException(nameof(file));
+
             var newBook = false;
 
             if (!file.FileName.EndsWith(".fb2"))
@@ -72,6 +75,9 @@ namespace Read_and_learn.Service
 
         public async Task<bool> RemoveById(string id)
         {
+            if (string.IsNullOrEmpty(id))
+                throw new ArgumentNullException(nameof(id));
+
             var book = await _bookRepository.GetBookByIdAsync(id);
             if (book != null)
             {
@@ -79,7 +85,7 @@ namespace Read_and_learn.Service
                 await _fileService.DeleteFolder(book.Id);
 
                 // delete all related bookmarks.
-                var bookmarks = await _bookmarkRepository.GetBookmarksByBookIDAsync(id);
+                var bookmarks = await _bookmarkRepository.GetBookmarksByBookIdAsync(id);
                 foreach (var bookmark in bookmarks)
                     await _bookmarkRepository.DeleteBookmarkAsync(bookmark);
 
@@ -90,9 +96,11 @@ namespace Read_and_learn.Service
         }
 
         public async Task<bool> SaveBook(Book book)
-            => await _bookRepository.SaveBookAsync(book) != 0;
+        {
+            if (book == null)
+                throw new ArgumentNullException(nameof(book));
 
-        public async Task<Book> LoadBookById(string id)
-            => await _bookRepository.GetBookByIdAsync(id);
+            return await _bookRepository.SaveBookAsync(book) != 0;
+        }
     }
 }

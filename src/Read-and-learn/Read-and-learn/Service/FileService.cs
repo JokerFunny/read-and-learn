@@ -3,7 +3,6 @@ using Microsoft.AppCenter.Analytics;
 using Read_and_learn.Service.Interface;
 using System;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 using FileSystem = PCLStorage.FileSystem;
@@ -17,40 +16,16 @@ namespace Read_and_learn.Service
     {
         public const string fileDesiredName = "book.fb2";
 
-        public async Task<IFile> OpenFile(string name, IFolder folder)
-        {
-            folder = await GetFileFolder(name, folder);
-
-            return await folder.GetFileAsync(GetLocalFileName(name));
-        }
-
-        public async Task<IFolder> GetFileFolder(string name, IFolder folder)
-        {
-            if (name.StartsWith("/"))
-            {
-                name = name.Substring(1);
-            }
-            while (name.Contains("/"))
-            {
-                var path = name.Split(new char[] { '/' }, 2);
-                var folderName = path[0];
-                name = path[1];
-                folder = await folder.CreateFolderAsync(folderName, CreationCollisionOption.OpenIfExists);
-            }
-
-            return folder;
-        }
-
-        public string GetLocalFileName(string path)
-            => path.Split('/').Last();
-
         public async Task<string> ReadFileContent(string folderName)
         {
+            if (string.IsNullOrEmpty(folderName))
+                throw new ArgumentNullException(nameof(folderName));
+
             var rootFolder = FileSystem.Current.LocalStorage;
             var folder = await rootFolder.GetFolderAsync(folderName);
             var contentFile = await folder.GetFileAsync(fileDesiredName);
 
-            return await contentFile.ReadAllTextAsync();
+            return await contentFile?.ReadAllTextAsync() ?? string.Empty;
         }
 
         public async Task<bool> DeleteFolder(string path)
@@ -73,6 +48,9 @@ namespace Read_and_learn.Service
 
         public async Task<byte[]> GetByteArrayFromFile(FileResult targetFile)
         {
+            if (targetFile == null)
+                throw new ArgumentNullException(nameof(targetFile));
+
             Stream fileStream = await targetFile.OpenReadAsync();
 
             byte[] result = new byte[fileStream.Length];
@@ -84,6 +62,11 @@ namespace Read_and_learn.Service
 
         public async Task<string> CreateLocalCopy(Stream fileDate, string id)
         {
+            if (fileDate == null)
+                throw new ArgumentNullException(nameof(fileDate));
+            if (string.IsNullOrEmpty(id))
+                throw new ArgumentNullException(nameof(id));
+
             var rootFolder = FileSystem.Current.LocalStorage;
             var folder = await rootFolder.CreateFolderAsync(id, CreationCollisionOption.ReplaceExisting);
             var contentFile = await folder.CreateFileAsync(fileDesiredName, CreationCollisionOption.ReplaceExisting);

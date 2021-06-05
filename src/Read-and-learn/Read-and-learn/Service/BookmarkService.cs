@@ -24,14 +24,21 @@ namespace Read_and_learn.Service
             _bookmarkRepository = bookmarkRepository;
         }
 
-        public bool CreateBookmark(string name, string bookID, Position position)
+        public bool CreateBookmark(string name, string bookId, Position position)
         {
+            if (string.IsNullOrEmpty(name))
+                throw new ArgumentNullException(nameof(name));
+            if (string.IsNullOrEmpty(bookId))
+                throw new ArgumentNullException(nameof(bookId));
+            if (position == null)
+                throw new ArgumentNullException(nameof(position));
+
             var bookmark = new Bookmark
             {
                 Id = BookmarkIdProvider.Id,
                 Name = name,
                 Position = new Position(position),
-                BookId = bookID,
+                BookId = bookId,
             };
 
             Task<bool> task = Task.Run(async () => await SaveBookmark(bookmark));
@@ -41,6 +48,9 @@ namespace Read_and_learn.Service
 
         public async Task<bool> DeleteBookmark(Bookmark bookmark)
         {
+            if (bookmark == null)
+                throw new ArgumentNullException(nameof(bookmark));
+
             bookmark.Deleted = true;
             bookmark.Name = string.Empty;
             bookmark.Position = new Position();
@@ -49,10 +59,18 @@ namespace Read_and_learn.Service
         }
 
         public async Task<List<Bookmark>> LoadBookmarksByBookId(string bookId)
-            => await _bookmarkRepository.GetBookmarksByBookIDAsync(bookId);
+        {
+            if (string.IsNullOrEmpty(bookId))
+                throw new ArgumentNullException(nameof(bookId));
+
+            return await _bookmarkRepository.GetBookmarksByBookIdAsync(bookId);
+        }
 
         public async Task<bool> SaveBookmark(Bookmark bookmark)
         {
+            if (bookmark == null)
+                throw new ArgumentNullException(nameof(bookmark));
+
             bookmark.LastChange = DateTimeOffset.UtcNow;
 
             return await _bookmarkRepository.SaveBookmarkAsync(bookmark) != 0;

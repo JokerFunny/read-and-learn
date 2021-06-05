@@ -31,15 +31,6 @@ namespace Read_and_learn.Service.Interface
         Task<List<Book>> LoadBooks();
 
         /// <summary>
-        /// Load book by <paramref name="id"/>.
-        /// </summary>
-        /// <param name="id">Id of target book</param>
-        /// <returns>
-        ///     If book exist - <see cref="Book"/>, otherwise null.
-        /// </returns>
-        Task<Book> LoadBookById(string id);
-
-        /// <summary>
         /// Remove book via <paramref name="id"/>.
         /// </summary>
         /// <param name="id">Id of target book</param>

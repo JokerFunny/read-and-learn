@@ -33,18 +33,28 @@ namespace Read_and_learn.Service.Interface
         }
 
         public Book CreateBookshelfBook(Ebook book)
-            => new Book
+        {
+            if (book == null)
+                throw new ArgumentNullException(nameof(book));
+
+            return new Book
             {
                 Title = book.Title,
                 Path = book.Path,
                 Cover = book.Cover
             };
+        }
 
         public async Task<Ebook> OpenBook(string fullPath, string bookId)
             => await _OpenTargetBook(bookId, bookId);
 
         public async Task<Ebook> GetBook(FileResult targetFile, string bookId)
         {
+            if (targetFile == null)
+                throw new ArgumentNullException(nameof(targetFile));
+            if (string.IsNullOrEmpty(bookId))
+                throw new ArgumentNullException(nameof(bookId));
+
             Stream fileStream = await targetFile.OpenReadAsync();
 
             var path = await _fileService.CreateLocalCopy(fileStream, bookId);
@@ -54,6 +64,11 @@ namespace Read_and_learn.Service.Interface
 
         private async Task<Ebook> _OpenTargetBook(string fullPath, string bookId)
         {
+            if (string.IsNullOrEmpty(fullPath))
+                throw new ArgumentNullException(nameof(fullPath));
+            if (string.IsNullOrEmpty(bookId))
+                throw new ArgumentNullException(nameof(bookId));
+
             Fb2Document fb2Document = new Fb2Document();
             string fileContent = await _fileService.ReadFileContent(bookId);
 

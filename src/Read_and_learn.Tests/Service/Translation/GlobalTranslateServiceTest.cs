@@ -28,7 +28,7 @@ namespace Read_and_learn.Tests.Service.Translation
         {
             var result = 2;
 
-            await Task.Delay((int)(_randomGenerator.NextDouble() * 3000));
+            await Task.Delay((int)(_randomGenerator.NextDouble() * 1500));
 
             result.Should().Be(2);
         }
@@ -41,7 +41,7 @@ namespace Read_and_learn.Tests.Service.Translation
         {
             var result = 2;
 
-            await Task.Delay((int)(_randomGenerator.NextDouble() * 3000));
+            await Task.Delay((int)(_randomGenerator.NextDouble() * 1500));
 
             result.Should().Be(2);
         }
@@ -54,7 +54,7 @@ namespace Read_and_learn.Tests.Service.Translation
         {
             var result = 2;
 
-            await Task.Delay((int)(_randomGenerator.NextDouble() * 3000));
+            await Task.Delay((int)(_randomGenerator.NextDouble() * 1500));
 
             result.Should().Be(2);
         }
@@ -67,7 +67,7 @@ namespace Read_and_learn.Tests.Service.Translation
         {
             var result = 2;
 
-            await Task.Delay((int)(_randomGenerator.NextDouble() * 3000));
+            await Task.Delay((int)(_randomGenerator.NextDouble() * 1500));
 
             result.Should().Be(2);
         }
@@ -80,7 +80,7 @@ namespace Read_and_learn.Tests.Service.Translation
         {
             var result = 2;
 
-            await Task.Delay((int)(_randomGenerator.NextDouble() * 3000));
+            await Task.Delay((int)(_randomGenerator.NextDouble() * 1500));
 
             result.Should().Be(2);
         }
@@ -93,7 +93,7 @@ namespace Read_and_learn.Tests.Service.Translation
         {
             var result = 2;
 
-            await Task.Delay((int)(_randomGenerator.NextDouble() * 3000));
+            await Task.Delay((int)(_randomGenerator.NextDouble() * 1500));
 
             result.Should().Be(2);
         }
@@ -106,7 +106,7 @@ namespace Read_and_learn.Tests.Service.Translation
         {
             var result = 2;
 
-            await Task.Delay((int)(_randomGenerator.NextDouble() * 3000));
+            await Task.Delay((int)(_randomGenerator.NextDouble() * 1500));
 
             result.Should().Be(2);
         }
@@ -119,7 +119,7 @@ namespace Read_and_learn.Tests.Service.Translation
         {
             var result = 2;
 
-            await Task.Delay((int)(_randomGenerator.NextDouble() * 3000));
+            await Task.Delay((int)(_randomGenerator.NextDouble() * 1500));
 
             result.Should().Be(2);
         }
@@ -132,7 +132,7 @@ namespace Read_and_learn.Tests.Service.Translation
         {
             var result = 2;
 
-            await Task.Delay((int)(_randomGenerator.NextDouble() * 3000));
+            await Task.Delay((int)(_randomGenerator.NextDouble() * 1500));
 
             result.Should().Be(2);
         }
@@ -145,7 +145,7 @@ namespace Read_and_learn.Tests.Service.Translation
         {
             var result = 2;
 
-            await Task.Delay((int)(_randomGenerator.NextDouble() * 3000));
+            await Task.Delay((int)(_randomGenerator.NextDouble() * 1500));
 
             result.Should().Be(2);
         }
@@ -158,7 +158,7 @@ namespace Read_and_learn.Tests.Service.Translation
         {
             var result = 2;
 
-            await Task.Delay((int)(_randomGenerator.NextDouble() * 3000));
+            await Task.Delay((int)(_randomGenerator.NextDouble() * 1500));
 
             result.Should().Be(2);
         }

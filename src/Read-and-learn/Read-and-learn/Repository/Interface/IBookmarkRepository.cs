@@ -16,7 +16,7 @@ namespace Read_and_learn.Repository.Interface
         /// <returns>
         ///     List of all bookmarks for target book.
         /// </returns>
-        Task<List<Bookmark>> GetBookmarksByBookIDAsync(string bookId);
+        Task<List<Bookmark>> GetBookmarksByBookIdAsync(string bookId);
 
         /// <summary>
         /// Delete bookmark in async way.

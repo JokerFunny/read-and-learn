@@ -23,7 +23,7 @@ namespace Read_and_learn.Repository
             _connection = databaseService.Connection;
         }
 
-        public Task<List<Bookmark>> GetBookmarksByBookIDAsync(string bookId)
+        public Task<List<Bookmark>> GetBookmarksByBookIdAsync(string bookId)
             => _connection.Table<Bookmark>().Where(o => o.BookId == bookId).ToListAsync();
 
         public Task<int> DeleteBookmarkAsync(Bookmark bookmark)
