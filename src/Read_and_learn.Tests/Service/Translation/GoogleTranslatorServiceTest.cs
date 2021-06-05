@@ -31,7 +31,8 @@ namespace Read_and_learn.Tests.Service.Translation
             result.Should().NotBeNull();
 
             result.Error.Should().BeNull();
-            result.Result.Should().Be("піца - це хороша їжа");
+            // translation is not clearly defined.
+            result.Result.Should().BeOneOf("піца - це хороша їжа", "піца - хороша їжа");
         }
 
         [Fact]
