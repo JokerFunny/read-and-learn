@@ -13,7 +13,7 @@ namespace Read_and_learn.Provider
         /// </summary>
         public static Dictionary<string, string> Languages = new Dictionary<string, string>()
         {
-            { "en", "English" },
+            { "en-US", "English" },
             { "ru", "Русский" },
             { "uk", "Українська" }
         };

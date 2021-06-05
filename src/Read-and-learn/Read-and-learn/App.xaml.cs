@@ -3,13 +3,16 @@ using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using PCLAppConfig;
+using Read_and_learn.AppResources;
 using Read_and_learn.Model.Message;
 using Read_and_learn.Page;
 using Read_and_learn.PlatformRelatedServices;
 using Read_and_learn.Service.Interface;
 using System;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using Device = Xamarin.Forms.Device;
 
@@ -31,6 +34,7 @@ namespace Read_and_learn
             InitializeComponent();
 
             _LoadConfig();
+            _SetLocalization();
 
             _messageBus = IocManager.Container.Resolve<IMessageBus>();
 
@@ -73,6 +77,8 @@ namespace Read_and_learn
 
             _messageBus.UnSubscribe("App");
             _messageBus.Subscribe<BackPressedMessage>(_BackPressedMessageSubscriber, new string[] { "App" });
+            _messageBus.Subscribe<ChangeApplicationLanguageMessage>(_ChangeApplicationLanguageMessageSubscriber, new string[] { "App" });
+            _messageBus.Subscribe<RefreshPageMessage>(_RefreshPagesAfterLanguageChange, new string[] { "App" });
         }
 
         protected override void OnSleep()
@@ -91,6 +97,13 @@ namespace Read_and_learn
 
                 ConfigurationManager.Initialise(assembly.GetManifestResourceStream("Read_and_learn.app.config"));
             }
+        }
+
+        private void _SetLocalization()
+        {
+            CultureInfo targetCulture = new CultureInfo(UserSettings.AppLanguage);
+
+            AppResource.Culture = targetCulture;
         }
 
         // handle for correctly work with back pressed action.
@@ -127,6 +140,32 @@ namespace Read_and_learn
                     await master.Detail.Navigation.PopAsync();
                 }
             }
+        }
+
+        private void _ChangeApplicationLanguageMessageSubscriber(ChangeApplicationLanguageMessage msg)
+        {
+            CultureInfo targetCulture = new CultureInfo(msg.Language);
+
+            CultureInfo.DefaultThreadCurrentCulture = targetCulture;
+            CultureInfo.CurrentCulture = targetCulture;
+            CultureInfo.CurrentUICulture = targetCulture;
+            AppResource.Culture = targetCulture;
+
+            _messageBus.Send(new RefreshPageMessage());
+        }
+
+        private async void _RefreshPagesAfterLanguageChange(RefreshPageMessage msg)
+        {
+            var updatedSettingsPage = new SettingsPage();
+
+            await MainPage.Navigation.PopAsync();
+
+            if (HasMasterDetailPage)
+                MainPage = new MasterFlyoutPage();
+            else
+                MainPage = new NavigationPage(new HomePage());
+
+            await MainPage.Navigation.PushAsync(updatedSettingsPage);
         }
     }
 }

@@ -4,9 +4,5 @@
              xmlns:local="clr-namespace:Read_and_learn.Page.Settings"
              x:Class="Read_and_learn.Page.SettingsPage">
     <TabbedPage.Children>
-        <local:ApplicationSettings />
-        <local:TranslationSettings />
-        <local:ReaderSettings />
-        <local:ControlSettings />
     </TabbedPage.Children>
 </TabbedPage>

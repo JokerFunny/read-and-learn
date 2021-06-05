@@ -12,7 +12,7 @@ namespace Read_and_learn
     public static class UserSettings
     {
         private static ISettings _appSettings => CrossSettings.Current;
-        private const string _defaultLanguage = "en";
+        private const string _defaultLanguage = "en-US";
 
         /// <summary>
         /// Indicate if program run in a first time.

@@ -61,6 +61,24 @@ namespace Read_and_learn.AppResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Application language.
+        /// </summary>
+        internal static string ApplicationLanguageLabel {
+            get {
+                return ResourceManager.GetString("ApplicationLanguageLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Application.
+        /// </summary>
+        internal static string ApplicationSettings_Title {
+            get {
+                return ResourceManager.GetString("ApplicationSettings_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to My Books.
         /// </summary>
         internal static string HomePageTitle {
@@ -75,6 +93,15 @@ namespace Read_and_learn.AppResources {
         internal static string SettingsHeader {
             get {
                 return ResourceManager.GetString("SettingsHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Application.
+        /// </summary>
+        internal static string TestTitle {
+            get {
+                return ResourceManager.GetString("TestTitle", resourceCulture);
             }
         }
     }

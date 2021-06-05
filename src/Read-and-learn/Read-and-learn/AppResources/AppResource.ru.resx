@@ -117,7 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ApplicationLanguageLabel" xml:space="preserve">
+    <value>Язык приложения</value>
+  </data>
+  <data name="ApplicationSettings_Title" xml:space="preserve">
+    <value>Приложение</value>
+  </data>
+  <data name="HomePageTitle" xml:space="preserve">
+    <value>Мои книги</value>
+  </data>
   <data name="SettingsHeader" xml:space="preserve">
     <value>Настройки</value>
+  </data>
+  <data name="TestTitle" xml:space="preserve">
+    <value>Приложение</value>
   </data>
 </root>

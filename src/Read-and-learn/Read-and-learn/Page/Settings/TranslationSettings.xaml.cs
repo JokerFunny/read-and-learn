@@ -17,7 +17,6 @@ namespace Read_and_learn.Page.Settings
         {
             InitializeComponent();
 
-
             if (Device.RuntimePlatform == Device.UWP)
             {
                 Content.HorizontalOptions = LayoutOptions.Start;

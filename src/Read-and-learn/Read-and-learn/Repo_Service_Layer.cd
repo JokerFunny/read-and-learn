@@ -9,7 +9,7 @@
   <Class Name="Read_and_learn.Repository.BookmarkRepository">
     <Position X="13.25" Y="0.75" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AACAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAIAAABAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAgAACAAAAAAAAAAAAAAAAAIAAABAA=</HashCode>
       <FileName>Repository\BookmarkRepository.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -34,9 +34,9 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Read_and_learn.Service.BookshelfService">
-    <Position X="3.5" Y="9" Width="1.75" />
+    <Position X="3.5" Y="8.75" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AABiAAAAAgAAIgAACCAIAAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <HashCode>AABiAAAAAgAAIgAACCAAAAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
       <FileName>Service\BookshelfService.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -65,9 +65,9 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Read_and_learn.Service.FileService">
-    <Position X="5.75" Y="12.5" Width="1.75" />
+    <Position X="3.5" Y="11" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAEgEAAAAAAAAAAAgABAAAAACAAAAEAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAEgEAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Service\FileService.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -131,7 +131,7 @@
   <Class Name="Read_and_learn.Service.Translation.YandexTranslatorService">
     <Position X="7.75" Y="9.75" Width="2" />
     <TypeIdentifier>
-      <HashCode>AIAAAAABAAAAAAAAAAAACIAAAAAAAAAAAAAAAAACAAA=</HashCode>
+      <HashCode>AIAAAAABAAAAAAAAAAEACIAAAAAAAAAAAAAAAAACAAA=</HashCode>
       <FileName>Service\Translation\YandexTranslatorService.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -200,9 +200,9 @@
     </TypeIdentifier>
   </Interface>
   <Interface Name="Read_and_learn.Repository.Interface.IBookmarkRepository">
-    <Position X="13.25" Y="3.5" Width="2.25" />
+    <Position X="13.25" Y="3.25" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AACAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAgAACAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
       <FileName>Repository\Interface\IBookmarkRepository.cs</FileName>
     </TypeIdentifier>
   </Interface>
@@ -230,26 +230,26 @@
   <Interface Name="Read_and_learn.Service.Interface.IBookshelfService">
     <Position X="4.75" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAgAAAgAACCAIAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAgAAAgAACCAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Service\Interface\IBookshelfService.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Read_and_learn.Service.Interface.ICloudStorageService">
-    <Position X="6.5" Y="2.5" Width="1.75" />
+    <Position X="2.75" Y="2.75" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAABAAAAAEQAEAAAAAAAQAAAAAAAAAAA=</HashCode>
       <FileName>Service\Interface\ICloudStorageService.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Read_and_learn.Service.Interface.ICryptoService">
-    <Position X="2.75" Y="3.25" Width="1.5" />
+    <Position X="6.5" Y="2.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
       <FileName>Service\Interface\ICryptoService.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Read_and_learn.Service.Interface.IDatabaseService">
-    <Position X="8.5" Y="2.5" Width="1.5" />
+    <Position X="8.25" Y="2.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Service\Interface\IDatabaseService.cs</FileName>
@@ -258,7 +258,7 @@
   <Interface Name="Read_and_learn.Service.Interface.IFileService">
     <Position X="2.75" Y="0.75" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAEgEAAAAAAAAAAAAAAAAAAACAAAAEAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAEgEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Service\Interface\IFileService.cs</FileName>
     </TypeIdentifier>
   </Interface>

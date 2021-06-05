@@ -25,6 +25,7 @@ namespace Read_and_learn.Model.View.Settings
         public SystemLanguageProviderVM()
         {
             _messageBus = IocManager.Container.Resolve<IMessageBus>();
+            //UserSettings.AppLanguage = "en-US";
         }
 
         /// <summary>

@@ -1,6 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using Read_and_learn.AppResources;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -42,7 +42,7 @@ namespace Read_and_learn.Page
             {
                 MenuItems = new ObservableCollection<MasterFlyoutPageFlyoutMenuItem>(new[]
                 {
-                    new MasterFlyoutPageFlyoutMenuItem { Id = 0, Title = "My Books", TargetType = typeof(HomePage) },
+                    new MasterFlyoutPageFlyoutMenuItem { Id = 0, Title = AppResource.HomePageTitle, TargetType = typeof(HomePage) },
                     new MasterFlyoutPageFlyoutMenuItem { Id = 1, Title = "Settings", TargetType = typeof(SettingsPage) },
                     new MasterFlyoutPageFlyoutMenuItem { Id = 2, Title = "About", TargetType = typeof(AboutPage) },
                 });
