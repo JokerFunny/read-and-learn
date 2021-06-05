@@ -35,5 +35,5 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
-          name: MyApplication.apk
-          path: /src/Read-and-learn/Read-and-learn.Android/bin/Release/danylo.novykov.read_and_learn-Signed.apk 
+          name: read_and_learn.apk
+          path: /src/Read-and-learn/Read-and-learn.Android/bin/Release/danylo.novykov.read_and_learn.apk
