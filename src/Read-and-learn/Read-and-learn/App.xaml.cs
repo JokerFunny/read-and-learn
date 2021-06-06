@@ -155,14 +155,21 @@ namespace Read_and_learn
         {
             var updatedSettingsPage = new SettingsPage();
 
-            await MainPage.Navigation.PopAsync();
 
             if (HasMasterDetailPage)
+            {
                 MainPage = new MasterFlyoutPage();
+
+                await ((MasterFlyoutPage)MainPage).Detail.Navigation.PushAsync(updatedSettingsPage);
+            }
             else
+            {
+                await MainPage.Navigation.PopAsync();
+
                 MainPage = new NavigationPage(new HomePage());
 
-            await MainPage.Navigation.PushAsync(updatedSettingsPage);
+                await MainPage.Navigation.PushAsync(updatedSettingsPage);
+            }
         }
     }
 }
