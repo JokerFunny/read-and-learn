@@ -1,7 +1,5 @@
 ﻿using Autofac;
-using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
-using Microsoft.AppCenter.Crashes;
 using PCLAppConfig;
 using Read_and_learn.AppResources;
 using Read_and_learn.Model.Message;
@@ -12,7 +10,6 @@ using System;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 using Device = Xamarin.Forms.Device;
 
@@ -159,8 +156,6 @@ namespace Read_and_learn
             if (HasMasterDetailPage)
             {
                 MainPage = new MasterFlyoutPage();
-
-                await ((MasterFlyoutPage)MainPage).Detail.Navigation.PushAsync(updatedSettingsPage);
             }
             else
             {

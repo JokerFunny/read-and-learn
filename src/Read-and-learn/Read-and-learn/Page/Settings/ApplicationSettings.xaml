@@ -44,7 +44,7 @@
 
                     <StackLayout Style="{StaticResource wrapper}">
                         <StackLayout Orientation="Horizontal" CompressedLayout.IsHeadless="true">
-                            <Label Text="{x:Static resources:AppResource.ApplicationSettings_ApplicationLanguageLabel}" Style="{StaticResource title}" />
+                            <Label Text="{x:Static resources:AppResource.ApplicationSettings_ApplicationLanguageLabel}" Style="{StaticResource title}" MinimumWidthRequest="250"/>
                             <Picker ItemsSource="{Binding SystemLanguageProvider.Items}" SelectedItem="{Binding SystemLanguageProvider.Value}" Style="{StaticResource control}">
                                 <Picker.Title>
                                     <OnPlatform x:TypeArguments="x:String" Android="{x:Static resources:AppResource.ApplicationSettings_ApplicationLanguageLabel_Picker_Title}" />
@@ -56,7 +56,7 @@
                     
                     <StackLayout Style="{StaticResource wrapper}">
                         <StackLayout Orientation="Horizontal" CompressedLayout.IsHeadless="true">
-                            <Label Text="{x:Static resources:AppResource.ApplicationSettings_AnonymousDataLabel}" Style="{StaticResource title}" />
+                            <Label Text="{x:Static resources:AppResource.ApplicationSettings_AnonymousDataLabel}" Style="{StaticResource title}" MinimumWidthRequest="250"/>
                             <Switch IsToggled="{Binding AnalyticsAgreement}" Style="{StaticResource control}" />
                         </StackLayout>
                         <Label Text="{x:Static resources:AppResource.ApplicationSettings_AnonymousData_FirstPart}" Style="{StaticResource note}" />

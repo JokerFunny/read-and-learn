@@ -280,7 +280,7 @@
   </data>
 
   <data name="AddBookCard_AddButtonLabel" xml:space="preserve">
-    <value>No</value>
+    <value>Open new book</value>
   </data>
   
   <data name="ReaderMenuPanel_ContentTitle" xml:space="preserve">

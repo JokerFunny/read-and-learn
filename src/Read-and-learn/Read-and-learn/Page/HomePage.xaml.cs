@@ -10,6 +10,7 @@ using Read_and_learn.Service.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -53,7 +54,7 @@ namespace Read_and_learn.Page
             }
         }
 
-        protected override void OnAppearing()
+        protected async override void OnAppearing()
         {
             base.OnAppearing();
 
@@ -67,7 +68,7 @@ namespace Read_and_learn.Page
 
             UserSettings.FirstRun = false;
 
-            _LoadBookshelf();
+            await _LoadBookshelf();
         }
 
         private async void _About_Clicked(object sender, EventArgs e)
@@ -90,7 +91,7 @@ namespace Read_and_learn.Page
             }
         }
 
-        private async void _LoadBookshelf()
+        private async Task _LoadBookshelf()
         {
             Bookshelf.Children.Clear();
 

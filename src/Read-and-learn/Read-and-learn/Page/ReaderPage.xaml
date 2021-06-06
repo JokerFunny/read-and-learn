@@ -11,14 +11,14 @@
                 <ScrollView x:Name="ReaderScrollView" VerticalOptions="FillAndExpand" Orientation="Vertical">
                     <ScrollView.Content>
                         <StackLayout x:Name="PageContentLayout" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" AbsoluteLayout.LayoutFlags="SizeProportional">
-                            <StackLayout.GestureRecognizers>
-                                <SwipeGestureRecognizer Direction="Left" Swiped="_OnSwiped" />
-                                <SwipeGestureRecognizer Direction="Right" Swiped="_OnSwiped"/>
-                                <TapGestureRecognizer Tapped="_OnEmptyPageSpacePressed" />
-                            </StackLayout.GestureRecognizers>
                         </StackLayout>
                     </ScrollView.Content>
                 </ScrollView>
+                <StackLayout.GestureRecognizers>
+                    <SwipeGestureRecognizer Direction="Left" Swiped="_OnSwiped" />
+                    <SwipeGestureRecognizer Direction="Right" Swiped="_OnSwiped"/>
+                    <TapGestureRecognizer Tapped="_OnEmptyPageSpacePressed" />
+                </StackLayout.GestureRecognizers>
             </StackLayout>
             
             <local:HeaderPanel AbsoluteLayout.LayoutFlags="WidthProportional" AbsoluteLayout.LayoutBounds="0,0,1,40" />

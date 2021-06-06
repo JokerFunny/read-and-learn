@@ -34,8 +34,8 @@ namespace Read_and_learn.Page
         private const int _marginTopConstant = 40;
         // rework to be more flexible.
         private int _charactersPerPage;
-        private int _charactersInOneLine = Device.RuntimePlatform == Device.Android ? 30 : 40;
-        private int _linesCount = Device.RuntimePlatform == Device.Android ? 25 : 27;
+        private int _charactersInOneLine = Device.RuntimePlatform == Device.Android ? 35 : 40;
+        private int _linesCount = Device.RuntimePlatform == Device.Android ? 26 : 27;
 
         private bool _labelDoubleCliked = false;
         private Label _firsClickedLabel = null;

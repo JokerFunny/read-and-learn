@@ -39,7 +39,7 @@
 
                     <StackLayout Style="{StaticResource wrapper}" IsVisible="{Binding VolumeButton.Show}">
                         <StackLayout Orientation="Horizontal" CompressedLayout.IsHeadless="true">
-                            <Label Text="{x:Static resources:AppResource.ControlSettings_VolumeButtonsTitle}" Style="{StaticResource title}" />
+                            <Label Text="{x:Static resources:AppResource.ControlSettings_VolumeButtonsTitle}" Style="{StaticResource title}" MinimumWidthRequest="250"/>
                             <Switch IsToggled="{Binding VolumeButton.Enabled}" Style="{StaticResource control}" />
                         </StackLayout>
                         <Label Text="{x:Static resources:AppResource.ControlSettings_VolumeButtons_HintTitle}" Style="{StaticResource note}" />
@@ -47,7 +47,7 @@
 
                     <StackLayout Style="{StaticResource wrapper}">
                         <StackLayout Orientation="Horizontal" CompressedLayout.IsHeadless="true">
-                            <Label Text="{x:Static resources:AppResource.ControlSettings_BrightnessTitle}" Style="{StaticResource title}" />
+                            <Label Text="{x:Static resources:AppResource.ControlSettings_BrightnessTitle}" Style="{StaticResource title}" MinimumWidthRequest="250"/>
                             <Picker ItemsSource="{Binding PanBrightnessChange.Items}" SelectedItem="{Binding PanBrightnessChange.Value}" Style="{StaticResource control}">
                                 <Picker.Title>
                                     <OnPlatform x:TypeArguments="x:String" Android="{x:Static resources:AppResource.ControlSettings_Brightness_PickerTitle}" />

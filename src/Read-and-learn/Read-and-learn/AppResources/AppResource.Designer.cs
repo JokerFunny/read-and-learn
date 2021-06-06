@@ -79,7 +79,7 @@ namespace Read_and_learn.AppResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No.
+        ///   Looks up a localized string similar to Open new book.
         /// </summary>
         internal static string AddBookCard_AddButtonLabel {
             get {
