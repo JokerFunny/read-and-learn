@@ -1,4 +1,5 @@
-﻿using Read_and_learn.Model.DataStructure;
+﻿using Read_and_learn.AppResources;
+using Read_and_learn.Model.DataStructure;
 using Read_and_learn.Service.Interface;
 using System;
 using System.Collections.Generic;
@@ -43,7 +44,7 @@ namespace Read_and_learn.Service.Translation
             {
                 result.SetResult(new WordTranslationResult()
                 {
-                    Result = "Source language not supported for translation."
+                    Result = AppResource.Translation_SourceLanguageNotSupported
                 });
 
                 return result.Task;
@@ -76,7 +77,7 @@ namespace Read_and_learn.Service.Translation
             {
                 result.SetResult(new WordTranslationResult()
                 {
-                    Result = "There is no available translation for target word :("
+                    Result = AppResource.Translation_NoAvailableTranlsation
                 });
             }
 

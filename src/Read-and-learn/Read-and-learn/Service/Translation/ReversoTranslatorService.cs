@@ -1,4 +1,5 @@
-﻿using Read_and_learn.Model.DataStructure;
+﻿using Read_and_learn.AppResources;
+using Read_and_learn.Model.DataStructure;
 using Read_and_learn.Model.Translation.ReversoApi;
 using Read_and_learn.Model.Translation.ReversoApi.Text;
 using Read_and_learn.Model.Translation.ReversoApi.Word;
@@ -141,7 +142,7 @@ namespace Read_and_learn.Service.Translation
             if (Enum.TryParse(language, true, out Language supportedType))
                 return supportedType;
 
-            throw new Exception($"Target language not supported by current provider! Supported languages: {string.Join(", ", Enum.GetValues(typeof(Language)).Cast<Language>())}");
+            throw new Exception($"{AppResource.Translation_TargetLanguageNotSupported} {string.Join(", ", Enum.GetValues(typeof(Language)).Cast<Language>())}");
         }
 
         private async Task<T> _Translate<T>(string url, TranslateRequestBase request)

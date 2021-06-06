@@ -117,6 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+
+  <data name="App_ClickForExit" xml:space="preserve">
+    <value>Нажмите еще раз, чтобы выйти!</value>
+  </data>
+  
   <data name="ApplicationSettings_Title" xml:space="preserve">
     <value>Приложение</value>
   </data>
@@ -235,9 +240,122 @@
   <data name="HomePage_About" xml:space="preserve">
     <value>О приложении</value>
   </data>
+  <data name="HomePage_AnalyticsAgreement_Title" xml:space="preserve">
+    <value>Соглашение о сборе анонимных данных</value>
+  </data>
+  <data name="HomePage_AnalyticsAgreement_Message" xml:space="preserve">
+    <value>Я согласен на сбор анонимной информации об использовании приложения. Это важно для улучшения приложений.</value>
+  </data>
+  <data name="HomePage_AnalyticsAgreement_Accept" xml:space="preserve">
+    <value>Cогласен</value>
+  </data>
+  <data name="HomePage_AnalyticsAgreement_Cancel" xml:space="preserve">
+    <value>Нет</value>
+  </data>
+  <data name="HomePage_Error_Title" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
+  <data name="HomePage_Error_Message" xml:space="preserve">
+    <value>Не удалось открыть файл</value>
+  </data>
+  <data name="HomePage_Error_Cancel" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="HomePage_Permission_Title" xml:space="preserve">
+    <value>Разрешение не предоставлено</value>
+  </data>
+  <data name="HomePage_Permission_Message" xml:space="preserve">
+    <value>Невозможно открыть книгу без разрешения на хранение</value>
+  </data>
+  <data name="HomePage_Permission_Cancel" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="HomePage_Delete_Title" xml:space="preserve">
+    <value>Удалить книгу?</value>
+  </data>
+  <data name="HomePage_Permission_Cancel" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="HomePage_Delete_Button" xml:space="preserve">
+    <value>Нет</value>
+  </data>
 
   <data name="AddBookCard_AddButtonLabel" xml:space="preserve">
     <value>Открыть новую книгу</value>
+  </data>
+
+  <data name="ReaderMenuPanel_ContentTitle" xml:space="preserve">
+    <value>Содержание</value>
+  </data>
+  <data name="ReaderMenuPanel_BookmarksTitle" xml:space="preserve">
+    <value>Закладки</value>
+  </data>
+
+  <data name="ReaderMenu_Settings_BrightnessTitle" xml:space="preserve">
+    <value>Яркость</value>
+  </data>
+  <data name="ReaderMenu_Settings_FontSizeTitle" xml:space="preserve">
+    <value>Размер шрифта</value>
+  </data>
+  <data name="ReaderMenu_Settings_FontSize_PickerTitle" xml:space="preserve">
+    <value>Размер шрифта</value>
+  </data>
+  <data name="ReaderMenu_Settings_MarginTitle" xml:space="preserve">
+    <value>Отступ</value>
+  </data>
+  <data name="ReaderMenu_Settings_Margin_PickerTitle" xml:space="preserve">
+    <value>Отступ</value>
+  </data>
+
+  <data name="ReaderMenu_Bookmark_AddBookmarckTitle" xml:space="preserve">
+    <value>Добавить закладку</value>
+  </data>
+
+  <data name="Translation_TargetLanguageNotSupported" xml:space="preserve">
+    <value>Целевой язык не поддерживается текущим провайдером! Поддерживаемые языки:</value>
+  </data>
+  <data name="Translation_SourceLanguageNotSupported" xml:space="preserve">
+    <value>Исходный язык не поддерживается для перевода.</value>
+  </data>
+  <data name="Translation_NoAvailableTranlsation" xml:space="preserve">
+    <value>Нет доступного перевода для целевого слова :(</value>
+  </data>
+  <data name="Translation_Yandex_BlockedInCountryError" xml:space="preserve">
+    <value>Невозможно использовать целевого провайдера из-за настроек интернета (заблокирован в Украине).</value>
+  </data>
+  <data name="Translation_NoInternetConnection" xml:space="preserve">
+    <value>Подключение к Интернету отсутствует</value>
+  </data>
+
+  <data name="ReaderPage_ReadingFinished" xml:space="preserve">
+    <value>Вы дочитали эту книгу!</value>
+  </data>
+  <data name="ReaderPage_SecondWord" xml:space="preserve">
+    <value>Выбери второе слово!</value>
+  </data>
+  <data name="ReaderPage_NoInternet" xml:space="preserve">
+    <value>Вы не можете перевести часть текста без подключения к Интернету.</value>
+  </data>
+  <data name="ReaderPage_TranslationResult_Title" xml:space="preserve">
+    <value>Результат перевода:</value>
+  </data>
+  <data name="ReaderPage_TranslationResult_Cancle" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="ReaderPage_Translation_Error" xml:space="preserve">
+    <value>Ошибка при переводе. Обратитесь к разработчику.\r\nСообщение об исключении:</value>
+  </data>
+  <data name="ReaderPage_Translation_Provider" xml:space="preserve">
+    <value>Провайдер:</value>
+  </data>
+  <data name="ReaderPage_Translation_Result" xml:space="preserve">
+    <value>Результат:</value>
+  </data>
+  <data name="ReaderPage_Translation_Synonyms" xml:space="preserve">
+    <value>Синонимы:</value>
+  </data>
+  <data name="ReaderPage_Translation_Usages" xml:space="preserve">
+    <value>Примеры использования:</value>
   </data>
   
 </root>

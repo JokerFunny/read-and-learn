@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <StackLayout xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             xmlns:local="clr-namespace:Read_and_learn.View.Buttons"
              x:Class="Read_and_learn.Page.Reader.HeaderPanel"
              HorizontalOptions="FillAndExpand"
              VerticalOptions="FillAndExpand"

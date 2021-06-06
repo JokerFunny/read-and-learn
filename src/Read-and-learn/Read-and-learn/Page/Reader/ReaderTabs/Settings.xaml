@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <StackLayout xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:resources="clr-namespace:Read_and_learn.AppResources" 
              x:Class="Read_and_learn.Page.Reader.ReaderTabs.Settings"
              CompressedLayout.IsHeadless="true">
 
@@ -33,16 +34,16 @@
 
     <StackLayout.Children>
         <StackLayout Style="{StaticResource settingsWrapper}" x:Name="BrightnessWrapper">
-            <Label Text="Brightness" WidthRequest="100" FontSize="Medium" />
+            <Label Text="{x:Static resources:AppResource.ReaderMenu_Settings_BrightnessTitle}" WidthRequest="100" FontSize="Medium" />
             <Slider x:Name="Brightness" HorizontalOptions="FillAndExpand" VerticalOptions="Center" HeightRequest="45" Maximum="100" Minimum="1" ValueChanged="_Brightness_ValueChanged"></Slider>
         </StackLayout>
         <StackLayout Style="{StaticResource settingsWrapper}">
-            <Label Text="Font size" FontSize="Medium" />
+            <Label Text="{x:Static resources:AppResource.ReaderMenu_Settings_FontSizeTitle}" FontSize="Medium" />
             <Picker x:Name="FontPicker" ItemsSource="{Binding FontSize.Items}" SelectedItem="{Binding FontSize.Value}">
             </Picker>
         </StackLayout>
         <StackLayout Style="{StaticResource settingsWrapper}">
-            <Label Text="Margin" FontSize="Medium" />
+            <Label Text="{x:Static resources:AppResource.ReaderMenu_Settings_MarginTitle}" FontSize="Medium" />
             <Picker x:Name="MarginPicker" ItemsSource="{Binding Margin.Items}" SelectedItem="{Binding Margin.Value}">
             </Picker>
         </StackLayout>

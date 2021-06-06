@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Read_and_learn.AppResources;
 using Read_and_learn.Model.Message;
 using Read_and_learn.Model.View.Reader;
 using Read_and_learn.PlatformRelatedServices;
@@ -31,10 +32,10 @@ namespace Read_and_learn.Page.Reader.ReaderTabs
             if (Device.RuntimePlatform == Device.Android)
             {
                 FontPicker.WidthRequest = 75;
-                FontPicker.Title = "Font size";
+                FontPicker.Title = AppResource.ReaderMenu_Settings_FontSize_PickerTitle;
 
                 MarginPicker.WidthRequest = 75;
-                MarginPicker.Title = "Margin";
+                MarginPicker.Title = AppResource.ReaderMenu_Settings_Margin_PickerTitle;
 
                 var brightnessProvider = IocManager.Container.Resolve<IBrightnessProvider>();
                 Brightness.Value = brightnessProvider.Brightness * 100;

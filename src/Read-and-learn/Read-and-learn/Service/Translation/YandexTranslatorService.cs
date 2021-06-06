@@ -1,4 +1,5 @@
-﻿using Read_and_learn.Model.DataStructure;
+﻿using Read_and_learn.AppResources;
+using Read_and_learn.Model.DataStructure;
 using Read_and_learn.Service.Interface;
 using System;
 using System.Collections.Generic;
@@ -49,7 +50,7 @@ namespace Read_and_learn.Service.Translation
                 {
                     return new WordTranslationResult()
                     {
-                        Result = "You can`t use target provider due to internet settings (blocked in the Ukraine)."
+                        Result = AppResource.Translation_Yandex_BlockedInCountryError
                     };
                 }
                 else
@@ -101,7 +102,7 @@ namespace Read_and_learn.Service.Translation
                 {
                     return new WordTranslationResult()
                     {
-                        Result = "You can`t use target provider due to internet settings (blocked in the Ukraine)."
+                        Result = AppResource.Translation_Yandex_BlockedInCountryError
                     };
                 }
                 else

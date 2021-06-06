@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Microsoft.AppCenter.Crashes;
+using Read_and_learn.AppResources;
 using Read_and_learn.Model.DataStructure;
 using Read_and_learn.Provider;
 using Read_and_learn.Service.Interface;
@@ -50,7 +51,7 @@ namespace Read_and_learn.Service.Translation
 
             return new TranslationResult()
             {
-                Error = new Exception("No internet connection")
+                Error = new Exception(AppResource.Translation_NoInternetConnection)
             };
         }
 

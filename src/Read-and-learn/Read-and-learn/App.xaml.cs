@@ -126,7 +126,8 @@ namespace Read_and_learn
                     }
                     else
                     {
-                        IocManager.Container.Resolve<IToastService>().Show("Press once again to exit!");
+                        IocManager.Container.Resolve<IToastService>().Show(AppResource.App_ClickForExit);
+
                         _exitPressedOnce = true;
                         Device.StartTimer(new TimeSpan(0, 0, 2), () => {
                             _exitPressedOnce = false;

@@ -1,10 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <StackLayout xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:resources="clr-namespace:Read_and_learn.AppResources" 
              x:Class="Read_and_learn.Page.Reader.ReaderTabs.Bookmarks"
              CompressedLayout.IsHeadless="true">
 
-    <Button Text="Add bookmark" Command="{Binding AddBookmarkCommand}">
+    <Button Text="{x:Static resources:AppResource.ReaderMenu_Bookmark_AddBookmarckTitle}" Command="{Binding AddBookmarkCommand}">
         <Button.TextColor>
             <OnPlatform x:TypeArguments="Color" WinPhone="White" />
         </Button.TextColor>

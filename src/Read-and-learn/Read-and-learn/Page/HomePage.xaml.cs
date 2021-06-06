@@ -81,7 +81,10 @@ namespace Read_and_learn.Page
         {
             if (UserSettings.FirstRun)
             {
-                var result = await DisplayAlert("Agreement with collection of anonymous data", "I agree with collecting of anonymous information about using of the app. This is important for application improvements.", "I agree", "No");
+                var result = await DisplayAlert(AppResource.HomePage_AnalyticsAgreement_Title,
+                    AppResource.HomePage_AnalyticsAgreement_Message,
+                    AppResource.HomePage_AnalyticsAgreement_Accept,
+                    AppResource.HomePage_AnalyticsAgreement_Cancel);
 
                 UserSettings.AnalyticsAgreement = result;
             }
@@ -133,14 +136,18 @@ namespace Read_and_learn.Page
                             { "File name", pickedFile.FileName }
                         });
 
-                        await DisplayAlert("Error", "File failed to open", "OK");
+                        await DisplayAlert(AppResource.HomePage_Error_Title, 
+                            AppResource.HomePage_Error_Message,
+                            AppResource.HomePage_Error_Cancel);
                     }
 
                 }
             }
             else
             {
-                await DisplayAlert("Permission not granted", "Cannot open book without storage permissions.", "OK");
+                await DisplayAlert(AppResource.HomePage_Permission_Title,
+                    AppResource.HomePage_Permission_Message,
+                    AppResource.HomePage_Permission_Cancel);
             }
         }
 
@@ -149,8 +156,8 @@ namespace Read_and_learn.Page
 
         private async void _DeleteBook(DeleteBookMessage msg)
         {
-            var deleteButton = "Delete";
-            var confirm = await DisplayActionSheet("Delete book?", deleteButton, "No");
+            var deleteButton = AppResource.HomePage_Permission_Cancel;
+            var confirm = await DisplayActionSheet(AppResource.HomePage_Delete_Title, deleteButton, AppResource.HomePage_Delete_Button);
             if (confirm == deleteButton)
             {
                 var card = Bookshelf.Children.FirstOrDefault(o => o.StyleId == msg.Book.Id);

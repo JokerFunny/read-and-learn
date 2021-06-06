@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Read_and_learn.AppResources;
 using Read_and_learn.Model;
 using Read_and_learn.Model.Bookshelf;
 using Read_and_learn.Model.DataStructure;
@@ -343,7 +344,7 @@ namespace Read_and_learn.Page
             {
                 _bookshelfBook.FinishedReading = DateTime.UtcNow;
 
-                _toastService.Show("You have finished reading this book!");
+                _toastService.Show(AppResource.ReaderPage_ReadingFinished);
             }
 
             _bookshelfService.SaveBook(_bookshelfBook);
@@ -593,14 +594,14 @@ namespace Read_and_learn.Page
 
                 string result = null;
                 if (translation.Error != null)
-                    result = $"Error during translation. Please contact the developer.\r\nException message: {translation.Error.Message}";
+                    result = $"{AppResource.ReaderPage_Translation_Error} {translation.Error.Message}";
                 else
-                    result = $"Provider: {translation.Provider}\r\nResult: {translation.Result}" +
-                        $"{(translation.Synonyms?.Any() ?? false ? $"\r\nSynonyms: {string.Join(", ", translation.Synonyms)}" : "")}" +
-                        $"{(translation.Contexts?.Any() ?? false ? $"\r\nExamples of usage: {string.Join("\r\n", translation.Contexts)}" : "")}";
+                    result = $"{AppResource.ReaderPage_Translation_Provider} {translation.Provider}\r\n{AppResource.ReaderPage_Translation_Result} {translation.Result}" +
+                        $"{(translation.Synonyms?.Any() ?? false ? $"\r\n{AppResource.ReaderPage_Translation_Synonyms}: {string.Join(", ", translation.Synonyms)}" : "")}" +
+                        $"{(translation.Contexts?.Any() ?? false ? $"\r\n{AppResource.ReaderPage_Translation_Usages} {string.Join("\r\n", translation.Contexts)}" : "")}";
 
                 if (translation.Contexts?.Any() ?? false)
-                    DisplayAlert("Translation result:", result, "OK");
+                    DisplayAlert(AppResource.ReaderPage_TranslationResult_Title, result, AppResource.ReaderPage_TranslationResult_Cancle);
                 else
                     _toastService.Show(result);
 
@@ -629,7 +630,7 @@ namespace Read_and_learn.Page
             // if the same element is selected for the second time - show notification that another element must be selected.
             else if (_firsClickedLabel == targetObj)
             {
-                _toastService.Show("Choose second word!");
+                _toastService.Show(AppResource.ReaderPage_SecondWord);
             }
             // second element selected - process.
             else
@@ -667,11 +668,11 @@ namespace Read_and_learn.Page
 
                     string result = null;
                     if (translation.Error != null)
-                        result = $"Error during translation. Please contact the developer.\r\nException message: {translation.Error.Message}";
+                        result = $"{AppResource.ReaderPage_Translation_Error} {translation.Error.Message}";
                     else
-                        result = $"Provider: {translation.Provider}\r\nResult: {translation.Result}";
+                        result = $"{AppResource.ReaderPage_Translation_Provider} {translation.Provider}\r\n{AppResource.ReaderPage_Translation_Result} {translation.Result}";
 
-                    DisplayAlert("Translation result:", result, "OK");
+                    DisplayAlert(AppResource.ReaderPage_TranslationResult_Title, result, AppResource.ReaderPage_TranslationResult_Cancle);
 
                     // changle color back.
                     foreach (var item in targetLabels)
@@ -686,7 +687,7 @@ namespace Read_and_learn.Page
                 }
                 else
                 {
-                    _toastService.Show("You can`t translate part of text without Internet connection.");
+                    _toastService.Show(AppResource.ReaderPage_NoInternet);
                     _firsClickedLabel.BackgroundColor = _backGroundColor;
 
                     _labelDoubleCliked = false;

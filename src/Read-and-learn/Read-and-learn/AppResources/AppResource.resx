@@ -117,6 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  
+  <data name="App_ClickForExit" xml:space="preserve">
+    <value>Press once again to exit!</value>
+  </data>
+  
   <data name="ApplicationSettings_Title" xml:space="preserve">
     <value>Application</value>
   </data>
@@ -234,9 +239,122 @@
   <data name="HomePage_About" xml:space="preserve">
     <value>About</value>
   </data>
-  
+  <data name="HomePage_AnalyticsAgreement_Title" xml:space="preserve">
+    <value>Agreement with collection of anonymous data</value>
+  </data>
+  <data name="HomePage_AnalyticsAgreement_Message" xml:space="preserve">
+    <value>I agree with collecting of anonymous information about using of the app. This is important for application improvements.</value>
+  </data>
+  <data name="HomePage_AnalyticsAgreement_Accept" xml:space="preserve">
+    <value>I agree</value>
+  </data>
+  <data name="HomePage_AnalyticsAgreement_Cancel" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="HomePage_Error_Title" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="HomePage_Error_Message" xml:space="preserve">
+    <value>File failed to open</value>
+  </data>
+  <data name="HomePage_Error_Cancel" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="HomePage_Permission_Title" xml:space="preserve">
+    <value>Permission not granted</value>
+  </data>
+  <data name="HomePage_Permission_Message" xml:space="preserve">
+    <value>Cannot open book without storage permissions</value>
+  </data>
+  <data name="HomePage_Permission_Cancel" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="HomePage_Delete_Title" xml:space="preserve">
+    <value>Delete book?</value>
+  </data>
+  <data name="HomePage_Permission_Cancel" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="HomePage_Delete_Button" xml:space="preserve">
+    <value>No</value>
+  </data>
+
   <data name="AddBookCard_AddButtonLabel" xml:space="preserve">
-    <value>Open new book</value>
+    <value>No</value>
+  </data>
+  
+  <data name="ReaderMenuPanel_ContentTitle" xml:space="preserve">
+    <value>Content</value>
+  </data>
+  <data name="ReaderMenuPanel_BookmarksTitle" xml:space="preserve">
+    <value>Bookmarks</value>
+  </data>
+  
+  <data name="ReaderMenu_Settings_BrightnessTitle" xml:space="preserve">
+    <value>Brightness</value>
+  </data>
+  <data name="ReaderMenu_Settings_FontSizeTitle" xml:space="preserve">
+    <value>Font size</value>
+  </data>
+  <data name="ReaderMenu_Settings_FontSize_PickerTitle" xml:space="preserve">
+    <value>Font size</value>
+  </data>
+  <data name="ReaderMenu_Settings_MarginTitle" xml:space="preserve">
+    <value>Margin</value>
+  </data>
+  <data name="ReaderMenu_Settings_Margin_PickerTitle" xml:space="preserve">
+    <value>Margin</value>
+  </data>
+  
+  <data name="ReaderMenu_Bookmark_AddBookmarckTitle" xml:space="preserve">
+    <value>Add bookmark</value>
+  </data>
+  
+  <data name="Translation_TargetLanguageNotSupported" xml:space="preserve">
+    <value>Target language not supported by current provider! Supported languages:</value>
+  </data>
+  <data name="Translation_SourceLanguageNotSupported" xml:space="preserve">
+    <value>Source language not supported for translation.</value>
+  </data>
+  <data name="Translation_NoAvailableTranlsation" xml:space="preserve">
+    <value>There is no available translation for target word :(</value>
+  </data>
+  <data name="Translation_Yandex_BlockedInCountryError" xml:space="preserve">
+    <value>You can`t use target provider due to internet settings (blocked in the Ukraine).</value>
+  </data>
+  <data name="Translation_NoInternetConnection" xml:space="preserve">
+    <value>No internet connection</value>
+  </data>
+  
+  <data name="ReaderPage_ReadingFinished" xml:space="preserve">
+    <value>You have finished reading this book!</value>
+  </data>
+  <data name="ReaderPage_SecondWord" xml:space="preserve">
+    <value>Choose second word!</value>
+  </data>
+  <data name="ReaderPage_NoInternet" xml:space="preserve">
+    <value>You can`t translate part of text without Internet connection.</value>
+  </data>
+  <data name="ReaderPage_TranslationResult_Title" xml:space="preserve">
+    <value>Translation result:</value>
+  </data>
+  <data name="ReaderPage_TranslationResult_Cancle" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="ReaderPage_Translation_Error" xml:space="preserve">
+    <value>Error during translation. Please contact the developer.\r\nException message:</value>
+  </data>
+  <data name="ReaderPage_Translation_Provider" xml:space="preserve">
+    <value>Provider:</value>
+  </data>
+  <data name="ReaderPage_Translation_Result" xml:space="preserve">
+    <value>Result:</value>
+  </data>
+  <data name="ReaderPage_Translation_Synonyms" xml:space="preserve">
+    <value>Synonyms:</value>
+  </data>
+  <data name="ReaderPage_Translation_Usages" xml:space="preserve">
+    <value>Examples of usage:</value>
   </data>
   
 </root>

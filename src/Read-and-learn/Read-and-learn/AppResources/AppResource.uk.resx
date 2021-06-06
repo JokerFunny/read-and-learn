@@ -117,6 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+
+  <data name="App_ClickForExit" xml:space="preserve">
+    <value>Натисніть ще раз, щоб вийти!</value>
+  </data>
+  
   <data name="ApplicationSettings_Title" xml:space="preserve">
     <value>Додаток</value>
   </data>
@@ -235,9 +240,122 @@
   <data name="HomePage_About" xml:space="preserve">
     <value>Про додаток</value>
   </data>
-  
+  <data name="HomePage_AnalyticsAgreement_Title" xml:space="preserve">
+    <value>Угода з колекцією анонімних даних</value>
+  </data>
+  <data name="HomePage_AnalyticsAgreement_Message" xml:space="preserve">
+    <value>Я згоден з колекцією анонімної інформації про використання програми. Це важливо для покращення застосування.</value>
+  </data>
+  <data name="HomePage_AnalyticsAgreement_Accept" xml:space="preserve">
+    <value>Згоден</value>
+  </data>
+  <data name="HomePage_AnalyticsAgreement_Cancel" xml:space="preserve">
+    <value>Ні</value>
+  </data>
+  <data name="HomePage_Error_Title" xml:space="preserve">
+    <value>Помилка</value>
+  </data>
+  <data name="HomePage_Error_Message" xml:space="preserve">
+    <value>Не вдалося відкрити файл</value>
+  </data>
+  <data name="HomePage_Error_Cancel" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="HomePage_Permission_Title" xml:space="preserve">
+    <value>Дозвіл не надано</value>
+  </data>
+  <data name="HomePage_Permission_Message" xml:space="preserve">
+    <value>Не можна відкрити книгу без дозволу на фізичне сховище</value>
+  </data>
+  <data name="HomePage_Permission_Cancel" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="HomePage_Delete_Title" xml:space="preserve">
+    <value>Видалити книгу?</value>
+  </data>
+  <data name="HomePage_Permission_Cancel" xml:space="preserve">
+    <value>Видалити</value>
+  </data>
+  <data name="HomePage_Delete_Button" xml:space="preserve">
+    <value>Ні</value>
+  </data>
+
   <data name="AddBookCard_AddButtonLabel" xml:space="preserve">
     <value>Додати нову книгу</value>
+  </data>
+  
+  <data name="ReaderMenuPanel_ContentTitle" xml:space="preserve">
+    <value>Зміст</value>
+  </data>
+  <data name="ReaderMenuPanel_BookmarksTitle" xml:space="preserve">
+    <value>Закладки</value>
+  </data>
+
+  <data name="ReaderMenu_Settings_BrightnessTitle" xml:space="preserve">
+    <value>Яскравість</value>
+  </data>
+  <data name="ReaderMenu_Settings_FontSizeTitle" xml:space="preserve">
+    <value>Розмір шрифту</value>
+  </data>
+  <data name="ReaderMenu_Settings_FontSize_PickerTitle" xml:space="preserve">
+    <value>Розмір шрифту</value>
+  </data>
+  <data name="ReaderMenu_Settings_MarginTitle" xml:space="preserve">
+    <value>Відступ від екрану</value>
+  </data>
+  <data name="ReaderMenu_Settings_Margin_PickerTitle" xml:space="preserve">
+    <value>Відступ від екрану</value>
+  </data>
+
+  <data name="ReaderMenu_Bookmark_AddBookmarckTitle" xml:space="preserve">
+    <value>Додати закладку</value>
+  </data>
+
+  <data name="Translation_TargetLanguageNotSupported" xml:space="preserve">
+    <value>Цільова мова не підтримується поточним постачальником! Підтримувані мови:</value>
+  </data>
+  <data name="Translation_SourceLanguageNotSupported" xml:space="preserve">
+    <value>Мова оригіналу не підтримується для перекладу.</value>
+  </data>
+  <data name="Translation_NoAvailableTranlsation" xml:space="preserve">
+    <value>Немає доступного перекладу для цільового слова :(</value>
+  </data>
+  <data name="Translation_Yandex_BlockedInCountryError" xml:space="preserve">
+    <value>Ви можете використовувати цільовий постачальник через налаштування Інтернету (заблоковано в Україні).</value>
+  </data>
+  <data name="Translation_NoInternetConnection" xml:space="preserve">
+    <value>Немає підключення до Інтернету</value>
+  </data>
+
+  <data name="ReaderPage_ReadingFinished" xml:space="preserve">
+    <value>Ви закінчили читати цю книгу!</value>
+  </data>
+  <data name="ReaderPage_SecondWord" xml:space="preserve">
+    <value>Виберіть друге слово!</value>
+  </data>
+  <data name="ReaderPage_NoInternet" xml:space="preserve">
+    <value>Ви не можете перекласти частину тексту без підключення до Інтернету.</value>
+  </data>
+  <data name="ReaderPage_TranslationResult_Title" xml:space="preserve">
+    <value>Результат перекладу:</value>
+  </data>
+  <data name="ReaderPage_TranslationResult_Cancle" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="ReaderPage_Translation_Error" xml:space="preserve">
+    <value>Помилка під час перекладу. Будь ласка, зв'яжіться з розробником.\r\nПовідомлення про виняток:</value>
+  </data>
+  <data name="ReaderPage_Translation_Provider" xml:space="preserve">
+    <value>Постачальник:</value>
+  </data>
+  <data name="ReaderPage_Translation_Result" xml:space="preserve">
+    <value>Результат:</value>
+  </data>
+  <data name="ReaderPage_Translation_Synonyms" xml:space="preserve">
+    <value>Синоніми:</value>
+  </data>
+  <data name="ReaderPage_Translation_Usages" xml:space="preserve">
+    <value>Приклади використання:</value>
   </data>
   
 </root>

@@ -79,11 +79,20 @@ namespace Read_and_learn.AppResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Open new book.
+        ///   Looks up a localized string similar to No.
         /// </summary>
         internal static string AddBookCard_AddButtonLabel {
             get {
                 return ResourceManager.GetString("AddBookCard_AddButtonLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Press once again to exit!.
+        /// </summary>
+        internal static string App_ClickForExit {
+            get {
+                return ResourceManager.GetString("App_ClickForExit", resourceCulture);
             }
         }
         
@@ -214,6 +223,114 @@ namespace Read_and_learn.AppResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to I agree.
+        /// </summary>
+        internal static string HomePage_AnalyticsAgreement_Accept {
+            get {
+                return ResourceManager.GetString("HomePage_AnalyticsAgreement_Accept", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        internal static string HomePage_AnalyticsAgreement_Cancel {
+            get {
+                return ResourceManager.GetString("HomePage_AnalyticsAgreement_Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I agree with collecting of anonymous information about using of the app. This is important for application improvements..
+        /// </summary>
+        internal static string HomePage_AnalyticsAgreement_Message {
+            get {
+                return ResourceManager.GetString("HomePage_AnalyticsAgreement_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Agreement with collection of anonymous data.
+        /// </summary>
+        internal static string HomePage_AnalyticsAgreement_Title {
+            get {
+                return ResourceManager.GetString("HomePage_AnalyticsAgreement_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        internal static string HomePage_Delete_Button {
+            get {
+                return ResourceManager.GetString("HomePage_Delete_Button", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete book?.
+        /// </summary>
+        internal static string HomePage_Delete_Title {
+            get {
+                return ResourceManager.GetString("HomePage_Delete_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        internal static string HomePage_Error_Cancel {
+            get {
+                return ResourceManager.GetString("HomePage_Error_Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File failed to open.
+        /// </summary>
+        internal static string HomePage_Error_Message {
+            get {
+                return ResourceManager.GetString("HomePage_Error_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string HomePage_Error_Title {
+            get {
+                return ResourceManager.GetString("HomePage_Error_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        internal static string HomePage_Permission_Cancel {
+            get {
+                return ResourceManager.GetString("HomePage_Permission_Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot open book without storage permissions.
+        /// </summary>
+        internal static string HomePage_Permission_Message {
+            get {
+                return ResourceManager.GetString("HomePage_Permission_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Permission not granted.
+        /// </summary>
+        internal static string HomePage_Permission_Title {
+            get {
+                return ResourceManager.GetString("HomePage_Permission_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Settings.
         /// </summary>
         internal static string HomePage_Settings {
@@ -255,6 +372,168 @@ namespace Read_and_learn.AppResources {
         internal static string MasterFlyoutPageDetail_SettingsPageTitle {
             get {
                 return ResourceManager.GetString("MasterFlyoutPageDetail_SettingsPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add bookmark.
+        /// </summary>
+        internal static string ReaderMenu_Bookmark_AddBookmarckTitle {
+            get {
+                return ResourceManager.GetString("ReaderMenu_Bookmark_AddBookmarckTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Brightness.
+        /// </summary>
+        internal static string ReaderMenu_Settings_BrightnessTitle {
+            get {
+                return ResourceManager.GetString("ReaderMenu_Settings_BrightnessTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Font size.
+        /// </summary>
+        internal static string ReaderMenu_Settings_FontSize_PickerTitle {
+            get {
+                return ResourceManager.GetString("ReaderMenu_Settings_FontSize_PickerTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Font size.
+        /// </summary>
+        internal static string ReaderMenu_Settings_FontSizeTitle {
+            get {
+                return ResourceManager.GetString("ReaderMenu_Settings_FontSizeTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Margin.
+        /// </summary>
+        internal static string ReaderMenu_Settings_Margin_PickerTitle {
+            get {
+                return ResourceManager.GetString("ReaderMenu_Settings_Margin_PickerTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Margin.
+        /// </summary>
+        internal static string ReaderMenu_Settings_MarginTitle {
+            get {
+                return ResourceManager.GetString("ReaderMenu_Settings_MarginTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bookmarks.
+        /// </summary>
+        internal static string ReaderMenuPanel_BookmarksTitle {
+            get {
+                return ResourceManager.GetString("ReaderMenuPanel_BookmarksTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Content.
+        /// </summary>
+        internal static string ReaderMenuPanel_ContentTitle {
+            get {
+                return ResourceManager.GetString("ReaderMenuPanel_ContentTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can`t translate part of text without Internet connection..
+        /// </summary>
+        internal static string ReaderPage_NoInternet {
+            get {
+                return ResourceManager.GetString("ReaderPage_NoInternet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have finished reading this book!.
+        /// </summary>
+        internal static string ReaderPage_ReadingFinished {
+            get {
+                return ResourceManager.GetString("ReaderPage_ReadingFinished", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose second word!.
+        /// </summary>
+        internal static string ReaderPage_SecondWord {
+            get {
+                return ResourceManager.GetString("ReaderPage_SecondWord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error during translation. Please contact the developer.\r\nException message:.
+        /// </summary>
+        internal static string ReaderPage_Translation_Error {
+            get {
+                return ResourceManager.GetString("ReaderPage_Translation_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Provider:.
+        /// </summary>
+        internal static string ReaderPage_Translation_Provider {
+            get {
+                return ResourceManager.GetString("ReaderPage_Translation_Provider", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Result:.
+        /// </summary>
+        internal static string ReaderPage_Translation_Result {
+            get {
+                return ResourceManager.GetString("ReaderPage_Translation_Result", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Synonyms:.
+        /// </summary>
+        internal static string ReaderPage_Translation_Synonyms {
+            get {
+                return ResourceManager.GetString("ReaderPage_Translation_Synonyms", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Examples of usage:.
+        /// </summary>
+        internal static string ReaderPage_Translation_Usages {
+            get {
+                return ResourceManager.GetString("ReaderPage_Translation_Usages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        internal static string ReaderPage_TranslationResult_Cancle {
+            get {
+                return ResourceManager.GetString("ReaderPage_TranslationResult_Cancle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Translation result:.
+        /// </summary>
+        internal static string ReaderPage_TranslationResult_Title {
+            get {
+                return ResourceManager.GetString("ReaderPage_TranslationResult_Title", resourceCulture);
             }
         }
         
@@ -336,6 +615,51 @@ namespace Read_and_learn.AppResources {
         internal static string ReaderSettings_Title {
             get {
                 return ResourceManager.GetString("ReaderSettings_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There is no available translation for target word :(.
+        /// </summary>
+        internal static string Translation_NoAvailableTranlsation {
+            get {
+                return ResourceManager.GetString("Translation_NoAvailableTranlsation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No internet connection.
+        /// </summary>
+        internal static string Translation_NoInternetConnection {
+            get {
+                return ResourceManager.GetString("Translation_NoInternetConnection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Source language not supported for translation..
+        /// </summary>
+        internal static string Translation_SourceLanguageNotSupported {
+            get {
+                return ResourceManager.GetString("Translation_SourceLanguageNotSupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Target language not supported by current provider! Supported languages:.
+        /// </summary>
+        internal static string Translation_TargetLanguageNotSupported {
+            get {
+                return ResourceManager.GetString("Translation_TargetLanguageNotSupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can`t use target provider due to internet settings (blocked in the Ukraine)..
+        /// </summary>
+        internal static string Translation_Yandex_BlockedInCountryError {
+            get {
+                return ResourceManager.GetString("Translation_Yandex_BlockedInCountryError", resourceCulture);
             }
         }
         
