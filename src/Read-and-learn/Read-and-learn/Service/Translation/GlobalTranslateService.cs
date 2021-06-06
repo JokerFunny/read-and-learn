@@ -92,9 +92,7 @@ namespace Read_and_learn.Service.Translation
 
             // if exist - resolve target online translator (use value from user settings)
             if (current == NetworkAccess.Internet)
-            {
                 return IocManager.Container.ResolveKeyed<ITranslatorService>(currentProvider);
-            }
             // otherwise use offline translator
             else
                 return _offlineTranslator;
