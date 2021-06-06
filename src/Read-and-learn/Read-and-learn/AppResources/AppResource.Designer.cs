@@ -61,11 +61,83 @@ namespace Read_and_learn.AppResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Image assets original site: https://www.flaticon.com/.
+        /// </summary>
+        internal static string AboutPage_ImageAssetsLabel {
+            get {
+                return ResourceManager.GetString("AboutPage_ImageAssetsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Useful links:.
+        /// </summary>
+        internal static string AboutPage_UsefulLinksLabel {
+            get {
+                return ResourceManager.GetString("AboutPage_UsefulLinksLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open new book.
+        /// </summary>
+        internal static string AddBookCard_AddButtonLabel {
+            get {
+                return ResourceManager.GetString("AddBookCard_AddButtonLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I agree with collecting of anonymous information about using of the app. This is important for application improvements..
+        /// </summary>
+        internal static string ApplicationSettings_AnonymousData_FirstPart {
+            get {
+                return ResourceManager.GetString("ApplicationSettings_AnonymousData_FirstPart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to What can be collected: that some book failed to open and name of the file. Problems with translation service(s)..
+        /// </summary>
+        internal static string ApplicationSettings_AnonymousData_SecondPart {
+            get {
+                return ResourceManager.GetString("ApplicationSettings_AnonymousData_SecondPart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Anonymous data.
+        /// </summary>
+        internal static string ApplicationSettings_AnonymousDataLabel {
+            get {
+                return ResourceManager.GetString("ApplicationSettings_AnonymousDataLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The language used to localize the application..
+        /// </summary>
+        internal static string ApplicationSettings_ApplicationLanguage_HintLabel {
+            get {
+                return ResourceManager.GetString("ApplicationSettings_ApplicationLanguage_HintLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Application language.
         /// </summary>
-        internal static string ApplicationLanguageLabel {
+        internal static string ApplicationSettings_ApplicationLanguageLabel {
             get {
-                return ResourceManager.GetString("ApplicationLanguageLabel", resourceCulture);
+                return ResourceManager.GetString("ApplicationSettings_ApplicationLanguageLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select system language.
+        /// </summary>
+        internal static string ApplicationSettings_ApplicationLanguageLabel_Picker_Title {
+            get {
+                return ResourceManager.GetString("ApplicationSettings_ApplicationLanguageLabel_Picker_Title", resourceCulture);
             }
         }
         
@@ -79,29 +151,254 @@ namespace Read_and_learn.AppResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to My Books.
+        ///   Looks up a localized string similar to Pan on the edge of display for brightness control..
         /// </summary>
-        internal static string HomePageTitle {
+        internal static string ControlSettings_Brightness_HintTitle {
             get {
-                return ResourceManager.GetString("HomePageTitle", resourceCulture);
+                return ResourceManager.GetString("ControlSettings_Brightness_HintTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set brightness control.
+        /// </summary>
+        internal static string ControlSettings_Brightness_PickerTitle {
+            get {
+                return ResourceManager.GetString("ControlSettings_Brightness_PickerTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change brightness.
+        /// </summary>
+        internal static string ControlSettings_BrightnessTitle {
+            get {
+                return ResourceManager.GetString("ControlSettings_BrightnessTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Controls.
+        /// </summary>
+        internal static string ControlSettings_Title {
+            get {
+                return ResourceManager.GetString("ControlSettings_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use volume buttons for navigation..
+        /// </summary>
+        internal static string ControlSettings_VolumeButtons_HintTitle {
+            get {
+                return ResourceManager.GetString("ControlSettings_VolumeButtons_HintTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Volume buttons.
+        /// </summary>
+        internal static string ControlSettings_VolumeButtonsTitle {
+            get {
+                return ResourceManager.GetString("ControlSettings_VolumeButtonsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to About.
+        /// </summary>
+        internal static string HomePage_About {
+            get {
+                return ResourceManager.GetString("HomePage_About", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Settings.
         /// </summary>
-        internal static string SettingsHeader {
+        internal static string HomePage_Settings {
             get {
-                return ResourceManager.GetString("SettingsHeader", resourceCulture);
+                return ResourceManager.GetString("HomePage_Settings", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Application.
+        ///   Looks up a localized string similar to My books.
         /// </summary>
-        internal static string TestTitle {
+        internal static string HomePage_Title {
             get {
-                return ResourceManager.GetString("TestTitle", resourceCulture);
+                return ResourceManager.GetString("HomePage_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to About.
+        /// </summary>
+        internal static string MasterFlyoutPageDetail_AboutPageTitle {
+            get {
+                return ResourceManager.GetString("MasterFlyoutPageDetail_AboutPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to My books.
+        /// </summary>
+        internal static string MasterFlyoutPageDetail_HomePageTitle {
+            get {
+                return ResourceManager.GetString("MasterFlyoutPageDetail_HomePageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        internal static string MasterFlyoutPageDetail_SettingsPageTitle {
+            get {
+                return ResourceManager.GetString("MasterFlyoutPageDetail_SettingsPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select font size.
+        /// </summary>
+        internal static string ReaderSettings_FontSize_HintLabel {
+            get {
+                return ResourceManager.GetString("ReaderSettings_FontSize_HintLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Font size.
+        /// </summary>
+        internal static string ReaderSettings_FontSizeLabel {
+            get {
+                return ResourceManager.GetString("ReaderSettings_FontSizeLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open book in fullscreen mode..
+        /// </summary>
+        internal static string ReaderSettings_Fullscreen_HintLabel {
+            get {
+                return ResourceManager.GetString("ReaderSettings_Fullscreen_HintLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fullscreen.
+        /// </summary>
+        internal static string ReaderSettings_FullscreenLabel {
+            get {
+                return ResourceManager.GetString("ReaderSettings_FullscreenLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select margin.
+        /// </summary>
+        internal static string ReaderSettings_Margin_HintLabel {
+            get {
+                return ResourceManager.GetString("ReaderSettings_Margin_HintLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Margin.
+        /// </summary>
+        internal static string ReaderSettings_MarginLabel {
+            get {
+                return ResourceManager.GetString("ReaderSettings_MarginLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use night mode when reading..
+        /// </summary>
+        internal static string ReaderSettings_NightMode_HintLabel {
+            get {
+                return ResourceManager.GetString("ReaderSettings_NightMode_HintLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Night mode.
+        /// </summary>
+        internal static string ReaderSettings_NightModeLabel {
+            get {
+                return ResourceManager.GetString("ReaderSettings_NightModeLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reading.
+        /// </summary>
+        internal static string ReaderSettings_Title {
+            get {
+                return ResourceManager.GetString("ReaderSettings_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Translation.
+        /// </summary>
+        internal static string TranslationSettings_Title {
+            get {
+                return ResourceManager.GetString("TranslationSettings_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The language into which the translation will be made..
+        /// </summary>
+        internal static string TranslationSettings_TranslationLanguage_HintTitle {
+            get {
+                return ResourceManager.GetString("TranslationSettings_TranslationLanguage_HintTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select target language for translation.
+        /// </summary>
+        internal static string TranslationSettings_TranslationLanguage_PickerTitle {
+            get {
+                return ResourceManager.GetString("TranslationSettings_TranslationLanguage_PickerTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selected language for translate.
+        /// </summary>
+        internal static string TranslationSettings_TranslationLanguageTitle {
+            get {
+                return ResourceManager.GetString("TranslationSettings_TranslationLanguageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Provider for online translation..
+        /// </summary>
+        internal static string TranslationSettings_TranslationProvider_HintTitle {
+            get {
+                return ResourceManager.GetString("TranslationSettings_TranslationProvider_HintTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select translation provider.
+        /// </summary>
+        internal static string TranslationSettings_TranslationProvider_PickerTitle {
+            get {
+                return ResourceManager.GetString("TranslationSettings_TranslationProvider_PickerTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selected provider for translate.
+        /// </summary>
+        internal static string TranslationSettings_TranslationProviderTitle {
+            get {
+                return ResourceManager.GetString("TranslationSettings_TranslationProviderTitle", resourceCulture);
             }
         }
     }

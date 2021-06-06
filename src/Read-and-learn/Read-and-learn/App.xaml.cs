@@ -78,7 +78,6 @@ namespace Read_and_learn
             _messageBus.UnSubscribe("App");
             _messageBus.Subscribe<BackPressedMessage>(_BackPressedMessageSubscriber, new string[] { "App" });
             _messageBus.Subscribe<ChangeApplicationLanguageMessage>(_ChangeApplicationLanguageMessageSubscriber, new string[] { "App" });
-            _messageBus.Subscribe<RefreshPageMessage>(_RefreshPagesAfterLanguageChange, new string[] { "App" });
         }
 
         protected override void OnSleep()
@@ -146,15 +145,12 @@ namespace Read_and_learn
         {
             CultureInfo targetCulture = new CultureInfo(msg.Language);
 
-            CultureInfo.DefaultThreadCurrentCulture = targetCulture;
-            CultureInfo.CurrentCulture = targetCulture;
-            CultureInfo.CurrentUICulture = targetCulture;
             AppResource.Culture = targetCulture;
 
-            _messageBus.Send(new RefreshPageMessage());
+            _RefreshPagesAfterLanguageChange();
         }
 
-        private async void _RefreshPagesAfterLanguageChange(RefreshPageMessage msg)
+        private async void _RefreshPagesAfterLanguageChange()
         {
             var updatedSettingsPage = new SettingsPage();
 

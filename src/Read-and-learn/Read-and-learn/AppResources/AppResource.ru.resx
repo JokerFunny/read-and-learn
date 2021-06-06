@@ -117,19 +117,127 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ApplicationLanguageLabel" xml:space="preserve">
-    <value>Язык приложения</value>
-  </data>
   <data name="ApplicationSettings_Title" xml:space="preserve">
     <value>Приложение</value>
   </data>
-  <data name="HomePageTitle" xml:space="preserve">
+  <data name="ApplicationSettings_ApplicationLanguageLabel" xml:space="preserve">
+    <value>Язык приложения</value>
+  </data>
+  <data name="ApplicationSettings_ApplicationLanguageLabel_Picker_Title" xml:space="preserve">
+    <value>Выберите системный язык</value>
+  </data>
+  <data name="ApplicationSettings_ApplicationLanguage_HintLabel" xml:space="preserve">
+    <value>Язык, используемый для локализации приложения.</value>
+  </data>
+  <data name="ApplicationSettings_AnonymousDataLabel" xml:space="preserve">
+    <value>Анонимные данные</value>
+  </data>
+  <data name="ApplicationSettings_AnonymousData_FirstPart" xml:space="preserve">
+    <value>Я согласен на сбор анонимной информации об использовании приложения. Это важно для улучшения приложений.</value>
+  </data>
+  <data name="ApplicationSettings_AnonymousData_SecondPart" xml:space="preserve">
+    <value>Что можно собрать: что не удалось открыть какую-то книгу и имя файла. Проблемы с переводом.</value>
+  </data>
+
+
+  <data name="TranslationSettings_Title" xml:space="preserve">
+    <value>Перевод</value>
+  </data>
+  <data name="TranslationSettings_TranslationLanguageTitle" xml:space="preserve">
+    <value>Язык перевода</value>
+  </data>
+  <data name="TranslationSettings_TranslationLanguage_PickerTitle" xml:space="preserve">
+    <value>Выберите целевой язык для перевода</value>
+  </data>
+  <data name="TranslationSettings_TranslationLanguage_HintTitle" xml:space="preserve">
+    <value>Язык, на который будет сделан перевод.</value>
+  </data>
+  <data name="TranslationSettings_TranslationProviderTitle" xml:space="preserve">
+    <value>Провайдер для перевода</value>
+  </data>
+  <data name="TranslationSettings_TranslationProvider_PickerTitle" xml:space="preserve">
+    <value>Выберите поставщика услуг перевода</value>
+  </data>
+  <data name="TranslationSettings_TranslationProvider_HintTitle" xml:space="preserve">
+    <value>Провайдер онлайн-перевода.</value>
+  </data>
+
+  <data name="ReaderSettings_Title" xml:space="preserve">
+    <value>Чтение</value>
+  </data>
+  <data name="ReaderSettings_FontSizeLabel" xml:space="preserve">
+    <value>Размер шрифта</value>
+  </data>
+  <data name="ReaderSettings_FontSize_HintLabel" xml:space="preserve">
+    <value>Выберите размер шрифта</value>
+  </data>
+  <data name="ReaderSettings_MarginLabel" xml:space="preserve">
+    <value>Отступ</value>
+  </data>
+  <data name="ReaderSettings_Margin_HintLabel" xml:space="preserve">
+    <value>Выберите отсттуп от краёв экрана</value>
+  </data>
+  <data name="ReaderSettings_NightModeLabel" xml:space="preserve">
+    <value>Ночной режим</value>
+  </data>
+  <data name="ReaderSettings_NightMode_HintLabel" xml:space="preserve">
+    <value>При чтении используйте ночной режим.</value>
+  </data>
+  <data name="ReaderSettings_FullscreenLabel" xml:space="preserve">
+    <value>Полноэкранный режим</value>
+  </data>
+  <data name="ReaderSettings_Fullscreen_HintLabel" xml:space="preserve">
+    <value>Открыть книгу в полноэкранном режиме.</value>
+  </data>
+
+  <data name="ControlSettings_Title" xml:space="preserve">
+    <value>Управление</value>
+  </data>
+  <data name="ControlSettings_VolumeButtonsTitle" xml:space="preserve">
+    <value>Кнопки громкости</value>
+  </data>
+  <data name="ControlSettings_VolumeButtons_HintTitle" xml:space="preserve">
+    <value>Используйте кнопки регулировки громкости для навигации.</value>
+  </data>
+  <data name="ControlSettings_BrightnessTitle" xml:space="preserve">
+    <value>Яркость</value>
+  </data>
+  <data name="ControlSettings_Brightness_PickerTitle" xml:space="preserve">
+    <value>Установить регулировку яркости</value>
+  </data>
+  <data name="ControlSettings_Brightness_HintTitle" xml:space="preserve">
+    <value>"Потяните" экран по краю для регулировки яркости.</value>
+  </data>
+
+  <data name="MasterFlyoutPageDetail_HomePageTitle" xml:space="preserve">
     <value>Мои книги</value>
   </data>
-  <data name="SettingsHeader" xml:space="preserve">
+  <data name="MasterFlyoutPageDetail_SettingsPageTitle" xml:space="preserve">
     <value>Настройки</value>
   </data>
-  <data name="TestTitle" xml:space="preserve">
-    <value>Приложение</value>
+  <data name="MasterFlyoutPageDetail_AboutPageTitle" xml:space="preserve">
+    <value>О приложении</value>
   </data>
+
+  <data name="AboutPage_UsefulLinksLabel" xml:space="preserve">
+    <value>Полезные ссылки:</value>
+  </data>
+  <data name="AboutPage_ImageAssetsLabel" xml:space="preserve">
+    <value>Сайт откуда были взяты изображения: https://www.flaticon.com/</value>
+  </data>
+
+  <data name="HomePage_Title" xml:space="preserve">
+    <value>Мои книги</value>
+  </data>
+  <data name="HomePage_Settings" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="HomePage_About" xml:space="preserve">
+    <value>О приложении</value>
+  </data>
+
+  <data name="AddBookCard_AddButtonLabel" xml:space="preserve">
+    <value>Открыть новую книгу</value>
+  </data>
+  
 </root>

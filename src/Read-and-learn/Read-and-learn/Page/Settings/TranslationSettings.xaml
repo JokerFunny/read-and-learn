@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Read_and_learn.Page.Settings.TranslationSettings"
-             Title="Translation">
+             xmlns:resources="clr-namespace:Read_and_learn.AppResources" 
+             x:Class="Read_and_learn.Page.Settings.TranslationSettings">
 
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -39,26 +39,26 @@
 
                     <StackLayout Style="{StaticResource wrapper}">
                         <StackLayout Orientation="Horizontal" CompressedLayout.IsHeadless="true">
-                            <Label Text="Selected language for translate" Style="{StaticResource title}"/>
+                            <Label Text="{x:Static resources:AppResource.TranslationSettings_TranslationLanguageTitle}" Style="{StaticResource title}" MinimumWidthRequest="300"/>
                             <Picker ItemsSource="{Binding TranslationLanguageProvider.Items}" SelectedItem="{Binding TranslationLanguageProvider.Value}" Style="{StaticResource control}">
                                 <Picker.Title>
-                                    <OnPlatform x:TypeArguments="x:String" Android="Select target language for translation" />
+                                    <OnPlatform x:TypeArguments="x:String" Android="{x:Static resources:AppResource.TranslationSettings_TranslationLanguage_PickerTitle}" />
                                 </Picker.Title>
                             </Picker>
                         </StackLayout>
-                        <Label Text="The language into which the translation will be made." Style="{StaticResource note}" />
+                        <Label Text="{x:Static resources:AppResource.TranslationSettings_TranslationLanguage_HintTitle}" Style="{StaticResource note}" />
                     </StackLayout>
 
                     <StackLayout Style="{StaticResource wrapper}">
                         <StackLayout Orientation="Horizontal" CompressedLayout.IsHeadless="true">
-                            <Label Text="Selected provider for translate" Style="{StaticResource title}" />
+                            <Label Text="{x:Static resources:AppResource.TranslationSettings_TranslationProviderTitle}" Style="{StaticResource title}" />
                             <Picker ItemsSource="{Binding TranslationProvider.Items}" SelectedItem="{Binding TranslationProvider.Value}" Style="{StaticResource control}">
                                 <Picker.Title>
-                                    <OnPlatform x:TypeArguments="x:String" Android="Select translation provider" />
+                                    <OnPlatform x:TypeArguments="x:String" Android="{x:Static resources:AppResource.TranslationSettings_TranslationProvider_PickerTitle}" />
                                 </Picker.Title>
                             </Picker>
                         </StackLayout>
-                        <Label Text="Provider for online translation." Style="{StaticResource note}" />
+                        <Label Text="{x:Static resources:AppResource.TranslationSettings_TranslationProvider_HintTitle}" Style="{StaticResource note}" />
                     </StackLayout>
 
                 </StackLayout>

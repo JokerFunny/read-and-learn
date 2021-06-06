@@ -120,7 +120,124 @@
   <data name="ApplicationSettings_Title" xml:space="preserve">
     <value>Додаток</value>
   </data>
-  <data name="SettingsHeader" xml:space="preserve">
+  <data name="ApplicationSettings_ApplicationLanguageLabel" xml:space="preserve">
+    <value>Мова програми</value>
+  </data>
+  <data name="ApplicationSettings_ApplicationLanguageLabel_Picker_Title" xml:space="preserve">
+    <value>Виберіть системну мову</value>
+  </data>
+  <data name="ApplicationSettings_ApplicationLanguage_HintLabel" xml:space="preserve">
+    <value>Мова, що використовується для локалізації програми.</value>
+  </data>
+  <data name="ApplicationSettings_AnonymousDataLabel" xml:space="preserve">
+    <value>Анонімні дані</value>
+  </data>
+  <data name="ApplicationSettings_AnonymousData_FirstPart" xml:space="preserve">
+    <value>Я погоджуюсь зі збором анонімної інформації про використання програми. Це важливо для вдосконалення програми.</value>
+  </data>
+  <data name="ApplicationSettings_AnonymousData_SecondPart" xml:space="preserve">
+    <value>Що можна зібрати: що якусь книгу не вдалося відкрити та назва файлу. Помилки пыд час перекладу.</value>
+  </data>
+
+
+  <data name="TranslationSettings_Title" xml:space="preserve">
+    <value>Переклад</value>
+  </data>
+  <data name="TranslationSettings_TranslationLanguageTitle" xml:space="preserve">
+    <value>Мова для перекладу</value>
+  </data>
+  <data name="TranslationSettings_TranslationLanguage_PickerTitle" xml:space="preserve">
+    <value>Виберіть цільову мову для перекладу</value>
+  </data>
+  <data name="TranslationSettings_TranslationLanguage_HintTitle" xml:space="preserve">
+    <value>Мова, в яку буде зроблено переклад.</value>
+  </data>
+  <data name="TranslationSettings_TranslationProviderTitle" xml:space="preserve">
+    <value>Постачальник для перекладу</value>
+  </data>
+  <data name="TranslationSettings_TranslationProvider_PickerTitle" xml:space="preserve">
+    <value>Виберіть постачальника перекладу</value>
+  </data>
+  <data name="TranslationSettings_TranslationProvider_HintTitle" xml:space="preserve">
+    <value>Постачальник для онлайн-перекладу.</value>
+  </data>
+
+  <data name="ReaderSettings_Title" xml:space="preserve">
+    <value>Читання</value>
+  </data>
+  <data name="ReaderSettings_FontSizeLabel" xml:space="preserve">
+    <value>Розмір шрифту</value>
+  </data>
+  <data name="ReaderSettings_FontSize_HintLabel" xml:space="preserve">
+    <value>Виберіть розмір шрифту</value>
+  </data>
+  <data name="ReaderSettings_MarginLabel" xml:space="preserve">
+    <value>Відступ</value>
+  </data>
+  <data name="ReaderSettings_Margin_HintLabel" xml:space="preserve">
+    <value>Виберіть відступ від країв екрану</value>
+  </data>
+  <data name="ReaderSettings_NightModeLabel" xml:space="preserve">
+    <value>Нічний режим</value>
+  </data>
+  <data name="ReaderSettings_NightMode_HintLabel" xml:space="preserve">
+    <value>Використовувати нічний режим при читанні.</value>
+  </data>
+  <data name="ReaderSettings_FullscreenLabel" xml:space="preserve">
+    <value>Повноекранний режим</value>
+  </data>
+  <data name="ReaderSettings_Fullscreen_HintLabel" xml:space="preserve">
+    <value>Відкривати книги в повноекранному режимі.</value>
+  </data>
+
+  <data name="ControlSettings_Title" xml:space="preserve">
+    <value>Управління</value>
+  </data>
+  <data name="ControlSettings_VolumeButtonsTitle" xml:space="preserve">
+    <value>Кнопки гучності</value>
+  </data>
+  <data name="ControlSettings_VolumeButtons_HintTitle" xml:space="preserve">
+    <value>Використовуйте кнопки регулювання гучності для навігації.</value>
+  </data>
+  <data name="ControlSettings_BrightnessTitle" xml:space="preserve">
+    <value>Яскравість</value>
+  </data>
+  <data name="ControlSettings_Brightness_PickerTitle" xml:space="preserve">
+    <value>Встановити регулювання яскравості</value>
+  </data>
+  <data name="ControlSettings_Brightness_HintTitle" xml:space="preserve">
+    <value>"Потягніть" екран по краю для регулювання яскравості.</value>
+  </data>
+
+  <data name="MasterFlyoutPageDetail_HomePageTitle" xml:space="preserve">
+    <value>Мої книги</value>
+  </data>
+  <data name="MasterFlyoutPageDetail_SettingsPageTitle" xml:space="preserve">
     <value>Налаштування</value>
   </data>
+  <data name="MasterFlyoutPageDetail_AboutPageTitle" xml:space="preserve">
+    <value>Про додаток</value>
+  </data>
+
+  <data name="AboutPage_UsefulLinksLabel" xml:space="preserve">
+    <value>Корисні посилання:</value>
+  </data>
+  <data name="AboutPage_ImageAssetsLabel" xml:space="preserve">
+    <value>Сайт звідки були взяті зображення: https://www.flaticon.com/</value>
+  </data>
+  
+  <data name="HomePage_Title" xml:space="preserve">
+    <value>Мої книги</value>
+  </data>
+  <data name="HomePage_Settings" xml:space="preserve">
+    <value>Налаштування</value>
+  </data>
+  <data name="HomePage_About" xml:space="preserve">
+    <value>Про додаток</value>
+  </data>
+  
+  <data name="AddBookCard_AddButtonLabel" xml:space="preserve">
+    <value>Додати нову книгу</value>
+  </data>
+  
 </root>

@@ -5,7 +5,7 @@
              xmlns:view="clr-namespace:Read_and_learn.View"
              xmlns:home="clr-namespace:Read_and_learn.Page.Home"
              x:Class="Read_and_learn.Page.HomePage"
-             Title="{x:Static resources:AppResource.HomePageTitle}"
+             Title="{x:Static resources:AppResource.HomePage_Title}"
              BackgroundColor="#EEEEEE">
     
     <ContentPage.Content>

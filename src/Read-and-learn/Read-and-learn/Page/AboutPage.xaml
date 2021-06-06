@@ -1,7 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:resources="clr-namespace:Read_and_learn.AppResources" 
              x:Class="Read_and_learn.Page.AboutPage">
+    
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style TargetType="Label">
@@ -26,7 +28,7 @@
             <Label Text="{Binding Description}"></Label>
             <Label Text="{Binding Copyright}"></Label>
             <Label />
-            <Label Text="Useful links:" />
+            <Label Text="{x:Static resources:AppResource.AboutPage_UsefulLinksLabel}" />
             <Label Text="Github: https://github.com/JokerFunny/read-and-learn/" Style="{StaticResource link}" FontSize="Medium">
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding OpenUrlCommand}" CommandParameter="https://github.com/JokerFunny/read-and-learn/"></TapGestureRecognizer>
@@ -37,7 +39,7 @@
                     <TapGestureRecognizer Command="{Binding OpenUrlCommand}" CommandParameter="https://www.linkedin.com/in/danylo-novykov-315075194/"></TapGestureRecognizer>
                 </Label.GestureRecognizers>
             </Label>
-            <Label Text="Image assets original site: https://www.flaticon.com/" Style="{StaticResource link}" FontSize="Medium">
+            <Label Text="{x:Static resources:AppResource.AboutPage_ImageAssetsLabel}" Style="{StaticResource link}" FontSize="Medium">
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding OpenUrlCommand}" CommandParameter="https://www.flaticon.com/"></TapGestureRecognizer>
                 </Label.GestureRecognizers>

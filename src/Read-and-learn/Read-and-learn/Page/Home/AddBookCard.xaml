@@ -2,8 +2,9 @@
 <StackLayout xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Read_and_learn.Page.Home.AddBookCard"
+             xmlns:resources="clr-namespace:Read_and_learn.AppResources" 
              CompressedLayout.IsHeadless="true">
     <StackLayout.Children>
-        <Button Text="Open new book" FontSize="Medium" Clicked="_AddButton_Clicked" Margin="0,5" HorizontalOptions="Start" WidthRequest="{Binding Width}" />
+        <Button Text="{x:Static resources:AppResource.AddBookCard_AddButtonLabel}" FontSize="Medium" Clicked="_AddButton_Clicked" Margin="0,5" HorizontalOptions="Start" WidthRequest="{Binding Width}" />
     </StackLayout.Children>
 </StackLayout>

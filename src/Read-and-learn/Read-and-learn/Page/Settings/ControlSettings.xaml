@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Read_and_learn.Page.Settings.ControlSettings"
-             Title="Controls">
+             xmlns:resources="clr-namespace:Read_and_learn.AppResources" 
+             x:Class="Read_and_learn.Page.Settings.ControlSettings">
     
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -39,22 +39,22 @@
 
                     <StackLayout Style="{StaticResource wrapper}" IsVisible="{Binding VolumeButton.Show}">
                         <StackLayout Orientation="Horizontal" CompressedLayout.IsHeadless="true">
-                            <Label Text="Volume buttons" Style="{StaticResource title}" />
+                            <Label Text="{x:Static resources:AppResource.ControlSettings_VolumeButtonsTitle}" Style="{StaticResource title}" />
                             <Switch IsToggled="{Binding VolumeButton.Enabled}" Style="{StaticResource control}" />
                         </StackLayout>
-                        <Label Text="Use volume buttons for navigation." Style="{StaticResource note}" />
+                        <Label Text="{x:Static resources:AppResource.ControlSettings_VolumeButtons_HintTitle}" Style="{StaticResource note}" />
                     </StackLayout>
 
                     <StackLayout Style="{StaticResource wrapper}">
                         <StackLayout Orientation="Horizontal" CompressedLayout.IsHeadless="true">
-                            <Label Text="Change brightness" Style="{StaticResource title}" />
+                            <Label Text="{x:Static resources:AppResource.ControlSettings_BrightnessTitle}" Style="{StaticResource title}" />
                             <Picker ItemsSource="{Binding PanBrightnessChange.Items}" SelectedItem="{Binding PanBrightnessChange.Value}" Style="{StaticResource control}">
                                 <Picker.Title>
-                                    <OnPlatform x:TypeArguments="x:String" Android="Set brightness control" />
+                                    <OnPlatform x:TypeArguments="x:String" Android="{x:Static resources:AppResource.ControlSettings_Brightness_PickerTitle}" />
                                 </Picker.Title>
                             </Picker>
                         </StackLayout>
-                        <Label Text="Pan on the edge of display for brightness control." Style="{StaticResource note}" />
+                        <Label Text="{x:Static resources:AppResource.ControlSettings_Brightness_HintTitle}" Style="{StaticResource note}" />
                     </StackLayout>
 
                 </StackLayout>

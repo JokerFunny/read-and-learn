@@ -44,23 +44,23 @@
 
                     <StackLayout Style="{StaticResource wrapper}">
                         <StackLayout Orientation="Horizontal" CompressedLayout.IsHeadless="true">
-                            <Label Text="{x:Static resources:AppResource.ApplicationLanguageLabel}" Style="{StaticResource title}" />
+                            <Label Text="{x:Static resources:AppResource.ApplicationSettings_ApplicationLanguageLabel}" Style="{StaticResource title}" />
                             <Picker ItemsSource="{Binding SystemLanguageProvider.Items}" SelectedItem="{Binding SystemLanguageProvider.Value}" Style="{StaticResource control}">
                                 <Picker.Title>
-                                    <OnPlatform x:TypeArguments="x:String" Android="Select system language" />
+                                    <OnPlatform x:TypeArguments="x:String" Android="{x:Static resources:AppResource.ApplicationSettings_ApplicationLanguageLabel_Picker_Title}" />
                                 </Picker.Title>
                             </Picker>
                         </StackLayout>
-                        <Label Text="The language used to localize the application." Style="{StaticResource note}" />
+                        <Label Text="{x:Static resources:AppResource.ApplicationSettings_ApplicationLanguage_HintLabel}" Style="{StaticResource note}" />
                     </StackLayout>
                     
                     <StackLayout Style="{StaticResource wrapper}">
                         <StackLayout Orientation="Horizontal" CompressedLayout.IsHeadless="true">
-                            <Label Text="Anonymous data" Style="{StaticResource title}" />
+                            <Label Text="{x:Static resources:AppResource.ApplicationSettings_AnonymousDataLabel}" Style="{StaticResource title}" />
                             <Switch IsToggled="{Binding AnalyticsAgreement}" Style="{StaticResource control}" />
                         </StackLayout>
-                        <Label Text="I agree with collecting of anonymous information about using of the app. This is important for application improvements." Style="{StaticResource note}" />
-                        <Label Text="What can be collected: that some book failed to open and name of the file. Problems with translation service(s)." Style="{StaticResource note}" />
+                        <Label Text="{x:Static resources:AppResource.ApplicationSettings_AnonymousData_FirstPart}" Style="{StaticResource note}" />
+                        <Label Text="{x:Static resources:AppResource.ApplicationSettings_AnonymousData_SecondPart}" Style="{StaticResource note}" />
                     </StackLayout>
 
                 </StackLayout>

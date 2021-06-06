@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
+using Read_and_learn.AppResources;
 using Read_and_learn.Helpers;
 using Read_and_learn.Model.Bookshelf;
 using Read_and_learn.Model.Message;
@@ -36,7 +37,7 @@ namespace Read_and_learn.Page
             {
                 var settingsItem = new ToolbarItem
                 {
-                    Text = "Settings",
+                    Text = AppResource.HomePage_Settings,
                     IconImageSource = "settings.png"
                 };
                 settingsItem.Clicked += _Settings_Clicked;
@@ -44,7 +45,7 @@ namespace Read_and_learn.Page
 
                 var aboutItem = new ToolbarItem
                 {
-                    Text = "About",
+                    Text = AppResource.HomePage_About,
                     IconImageSource = "info.png",
                 };
                 aboutItem.Clicked += _About_Clicked;
@@ -91,11 +92,10 @@ namespace Read_and_learn.Page
             Bookshelf.Children.Clear();
 
             var books = await _bookshelfService.LoadBooks();
+            books.Reverse();
 
             foreach (var book in books)
-            {
                 Bookshelf.Children.Add(new BookCard(book));
-            }
         }
 
         private async void _AddBook(AddBookMessage msg)
@@ -121,9 +121,7 @@ namespace Read_and_learn.Page
                     {
                         var ext = string.Empty;
                         if (!string.IsNullOrEmpty(pickedFile.FileName))
-                        {
                             ext = pickedFile.FileName.Split('.').LastOrDefault();
-                        }
 
                         Analytics.TrackEvent("Failed to open book", new Dictionary<string, string> 
                         {
@@ -144,7 +142,6 @@ namespace Read_and_learn.Page
             {
                 await DisplayAlert("Permission not granted", "Cannot open book without storage permissions.", "OK");
             }
-
         }
 
         private void _OpenBook(OpenBookMessage msg)

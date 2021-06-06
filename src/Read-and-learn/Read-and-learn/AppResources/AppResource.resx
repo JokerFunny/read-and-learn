@@ -117,19 +117,126 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ApplicationLanguageLabel" xml:space="preserve">
-    <value>Application language</value>
-  </data>
   <data name="ApplicationSettings_Title" xml:space="preserve">
     <value>Application</value>
   </data>
-  <data name="HomePageTitle" xml:space="preserve">
-    <value>My Books</value>
+  <data name="ApplicationSettings_ApplicationLanguageLabel" xml:space="preserve">
+    <value>Application language</value>
   </data>
-  <data name="SettingsHeader" xml:space="preserve">
+  <data name="ApplicationSettings_ApplicationLanguageLabel_Picker_Title" xml:space="preserve">
+    <value>Select system language</value>
+  </data>
+  <data name="ApplicationSettings_ApplicationLanguage_HintLabel" xml:space="preserve">
+    <value>The language used to localize the application.</value>
+  </data>
+  <data name="ApplicationSettings_AnonymousDataLabel" xml:space="preserve">
+    <value>Anonymous data</value>
+  </data>
+  <data name="ApplicationSettings_AnonymousData_FirstPart" xml:space="preserve">
+    <value>I agree with collecting of anonymous information about using of the app. This is important for application improvements.</value>
+  </data>
+  <data name="ApplicationSettings_AnonymousData_SecondPart" xml:space="preserve">
+    <value>What can be collected: that some book failed to open and name of the file. Problems with translation service(s).</value>
+  </data>
+  
+  <data name="TranslationSettings_Title" xml:space="preserve">
+    <value>Translation</value>
+  </data>
+  <data name="TranslationSettings_TranslationLanguageTitle" xml:space="preserve">
+    <value>Selected language for translate</value>
+  </data>
+  <data name="TranslationSettings_TranslationLanguage_PickerTitle" xml:space="preserve">
+    <value>Select target language for translation</value>
+  </data>
+  <data name="TranslationSettings_TranslationLanguage_HintTitle" xml:space="preserve">
+    <value>The language into which the translation will be made.</value>
+  </data>
+  <data name="TranslationSettings_TranslationProviderTitle" xml:space="preserve">
+    <value>Selected provider for translate</value>
+  </data>
+  <data name="TranslationSettings_TranslationProvider_PickerTitle" xml:space="preserve">
+    <value>Select translation provider</value>
+  </data>
+  <data name="TranslationSettings_TranslationProvider_HintTitle" xml:space="preserve">
+    <value>Provider for online translation.</value>
+  </data>
+  
+  <data name="ReaderSettings_Title" xml:space="preserve">
+    <value>Reading</value>
+  </data>
+  <data name="ReaderSettings_FontSizeLabel" xml:space="preserve">
+    <value>Font size</value>
+  </data>
+  <data name="ReaderSettings_FontSize_HintLabel" xml:space="preserve">
+    <value>Select font size</value>
+  </data>
+  <data name="ReaderSettings_MarginLabel" xml:space="preserve">
+    <value>Margin</value>
+  </data>
+  <data name="ReaderSettings_Margin_HintLabel" xml:space="preserve">
+    <value>Select margin</value>
+  </data>
+  <data name="ReaderSettings_NightModeLabel" xml:space="preserve">
+    <value>Night mode</value>
+  </data>
+  <data name="ReaderSettings_NightMode_HintLabel" xml:space="preserve">
+    <value>Use night mode when reading.</value>
+  </data>
+  <data name="ReaderSettings_FullscreenLabel" xml:space="preserve">
+    <value>Fullscreen</value>
+  </data>
+  <data name="ReaderSettings_Fullscreen_HintLabel" xml:space="preserve">
+    <value>Open book in fullscreen mode.</value>
+  </data>
+  
+  <data name="ControlSettings_Title" xml:space="preserve">
+    <value>Controls</value>
+  </data>
+  <data name="ControlSettings_VolumeButtonsTitle" xml:space="preserve">
+    <value>Volume buttons</value>
+  </data>
+  <data name="ControlSettings_VolumeButtons_HintTitle" xml:space="preserve">
+    <value>Use volume buttons for navigation.</value>
+  </data>
+  <data name="ControlSettings_BrightnessTitle" xml:space="preserve">
+    <value>Change brightness</value>
+  </data>
+  <data name="ControlSettings_Brightness_PickerTitle" xml:space="preserve">
+    <value>Set brightness control</value>
+  </data>
+  <data name="ControlSettings_Brightness_HintTitle" xml:space="preserve">
+    <value>Pan on the edge of display for brightness control.</value>
+  </data>
+  
+  <data name="MasterFlyoutPageDetail_HomePageTitle" xml:space="preserve">
+    <value>My books</value>
+  </data>
+  <data name="MasterFlyoutPageDetail_SettingsPageTitle" xml:space="preserve">
     <value>Settings</value>
   </data>
-  <data name="TestTitle" xml:space="preserve">
-    <value>Application</value>
+  <data name="MasterFlyoutPageDetail_AboutPageTitle" xml:space="preserve">
+    <value>About</value>
   </data>
+
+  <data name="AboutPage_UsefulLinksLabel" xml:space="preserve">
+    <value>Useful links:</value>
+  </data>
+  <data name="AboutPage_ImageAssetsLabel" xml:space="preserve">
+    <value>Image assets original site: https://www.flaticon.com/</value>
+  </data>
+
+  <data name="HomePage_Title" xml:space="preserve">
+    <value>My books</value>
+  </data>
+  <data name="HomePage_Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="HomePage_About" xml:space="preserve">
+    <value>About</value>
+  </data>
+  
+  <data name="AddBookCard_AddButtonLabel" xml:space="preserve">
+    <value>Open new book</value>
+  </data>
+  
 </root>

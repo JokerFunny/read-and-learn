@@ -22,9 +22,9 @@ namespace Read_and_learn.Page
                 NavigationPage.SetHasNavigationBar(this, false);
 
             Children.Add(new ApplicationSettings() { Title = AppResource.ApplicationSettings_Title });
-            Children.Add(new TranslationSettings());
-            Children.Add(new ReaderSettings());
-            Children.Add(new ControlSettings());
+            Children.Add(new TranslationSettings() { Title = AppResource.TranslationSettings_Title });
+            Children.Add(new ReaderSettings() { Title = AppResource.ReaderSettings_Title });
+            Children.Add(new ControlSettings() { Title = AppResource.ControlSettings_Title });
         }
     }
 }
