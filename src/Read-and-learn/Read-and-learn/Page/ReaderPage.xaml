@@ -1,22 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             xmlns:local="clr-namespace:Read_and_learn.Page.Reader"
+             xmlns:ctrl="clr-namespace:Read_and_learn.View"
+             xmlns:local="clr-namespace:Read_and_learn.Page.Reader" 
              x:Class="Read_and_learn.Page.ReaderPage">
 
     <ContentPage.Content>
         <AbsoluteLayout VerticalOptions="Fill" HorizontalOptions="Fill" CompressedLayout.IsHeadless="true">
 
             <StackLayout x:Name="ReaderContent" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="SizeProportional" Margin="0,40,0,0" >
-                <ScrollView x:Name="ReaderScrollView" VerticalOptions="FillAndExpand" Orientation="Vertical">
-                    <ScrollView.Content>
+                <ctrl:GestureScrollView x:Name="ReaderScrollView" VerticalOptions="FillAndExpand" Orientation="Vertical">
+                    <ctrl:GestureScrollView.Content>
                         <StackLayout x:Name="PageContentLayout" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" AbsoluteLayout.LayoutFlags="SizeProportional">
                         </StackLayout>
-                    </ScrollView.Content>
-                </ScrollView>
+                    </ctrl:GestureScrollView.Content>
+                </ctrl:GestureScrollView>
                 <StackLayout.GestureRecognizers>
-                    <SwipeGestureRecognizer Direction="Left" Swiped="_OnSwiped" />
-                    <SwipeGestureRecognizer Direction="Right" Swiped="_OnSwiped"/>
                     <TapGestureRecognizer Tapped="_OnEmptyPageSpacePressed" />
                 </StackLayout.GestureRecognizers>
             </StackLayout>

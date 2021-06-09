@@ -67,6 +67,21 @@ namespace Read_and_learn.Page
             _translateService = IocManager.Container.Resolve<ITranslateService>();
             _toastService = IocManager.Container.Resolve<IToastService>();
 
+            if (Device.RuntimePlatform == Device.Android)
+            {
+                ReaderScrollView.SwipeLeft += (s, e) => _OpenPage(0, true, false);
+                ReaderScrollView.SwipeRight += (s, e) => _OpenPage(0, false, true);
+            }
+            else
+            {
+                var leftSwipeGesture = new SwipeGestureRecognizer { Direction = SwipeDirection.Left };
+                leftSwipeGesture.Swiped += _OnSwiped;
+                var rightSwipeGesture = new SwipeGestureRecognizer { Direction = SwipeDirection.Right };
+                rightSwipeGesture.Swiped += _OnSwiped;
+
+                ReaderContent.GestureRecognizers.Add(leftSwipeGesture);
+                ReaderContent.GestureRecognizers.Add(rightSwipeGesture);
+            }
             MenuPanel.NavigationPanel.OnChapterChange += _NavigationPanel_OnChapterChange;
 
             _messageBus.Send(new FullscreenRequestMessage(true));
